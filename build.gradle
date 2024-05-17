@@ -1,7 +1,16 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.2.5'
+    id 'org.springframework.boot' version '3.2.2'
     id 'io.spring.dependency-management' version '1.1.4'
+}
+
+// 컴파일 옵션 설정
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-parameters"
+}
+
+repositories {
+    jcenter()
 }
 
 group = 'com.github'
@@ -22,13 +31,39 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
-    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    //lombok사용
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    //Mapstruct
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    //Swagger
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    implementation 'io.springfox:springfox-swagger2:3.0.0'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+    //env-hide
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    //JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    //jwt
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    //security
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    //mariaDB
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.2'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.26'
+
+    // Add the spring-boot-configuration-processor dependency for annotation processing
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    // Cache
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+
 }
 
 tasks.named('test') {
