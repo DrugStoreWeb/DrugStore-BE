@@ -10,10 +10,10 @@ spring:
   #    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
   datasource:
-    username:
-    password:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url:
+    username: root
+    password: 12341234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/drug_store_db?useUnicode=true&characterEncoding=UTF-8
 
   jpa:
     show-sql: true
