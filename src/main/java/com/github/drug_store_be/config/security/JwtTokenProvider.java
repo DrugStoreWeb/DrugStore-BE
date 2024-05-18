@@ -3,8 +3,10 @@ package com.github.drug_store_be.config.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,9 +20,18 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
-    private final String secretKey = Base64.getEncoder().encodeToString("drugStore".getBytes());
+    @Value("${JWT_SECRET_KEY}")
+    private String secretKeySource;
+    private String secretKey;
+
+    @PostConstruct
+    public void setUp(){
+        secretKey = Base64.getEncoder()
+                .encodeToString(secretKeySource.getBytes());
+    }
 
     private long tokenValidMilliSeconds =1000L*60*60; //1시간
+
     private final UserDetailsService userDetailsService;
 
     public String createToken(String email, List<String> roles){
@@ -56,13 +67,11 @@ public class JwtTokenProvider {
         return new UsernamePasswordAuthenticationToken(userDetails,"",userDetails.getAuthorities());
     }
 
-    private String getUserEmail(String jwtToken) {
+    public String getUserEmail(String jwtToken) {
         return Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(jwtToken)
                 .getBody()
                 .getSubject();
     }
-
-
 }

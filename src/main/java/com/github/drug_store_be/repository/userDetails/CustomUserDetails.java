@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @ToString
 public class CustomUserDetails implements UserDetails {
     private Integer userId;
-
     private  String email;
     private String password;
     private List<String> authorities;
