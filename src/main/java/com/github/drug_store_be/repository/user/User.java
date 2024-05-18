@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name="user")
 public class User{
+    //test
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
     private Integer userId;
