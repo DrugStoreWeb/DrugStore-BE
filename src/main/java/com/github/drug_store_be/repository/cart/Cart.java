@@ -1,6 +1,6 @@
 package com.github.drug_store_be.repository.cart;
 
-import com.github.drug_store_be.repository.option.Option;
+import com.github.drug_store_be.repository.option.Options;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.user.User;
 import jakarta.persistence.*;
@@ -25,8 +25,8 @@ public class Cart {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "option_id", nullable = false)
-    private Option option;
+    @JoinColumn(name = "options_id", nullable = false)
+    private Options options;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)

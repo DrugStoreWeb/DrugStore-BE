@@ -10,15 +10,15 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(of="likeId")
+@EqualsAndHashCode(of="likesId")
 @Entity
 @ToString
-@Table(name = "like")
-public class Like {
+@Table(name = "likes")
+public class Likes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "like_id", nullable = false)
-    private Integer likeId;
+    @Column(name = "likes_id", nullable = false)
+    private Integer likesId;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id",nullable = false)

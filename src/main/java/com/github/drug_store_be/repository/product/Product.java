@@ -1,6 +1,6 @@
 package com.github.drug_store_be.repository.product;
 import com.github.drug_store_be.repository.category.Category;
-import com.github.drug_store_be.repository.option.Option;
+import com.github.drug_store_be.repository.option.Options;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -64,5 +64,5 @@ public class Product {
     private List<ProductPhoto> productPhotoList;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Option> optionList;
+    private List<Options> optionsList;
 }
