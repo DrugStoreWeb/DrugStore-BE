@@ -13,13 +13,13 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name= "order")
+@Table(name= "orders")
 @Entity
-public class Order {
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id", nullable = false)
-    private Integer orderId;
+    @Column(name = "orders_id", nullable = false)
+    private Integer ordersId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id",nullable = false)
@@ -29,12 +29,12 @@ public class Order {
     @JoinColumn(name = "cart_id",nullable = false)
     private Cart cart;
 
-    @Column(name = "order_number",nullable = false, length=20)
-    private String orderNumber;
+    @Column(name = "orders_number",nullable = false, length=20)
+    private String ordersNumber;
 
 
-    @Column(name = "order_at",nullable = false)
-    private LocalDate orderAt;
+    @Column(name = "orders_at",nullable = false)
+    private LocalDate ordersAt;
 
 
 
