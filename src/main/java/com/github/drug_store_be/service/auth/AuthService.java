@@ -7,6 +7,7 @@ import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserJpa;
 import com.github.drug_store_be.repository.userRole.UserRole;
 import com.github.drug_store_be.repository.userRole.UserRoleJpa;
+import com.github.drug_store_be.service.exceptions.NotAcceptException;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.Auth.Login;
 import com.github.drug_store_be.web.DTO.Auth.SignUp;
@@ -19,7 +20,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.NotAcceptableStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -87,9 +87,11 @@ public class AuthService {
                     .collect(Collectors.toList());
 
             return jwtTokenProvider.createToken(email, roles);
-        }catch (Exception e){
+        }catch (NotFoundException e){
+            throw e;
+        }catch(Exception e){
             e.printStackTrace();
-            throw new NotAcceptableStatusException("로그인 할 수 없습니다.");
+            throw new NotAcceptException("이메일 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.");
         }
     }
 }
