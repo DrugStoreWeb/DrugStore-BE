@@ -27,8 +27,8 @@ public class SecurityConfiguration {
                 .rememberMe(rm->rm.disable())
                 .sessionManagement(sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/resources/static","/auth/sign-up",
-                                "/auth/login").permitAll()
+                        .requestMatchers("/resources/static/**","/auth/sign-up",
+                                "/auth/login","/auth/email-check","/auth/nickname-check").permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling((exception) -> exception
                         .authenticationEntryPoint(new CustomerAuthenticationEntryPoint())

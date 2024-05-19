@@ -9,7 +9,9 @@ import com.github.drug_store_be.repository.userRole.UserRole;
 import com.github.drug_store_be.repository.userRole.UserRoleJpa;
 import com.github.drug_store_be.service.exceptions.NotAcceptException;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
+import com.github.drug_store_be.web.DTO.Auth.EmailCheck;
 import com.github.drug_store_be.web.DTO.Auth.Login;
+import com.github.drug_store_be.web.DTO.Auth.NicknameCheck;
 import com.github.drug_store_be.web.DTO.Auth.SignUp;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -43,9 +45,7 @@ public class AuthService {
             return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "비밀번호 체크란이 비밀번호와 동일하지 않습니다.");
         }
 
-        List<User> userList= userJpa.findAll();
-        List<String> nickNameList= userList.stream().map(User::getNickname).toList();
-        if (nickNameList.contains(signUpRequest.getNickname())) {
+        if (userJpa.existsByNickname(signUpRequest.getNickname())){
             return new ResponseDto(HttpStatus.CONFLICT.value(), signUpRequest.getNickname() + "은 이미 존재하는 닉네임입니다. 다른 닉네임을 이용해주세요.");
         }
 
@@ -93,5 +93,23 @@ public class AuthService {
             e.printStackTrace();
             throw new NotAcceptException("이메일 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.");
         }
+    }
+
+    public ResponseDto nicknameCheckResult(NicknameCheck nicknameCheck) {
+
+        if (userJpa.existsByNickname(nicknameCheck.getNickname())){
+            return new ResponseDto(HttpStatus.CONFLICT.value(), nicknameCheck.getNickname() + "(는)은 이미 존재하는 닉네임입니다. 다른 닉네임을 이용해주세요.");
+        }else {
+            return new ResponseDto(HttpStatus.OK.value(), nicknameCheck.getNickname() + "(는)은 사용하실 수 있는 닉네임입니다.");
+        }
+    }
+
+    public ResponseDto emailCheckResult(EmailCheck emailCheck) {
+            if (userJpa.existsByEmail(emailCheck.getEmail())){
+                return new ResponseDto(HttpStatus.CONFLICT.value(), emailCheck.getEmail()+"(는)은 이미 존재하는 이메일입니다. 다른 이메일을 이용헤주세요.");
+            }else {
+                return new ResponseDto(HttpStatus.OK.value(), emailCheck.getEmail()+"(는)은 사용하실 수 있는 이메일입니다.");
+            }
+
     }
 }
