@@ -2,15 +2,13 @@ package com.github.drug_store_be.repository.productPhoto;
 
 import com.github.drug_store_be.repository.product.Product;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name= "product_photo")
 @Entity
 public class ProductPhoto {
@@ -27,5 +25,5 @@ public class ProductPhoto {
     private String photoUrl;
 
     @Column(name="photo_type",nullable = false)
-    private boolean photoType;
+    private Boolean photoType;
 }

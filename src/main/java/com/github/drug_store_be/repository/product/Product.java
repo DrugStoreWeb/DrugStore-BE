@@ -3,10 +3,7 @@ import com.github.drug_store_be.repository.category.Category;
 import com.github.drug_store_be.repository.option.Options;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,6 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name= "product")
 @Entity
 public class Product {
@@ -59,7 +57,6 @@ public class Product {
 
     @Column(name="review_avg",nullable = false)
     private Double reviewAvg;
-
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductPhoto> productPhotoList;
 
