@@ -2,6 +2,7 @@ package com.github.drug_store_be.repository.cart;
 
 import com.github.drug_store_be.repository.option.Options;
 import com.github.drug_store_be.repository.product.Product;
+import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -27,10 +28,6 @@ public class Cart {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "options_id", nullable = false)
     private Options options;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
 
     @Column(name = "quantity", nullable = false)
     @Min(value = 1, message = "Quantity must be positive")

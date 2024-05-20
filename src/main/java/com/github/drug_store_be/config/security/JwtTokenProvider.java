@@ -20,7 +20,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
-    @Value("${JWT_SECRET_KEY}")
+    @Value("${jwtpassword.source}")
     private String secretKeySource;
     private String secretKey;
 
