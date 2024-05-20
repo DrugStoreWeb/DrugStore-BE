@@ -25,7 +25,7 @@ public class MainController {
         return mainservice.findAll(page, size, sortBy);
     }
 
-    ;
+
 
     @GetMapping(path = "/category")
     public ResponseDto mainPageCategory(@RequestParam(value = "page", defaultValue = "1", required = false) int page,
