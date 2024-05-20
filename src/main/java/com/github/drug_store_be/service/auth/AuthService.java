@@ -69,7 +69,9 @@ public class AuthService {
         userRoleJpa.save(signUpUserRole);
         return new ResponseDto(HttpStatus.OK.value(),signUpRequest.getName()+ "님 회원 가입에 성공하셨습니다.");
     }
-
+    //트러블 슈팅 정리하기 90번의 exception 없을 경우 예외처리가 정상 발동하지 않는다.
+    //구글, 챗봇에서 확인 한 결과 notFoundException 예외처리가 catch에서 정의되어 해당 오류를 잡아야하는데
+    //해당 오류는 없고 바로 최종보스 exception만 남아서 정상 처리 못함
     public String login(Login loginRequest) {
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
