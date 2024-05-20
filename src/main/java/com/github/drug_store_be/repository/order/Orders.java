@@ -2,10 +2,7 @@ package com.github.drug_store_be.repository.order;
 import com.github.drug_store_be.repository.cart.Cart;
 import com.github.drug_store_be.repository.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -13,6 +10,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name= "orders")
 @Entity
 public class Orders {
