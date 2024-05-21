@@ -27,29 +27,27 @@ public class CartController {
         return new ResponseDto(HttpStatus.OK.value(), "Cart items retrieved successfully", cartItems);
     }
 
-/*
-    @GetMapping("/add")
+    @PostMapping("/add")
     public ResponseDto addCartItem(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                    @RequestBody CartRequest cartRequest) {
         return cartService.addCartItem(customUserDetails, cartRequest);
     }
 
-    @GetMapping("/update")
+/*    @PutMapping("/update")
     public ResponseDto updateCartItem(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                       @RequestBody CartRequest cartRequest){
         return cartService.updateCartItem(customUserDetails, cartRequest);
     }
 
-    @GetMapping("/delete/{cartId}")
+    @DeleteMapping("/delete/{cartId}")
     public ResponseDto removeCartItem(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                       @PathVariable int cartId){
         return cartService.removeCartItem(customUserDetails, cartId);
     }
 
-    @GetMapping("/empty")
+    @DeleteMapping("/empty")
     public ResponseDto clearCart(@AuthenticationPrincipal CustomUserDetails customUserDetails){
         return cartService.clearCart(customUserDetails);
-    }
-*/
+    }*/
 
 }

@@ -10,7 +10,10 @@ import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserJpa;
+import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
+import com.github.drug_store_be.web.DTO.Cart.CartRequest;
 import com.github.drug_store_be.web.DTO.Cart.CartResponse;
+import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,40 +29,53 @@ public class CartService {
     private final OptionsJpa optionsJpa;
     private final CartJpa cartJpa;
 
-    //장바구니 조회
+    // 장바구니 조회
     public List<CartResponse> findAllCarts(int userId) {
-        //사용자 조회
-        User user = userJpa.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        //사용자 장바구니 조회
-        List<Cart> carts = cartJpa.findAllByUser(user);
+        List<Cart> carts = cartJpa.findAllByUser_UserId(userId);
         if (carts.isEmpty()) {
             throw new RuntimeException("No cart items found");
         }
 
-        // 장바구니 응답 객체 생성
-        List<CartResponse> cartResponses = carts.stream()
+        return carts.stream()
                 .map(cart -> {
-                    // 장바구니에 대한 상품 및 옵션 정보 조회
-                    ProductPhoto productPhoto = productPhotoJpa.findById(cart.getOptions().getProduct().getProductId())
-                            .orElseThrow(() -> new RuntimeException("Product photo not found"));
+                    Options options = cart.getOptions();
+                    Product product = options.getProduct();
 
-                    // CartResponse 객체 생성
                     return CartResponse.builder()
                             .cartId(cart.getCartId())
-                            .productId(cart.getOptions().getProduct().getProductId())
-                            .productPhotoId(productPhoto.getProductPhotoId())
-                            .brand(cart.getOptions().getProduct().getBrand())
-                            .productName(cart.getOptions().getProduct().getProductName())
-                            .optionId(cart.getOptions().getOptionsId())
-                            .quantity(cart.getQuantity())
-                            .price(cart.getOptions().getProduct().getPrice())
+                            .productId(product.getProductId())
+                            .productName(product.getProductName())
+                            // 나머지 필요한 정보들을 가져옴
                             .build();
                 })
                 .collect(Collectors.toList());
+    }
 
-        return cartResponses;
+    public ResponseDto addCartItem(CustomUserDetails customUserDetails, CartRequest cartRequest) {
+        int userId = customUserDetails.getUserId();
+        User user = userJpa.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Options options = optionsJpa.findById(cartRequest.getOptionId())
+                .orElseThrow(() -> new RuntimeException("Options not found"));
+
+        Product product = options.getProduct(); // Option에서 Product를 가져옴
+
+        List<Cart> existingCarts = cartJpa.findByUserAndOptions(user, options);
+        if (!existingCarts.isEmpty()) {
+            Cart existingCart = existingCarts.get(0);
+            existingCart.setQuantity(existingCart.getQuantity() + cartRequest.getQuantity());
+            cartJpa.save(existingCart);
+            return new ResponseDto(200, "Cart item updated successfully");
+        }
+
+        Cart newCart = Cart.builder()
+                .user(user)
+                .options(options)
+                .quantity(cartRequest.getQuantity())
+                .build();
+
+        cartJpa.save(newCart);
+        return new ResponseDto(200, "Cart item added successfully");
     }
 }
-

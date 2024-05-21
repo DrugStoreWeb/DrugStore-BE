@@ -26,15 +26,16 @@ public class SecurityConfiguration {
                 .formLogin(fl->fl.disable())
                 .rememberMe(rm->rm.disable())
                 .sessionManagement(sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/resources/static/**","/auth/sign-up",
-                                "/auth/login","/auth/email-check","/auth/nickname-check").permitAll()
-                        .anyRequest().authenticated())
+                .authorizeRequests((requests) -> requests
+                                .requestMatchers("/resources/static/**","/auth/sign-up",
+                                        "/auth/login","/auth/email-check","/auth/nickname-check").permitAll()
+//                        .anyRequest().authenticated()
+                )
                 .exceptionHandling((exception) -> exception
                         .authenticationEntryPoint(new CustomerAuthenticationEntryPoint())
                         .accessDeniedHandler(new CustomerAccessDeniedHandler()))
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
-    return http.build();
+        return http.build();
     }
 
     @Bean

@@ -1,5 +1,7 @@
 package com.github.drug_store_be.repository.cart;
 
+import com.github.drug_store_be.repository.option.Options;
+import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,8 +13,10 @@ import java.util.Optional;
 
 @Repository
 public interface CartJpa extends JpaRepository<Cart,Integer> {
-    @Query("SELECT c FROM Cart c WHERE c.user.email = :email")
-    List<Cart> findByUserEmail(String email);
-
     List<Cart> findAllByUser(User user);
+
+    List<Cart> findByUserAndOptions(User user, Options options);
+
+    @Query("SELECT c FROM Cart c WHERE c.user.userId = :userId")
+    List<Cart> findAllByUser_UserId(int userId);
 }
