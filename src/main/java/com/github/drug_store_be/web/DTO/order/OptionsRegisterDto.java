@@ -14,5 +14,6 @@ import lombok.Setter;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class OptionsRegisterDto {
     private String optionsName;
+    private Integer optionsPrice;
     private Integer stock;
 }
