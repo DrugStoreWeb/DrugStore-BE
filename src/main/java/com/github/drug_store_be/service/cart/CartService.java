@@ -10,12 +10,8 @@ import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserJpa;
-import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
-import com.github.drug_store_be.web.DTO.Cart.CartRequest;
 import com.github.drug_store_be.web.DTO.Cart.CartResponse;
-import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,23 +42,19 @@ public class CartService {
         List<CartResponse> cartResponses = carts.stream()
                 .map(cart -> {
                     // 장바구니에 대한 상품 및 옵션 정보 조회
-                    Product product = productJpa.findById(cart.getOptions().getProduct().getProductId())
-                            .orElseThrow(() -> new RuntimeException("Product not found"));
                     ProductPhoto productPhoto = productPhotoJpa.findById(cart.getOptions().getProduct().getProductId())
                             .orElseThrow(() -> new RuntimeException("Product photo not found"));
-                    Options options = optionsJpa.findById(cart.getOptions().getOptionsId())
-                            .orElseThrow(() -> new RuntimeException("Options not found"));
 
                     // CartResponse 객체 생성
                     return CartResponse.builder()
                             .cartId(cart.getCartId())
-                            .productId(product.getProductId())
+                            .productId(cart.getOptions().getProduct().getProductId())
                             .productPhotoId(productPhoto.getProductPhotoId())
-                            .brand(product.getBrand())
-                            .productName(product.getProductName())
-                            .optionId(options.getOptionsId())
+                            .brand(cart.getOptions().getProduct().getBrand())
+                            .productName(cart.getOptions().getProduct().getProductName())
+                            .optionId(cart.getOptions().getOptionsId())
                             .quantity(cart.getQuantity())
-                            .price(product.getPrice())
+                            .price(cart.getOptions().getProduct().getPrice())
                             .build();
                 })
                 .collect(Collectors.toList());
