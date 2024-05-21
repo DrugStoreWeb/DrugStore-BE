@@ -8,6 +8,7 @@ import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductJpa;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
+import com.github.drug_store_be.repository.role.Role;
 import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserJpa;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
@@ -37,8 +38,9 @@ public class AdminService {
     public ResponseDto registerProduct(CustomUserDetails customUserDetails, ProductRegisterDto productRegisterDto) {
         User user= userJpa.findById(customUserDetails.getUserId())
                 .orElseThrow(()-> new NotAcceptException("아이디가  "+ customUserDetails.getUserId() +"인 유저를 찾을 수 없습니다."));
-
-        if(user.getUserRole().equals("ADMIN")){
+        List<String> role= user.getUserRole().stream().map(ur-> ur.getRole().getRoleName()).collect(Collectors.toList());
+        System.out.println(role.stream().findFirst());
+        if(role.stream().findFirst().get().equals("ROLE_ADMIN")){
             Category category= categoryJpa.findById(productRegisterDto.getCategoryId())
                     .orElseThrow(()-> new NotFoundException("아이디가  "+ productRegisterDto.getCategoryId() +"인 카테고리를 찾을 수 없습니다."));
 
