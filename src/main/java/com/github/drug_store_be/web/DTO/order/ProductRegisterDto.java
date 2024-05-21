@@ -1,7 +1,7 @@
 package com.github.drug_store_be.web.DTO.order;
 
-import com.github.drug_store_be.repository.option.Options;
-import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ProductRegisterDto {
     private Integer categoryId;
     private String productName;
@@ -21,6 +22,6 @@ public class ProductRegisterDto {
     private Integer productDiscount;
     private Boolean best;
     private Boolean productStatus;
-    private List<ProductPhoto> productPhotoList;
-    private List<Options> optionsList;
+    private List<ProductPhotoRegisterDto> productPhotoList;
+    private List<OptionsRegisterDto> optionsList;
 }
