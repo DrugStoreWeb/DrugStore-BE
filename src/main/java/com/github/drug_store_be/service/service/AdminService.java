@@ -39,7 +39,6 @@ public class AdminService {
         User user= userJpa.findById(customUserDetails.getUserId())
                 .orElseThrow(()-> new NotAcceptException("아이디가  "+ customUserDetails.getUserId() +"인 유저를 찾을 수 없습니다."));
         List<String> role= user.getUserRole().stream().map(ur-> ur.getRole().getRoleName()).collect(Collectors.toList());
-        System.out.println(role.stream().findFirst());
         if(role.stream().findFirst().get().equals("ROLE_ADMIN")){
             Category category= categoryJpa.findById(productRegisterDto.getCategoryId())
                     .orElseThrow(()-> new NotFoundException("아이디가  "+ productRegisterDto.getCategoryId() +"인 카테고리를 찾을 수 없습니다."));
@@ -79,6 +78,7 @@ public class AdminService {
                     .map((o) -> Options.builder()
                             .product(product)
                             .optionsName(o.getOptionsName())
+                            .optionsPrice(o.getOptionsPrice())
                             .stock(o.getStock())
                             .build())
                     .toList();
