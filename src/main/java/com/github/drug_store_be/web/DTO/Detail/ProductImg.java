@@ -1,5 +1,7 @@
 package com.github.drug_store_be.web.DTO.Detail;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import lombok.*;
 
@@ -11,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Builder
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ProductImg {
     private Integer imgId;
     private Boolean imgMain;
@@ -19,7 +22,7 @@ public class ProductImg {
 
     public ProductImg(ProductPhoto productPhoto) {
         this.imgId = productPhoto.getProductPhotoId();
-        this.imgMain = productPhoto.getProduct().isProductStatus();
+        this.imgMain = productPhoto.isPhotoType();
         this.img = productPhoto.getPhotoUrl();
     }
 }

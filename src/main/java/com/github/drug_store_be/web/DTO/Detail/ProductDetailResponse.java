@@ -1,5 +1,7 @@
 package com.github.drug_store_be.web.DTO.Detail;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.github.drug_store_be.repository.like.LikesJpa;
 import lombok.*;
 
@@ -11,11 +13,11 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Builder
-
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ProductDetailResponse {
     private Integer productId;
     private String productName;
-    private Double sales;
+    private Integer sales;
     private Integer price;
     private Integer finalPrice;
     private List<ProductImg> productImg;
