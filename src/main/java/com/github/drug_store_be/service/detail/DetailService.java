@@ -17,9 +17,14 @@ import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.Detail.ProductDetailResponse;
 import com.github.drug_store_be.web.DTO.Detail.ProductImg;
 import com.github.drug_store_be.web.DTO.Detail.ProductOption;
+import com.github.drug_store_be.web.DTO.Detail.ReviewRetrieval;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -105,6 +110,26 @@ public class DetailService {
         return new ResponseDto(HttpStatus.OK.value(), "조회 성공",productDetailResponse);
     }
 
-//    public ResponseDto productReviewResult(Integer productId) {
-//    }
+    public ResponseDto productReviewResult(Integer productId, Integer pageNum, String criteria) {
+        Product product = productJpa.findById(productId)
+                .orElseThrow(()-> new NotFoundException("해당 상품을 찾을 수 없습니다."));
+        Pageable pageable;
+        pageable = PageRequest.of(pageNum,10);
+        if (criteria.equals("createAt")){
+            Page<Review> reviewPage =reviewJpa.findByProductOrderByCreateAtDesc(product,pageable);
+            Page<ReviewRetrieval> reviewRetrievalPage=reviewPage.map(ReviewRetrieval::new);
+            return new ResponseDto(HttpStatus.OK.value(),"조회성공",reviewRetrievalPage);
+        }else if (criteria.equals("reviewScoreDesc")){
+            Page<Review> reviewPage =reviewJpa.findByProductOrderByReviewScoreDesc(product,pageable);
+            Page<ReviewRetrieval> reviewRetrievalPage=reviewPage.map(ReviewRetrieval::new);
+            return new ResponseDto(HttpStatus.OK.value(),"조회성공",reviewRetrievalPage);
+        }else if (criteria.equals("reviewScoreAsc")){
+            Page<Review> reviewPage =reviewJpa.findByProductOrderByReviewScoreAsc(product,pageable);
+            Page<ReviewRetrieval> reviewRetrievalPage=reviewPage.map(ReviewRetrieval::new);
+            return new ResponseDto(HttpStatus.OK.value(),"조회성공",reviewRetrievalPage);
+        }else {
+            throw new NotFoundException("해당 정렬은 없는 정렬입니다.");
+        }
+    }
+
 }

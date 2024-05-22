@@ -7,10 +7,7 @@ import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/product")
@@ -28,8 +25,11 @@ public class DetailController {
         }
 
     }
-//    @GetMapping("/review")
-//    public ResponseDto productReviews(@RequestParam("product-id") Integer productId ){
-//        return detailService.productReviewResult(productId);
-//    }
+    @GetMapping("/review/{productId}")
+    public ResponseDto productReviews(
+            @RequestParam(required = false,defaultValue = "0",value ="page")Integer pageNum,
+            @RequestParam(required = false,defaultValue = "createAt",value ="sort")String criteria,
+            @PathVariable Integer productId ){
+        return detailService.productReviewResult(productId,pageNum,criteria);
+    }
 }

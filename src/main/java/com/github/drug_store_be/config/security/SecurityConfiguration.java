@@ -26,9 +26,9 @@ public class SecurityConfiguration {
                 .formLogin(fl->fl.disable())
                 .rememberMe(rm->rm.disable())
                 .sessionManagement(sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests((requests) -> requests
+                .authorizeRequests((requests) -> requests
                         .requestMatchers("/resources/static/**","/auth/sign-up",
-                                "/auth/login","/auth/email-check","/auth/nickname-check","/product/detail/**").permitAll()
+                                "/auth/login","/auth/email-check","/auth/nickname-check","/product/detail/**","/product/review/**").permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling((exception) -> exception
                         .authenticationEntryPoint(new CustomerAuthenticationEntryPoint())
