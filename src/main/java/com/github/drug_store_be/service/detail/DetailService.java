@@ -104,4 +104,7 @@ public class DetailService {
                 .build();
         return new ResponseDto(HttpStatus.OK.value(), "조회 성공",productDetailResponse);
     }
+
+//    public ResponseDto productReviewResult(Integer productId) {
+//    }
 }

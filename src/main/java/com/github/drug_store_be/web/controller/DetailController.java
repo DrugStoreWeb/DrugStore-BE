@@ -28,4 +28,8 @@ public class DetailController {
         }
 
     }
+//    @GetMapping("/review")
+//    public ResponseDto productReviews(@RequestParam("product-id") Integer productId ){
+//        return detailService.productReviewResult(productId);
+//    }
 }

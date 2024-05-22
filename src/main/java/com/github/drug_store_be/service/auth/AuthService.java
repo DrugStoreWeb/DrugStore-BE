@@ -36,14 +36,16 @@ public class AuthService {
 
     public ResponseDto signUpResult(SignUp signUpRequest) {
         if (userJpa.existsByEmail(signUpRequest.getEmail())){
-            return new ResponseDto(HttpStatus.CONFLICT.value(), signUpRequest.getEmail()+"은 이미 존재하는 이메일입니다. 다른 이메일을 이용헤주세요.");
+            CheckResponse checkResponse = new CheckResponse(signUpRequest.getEmail()+"(는)은 이미 존재하는 이메일입니다. 다른 이메일을 이용헤주세요.",true);
+            return new ResponseDto(HttpStatus.CONFLICT.value(), "중복 여부 확인",checkResponse);
         }
         if (!signUpRequest.getPassword().equals(signUpRequest.getPasswordCheck())){
             return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "비밀번호 체크란이 비밀번호와 동일하지 않습니다.");
         }
 
         if (userJpa.existsByNickname(signUpRequest.getNickname())){
-            return new ResponseDto(HttpStatus.CONFLICT.value(), signUpRequest.getNickname() + "은 이미 존재하는 닉네임입니다. 다른 닉네임을 이용해주세요.");
+            CheckResponse checkResponse = new CheckResponse(signUpRequest.getNickname() + "(는)은 이미 존재하는 닉네임입니다. 다른 닉네임을 이용해주세요.",true);
+            return new ResponseDto(HttpStatus.CONFLICT.value(), "중복 여부 확인",checkResponse);
         }
 
         Role role =roleJpa.findByRoleName("ROLE_USER")
@@ -104,7 +106,8 @@ public class AuthService {
     }
 
     public ResponseDto emailCheckResult(EmailCheck emailCheck) {
-            if (userJpa.existsByEmail(emailCheck.getEmail())){
+        String email=emailCheck.getEmail().toLowerCase();
+            if (userJpa.existsByEmail(email)){
                 CheckResponse checkResponse = new CheckResponse(emailCheck.getEmail()+"(는)은 이미 존재하는 이메일입니다. 다른 이메일을 이용헤주세요.",true);
                 return new ResponseDto(HttpStatus.CONFLICT.value(), "중복 여부 확인",checkResponse);
             }else {
