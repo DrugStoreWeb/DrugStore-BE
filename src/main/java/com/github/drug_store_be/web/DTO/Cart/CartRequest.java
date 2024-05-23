@@ -10,7 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CartRequest {
+    private Integer cartId;
     private Integer productId;
     private Integer quantity;
-    private Integer optionId;
+    private Integer optionsId;
 }

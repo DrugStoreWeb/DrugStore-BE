@@ -7,12 +7,11 @@ import com.github.drug_store_be.web.DTO.Cart.CartResponse;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,21 +32,24 @@ public class CartController {
         return cartService.addCartItem(customUserDetails, cartRequest);
     }
 
-/*    @PutMapping("/update")
+    @PutMapping("/update")
     public ResponseDto updateCartItem(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                       @RequestBody CartRequest cartRequest){
         return cartService.updateCartItem(customUserDetails, cartRequest);
     }
 
-    @DeleteMapping("/delete/{cartId}")
+    @DeleteMapping("/delete")
     public ResponseDto removeCartItem(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-                                      @PathVariable int cartId){
+                                      @RequestBody Map<String, Integer> requestBody) {
+        Integer cartId = requestBody.get("cartId");
+        if (cartId == null) {
+            throw new IllegalArgumentException("Cart ID must be provided in the request body");
+        }
         return cartService.removeCartItem(customUserDetails, cartId);
     }
 
     @DeleteMapping("/empty")
     public ResponseDto clearCart(@AuthenticationPrincipal CustomUserDetails customUserDetails){
         return cartService.clearCart(customUserDetails);
-    }*/
-
+    }
 }

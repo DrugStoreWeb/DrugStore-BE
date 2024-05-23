@@ -45,7 +45,10 @@ public class CartService {
                             .cartId(cart.getCartId())
                             .productId(product.getProductId())
                             .productName(product.getProductName())
-                            // 나머지 필요한 정보들을 가져옴
+                            .brand(product.getBrand())
+                            .optionId(options.getOptionsId())
+                            .quantity(cart.getQuantity())
+                            .price(product.getPrice())
                             .build();
                 })
                 .collect(Collectors.toList());
@@ -56,7 +59,7 @@ public class CartService {
         User user = userJpa.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Options options = optionsJpa.findById(cartRequest.getOptionId())
+        Options options = optionsJpa.findById(cartRequest.getOptionsId())
                 .orElseThrow(() -> new RuntimeException("Options not found"));
 
         Product product = options.getProduct(); // Option에서 Product를 가져옴
@@ -77,5 +80,67 @@ public class CartService {
 
         cartJpa.save(newCart);
         return new ResponseDto(200, "Cart item added successfully");
+    }
+
+    public ResponseDto updateCartItem(CustomUserDetails customUserDetails, CartRequest cartRequest) {
+        int userId = customUserDetails.getUserId();
+        User user = userJpa.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Integer cartId = cartRequest.getCartId();
+        if (cartId == null) {
+            throw new IllegalArgumentException("Cart ID must not be null for update");
+        }
+
+        Cart cart = cartJpa.findById(cartId)
+                .orElseThrow(() -> new RuntimeException("Cart item not found"));
+
+        if (cart.getUser().getUserId() != userId) {
+            throw new RuntimeException("Unauthorized access to cart item");
+        }
+
+        int quantity = cartRequest.getQuantity();
+        if (quantity <= 0) {
+            cartJpa.delete(cart);
+            return new ResponseDto(200, "Cart item removed successfully");
+        }
+        cart.setQuantity(quantity);
+
+        Integer optionId = cartRequest.getOptionsId();
+        if (optionId != null) {
+            Options options = optionsJpa.findById(optionId)
+                    .orElseThrow(() -> new RuntimeException("Options not found"));
+            cart.setOptions(options);
+        }
+
+        cartJpa.save(cart);
+        return new ResponseDto(200, "Cart item updated successfully");
+    }
+
+    //상품 삭제
+    public ResponseDto removeCartItem(CustomUserDetails customUserDetails, int cartId) {
+        int userId = customUserDetails.getUserId();
+        User user = userJpa.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Cart cartToDelete = cartJpa.findByIdAndUserId(cartId, userId)
+                .orElseThrow(() -> new RuntimeException("Product not found in user's cart"));
+
+        cartJpa.delete(cartToDelete);
+        return new ResponseDto(200, "Product deleted from cart successfully");
+    }
+
+    //장바구니 비우기
+    public ResponseDto clearCart(CustomUserDetails customUserDetails) {
+        int userId = customUserDetails.getUserId();
+
+        List<Cart> userCarts = cartJpa.findAllByUser_UserId(userId);
+
+        if (!userCarts.isEmpty()) {
+            cartJpa.deleteAll(userCarts);
+            return new ResponseDto(200, "Cart cleared successfully");
+        } else {
+            throw new RuntimeException("Cart is already empty");
+        }
     }
 }
