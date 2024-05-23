@@ -22,6 +22,4 @@ public interface ProductJpa extends JpaRepository<Product,Integer> {
 
     Optional<Object> findById(Long productId);
 
-    ;
-//    List<Product> findAll(String sortBy);
-}
+    }
