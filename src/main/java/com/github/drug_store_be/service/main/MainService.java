@@ -6,6 +6,10 @@ import com.github.drug_store_be.web.DTO.ResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.awt.print.Pageable;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MainService {
@@ -21,17 +25,52 @@ public class MainService {
     public ResponseDto findPage(String keyword, Pageable pageable) {
     }
 
-    MainPageResponse toMainpageResponseDto(productListQueryDto pld) {
-        return MainPageResponse.builder()
-                .product_id(pld.getProduct_id())
-                .product_name(pld.getProduct_name())
-                .brand_name(pld.getBrand_name())
-                .price(pld.getPrice())
-                .final_price(pld.getFinal_price())
-                .product_img(pld.getProduct_img())
-                .likes(pld.isLikes())
-                .best(pld.isBest())
-                .sales(pld.isSales())
-                .build();
+
+
+    void PageSorting(String sortBy){
+        List<productListQueryDto> productList = new ArrayList<>();
+        switch (sortBy) {
+            case "likes":
+                Comparator<productListQueryDto> comparingLikesReverse = Comparator.comparing(productListQueryDto::getProduct_like, Comparator.reverseOrder());
+
+                productList.stream()
+                        .sorted(comparingLikesReverse)
+                        .map(productListQueryDto::toMainpageResponseDto)
+                        .collect(Collectors.toList());
+                break;
+
+            case "new":
+                Comparator<productListQueryDto> comparingNewReverse = Comparator.comparing(productListQueryDto::getProduct_id, Comparator.reverseOrder());
+
+                productList.stream()
+                        .sorted(comparingNewReverse)
+                        .map(productListQueryDto::toMainpageResponseDto)
+                        .collect(Collectors.toList());
+                break;
+            case "price":
+                Comparator<productListQueryDto> comparingPriceReverse = Comparator.comparing(productListQueryDto::getPrice, Comparator.reverseOrder());
+
+                productList.stream()
+                        .sorted(comparingPriceReverse)
+                        .map(productListQueryDto::toMainpageResponseDto)
+                        .collect(Collectors.toList());
+                break;
+            case "reviews":
+                Comparator<productListQueryDto> comparingReviewsReverse = Comparator.comparing(productListQueryDto::getReview_avg, Comparator.reverseOrder());
+
+                productList.stream()
+                        .sorted(comparingReviewsReverse)
+                        .map(productListQueryDto::toMainpageResponseDto)
+                        .collect(Collectors.toList());
+                break;
+            case "sales":
+                Comparator<productListQueryDto> comparingProductSalesReverse = Comparator.comparing(productListQueryDto::getProduct_sales, Comparator.reverseOrder());
+
+                productList.stream()
+                        .sorted(comparingProductSalesReverse)
+                        .map(productListQueryDto::toMainpageResponseDto)
+                        .collect(Collectors.toList());
+                break;
+        }
     }
 }
