@@ -1,5 +1,6 @@
 package com.github.drug_store_be.web.DTO.Detail;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.github.drug_store_be.repository.review.Review;

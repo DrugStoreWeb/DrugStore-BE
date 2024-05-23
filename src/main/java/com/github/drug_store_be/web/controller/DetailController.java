@@ -2,6 +2,7 @@ package com.github.drug_store_be.web.controller;
 
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.service.detail.DetailService;
+import com.github.drug_store_be.web.DTO.Detail.Answer;
 import com.github.drug_store_be.web.DTO.Detail.ProductDetailResponse;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -32,4 +33,10 @@ public class DetailController {
             @PathVariable Integer productId ){
         return detailService.productReviewResult(productId,pageNum,criteria);
     }
+    @PostMapping("/answer")
+    public ResponseDto adminAnswer(@RequestParam("question-id") Integer questionId, @AuthenticationPrincipal CustomUserDetails customUserDetails, @RequestBody Answer answer){
+        return detailService.answerByAdminResult(questionId,customUserDetails,answer);
+
+    }
+
 }
