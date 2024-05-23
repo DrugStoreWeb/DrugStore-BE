@@ -1,8 +1,11 @@
 package com.github.drug_store_be.web.DTO.MainPage;
 
 import lombok.Builder;
+import lombok.Getter;
+
 
 @Builder
+@Getter
 public class productListQueryDto {
     private Integer product_id;
     private String product_name;
