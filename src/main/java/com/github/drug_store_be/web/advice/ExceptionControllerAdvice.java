@@ -1,9 +1,6 @@
 package com.github.drug_store_be.web.advice;
 
-import com.github.drug_store_be.service.exceptions.CAuthenticationEntryPointException;
-import com.github.drug_store_be.service.exceptions.InvalidValueException;
-import com.github.drug_store_be.service.exceptions.NotAcceptException;
-import com.github.drug_store_be.service.exceptions.NotFoundException;
+import com.github.drug_store_be.service.exceptions.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -55,4 +52,14 @@ public class ExceptionControllerAdvice {
         ResponseDto responseDto = new ResponseDto(HttpStatus.NOT_FOUND.value(), ae.getMessage());
         return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
     }
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(NotAuthorizedException.class)
+    public ResponseEntity<ResponseDto> handleNotAuthorizedException(NotAuthorizedException nae){
+        log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + nae.getMessage());
+        ResponseDto responseDto = new ResponseDto(HttpStatus.FORBIDDEN.value(), nae.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.FORBIDDEN);
+    }
+
+
 }
