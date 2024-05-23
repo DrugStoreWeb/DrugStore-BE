@@ -1,14 +1,15 @@
 package com.github.drug_store_be.web.controller;
 
-import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.service.main.MainService;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.awt.print.Pageable;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,29 +18,19 @@ public class MainController {
 
     private final MainService mainservice;
 
-
     @GetMapping(path = "/")
-    public ResponseDto mainPage(@RequestParam(value = "page", defaultValue = "1", required = false) int page,
-                                @RequestParam(value = "size", defaultValue = "20", required = false) int size,
-                                @RequestParam(value = "sort", defaultValue = "sales", required = false) String sortBy) {
-        return mainservice.findAll(page, size, sortBy);
+    public ResponseDto mainPage(String sortBy, Pageable pageable) {
+        return mainservice.mainpage(sortBy, pageable);
     }
-
 
 
     @GetMapping(path = "/category")
-    public ResponseDto mainPageCategory(@RequestParam(value = "page", defaultValue = "1", required = false) int page,
-                                        @RequestParam(value = "size", defaultValue = "20", required = false) int size,
-                                        @RequestParam(value = "sort", defaultValue = "sales", required = false) String sortBy,
-                                        @RequestParam(value = "category", defaultValue = "sales", required = true) String category) {
-        return mainservice.findByCategory(page, size, sortBy, category);
+    public ResponseDto mainPageCategory(@RequestParam(value = "category", defaultValue = "", required = true) String category, Pageable pageable) {
+        return mainservice.CategoryPage(category, pageable);
     }
 
     @GetMapping(path = "/find")
-    public ResponseDto mainPageSearch(@RequestParam(value = "page", defaultValue = "1", required = false) int page,
-                                @RequestParam(value = "size", defaultValue = "20", required = false) int size,
-                                @RequestParam(value = "sort", defaultValue = "sales", required = false) String sortBy,
-                                @RequestParam(value = "keyword", defaultValue = "keyword", required = true) String keyword) {
-        return mainservice.findByProductNameOrBrand(page, size, sortBy, keyword);
+    public ResponseDto mainPageSearch(@RequestParam(value = "keyword", defaultValue = "", required = true) String keyword, Pageable pageable ) {
+        return mainservice.findPage(keyword, pageable);
     }
 }

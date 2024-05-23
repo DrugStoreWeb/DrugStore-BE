@@ -3,17 +3,16 @@ package com.github.drug_store_be.service.main;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
+
 @Service
 public class MainService {
-    public ResponseDto findAll(int page, int size, String sortBy) {
-        return null;
+    public ResponseDto mainpage(String sortBy, Pageable pageable) {
     }
 
-    public ResponseDto findByCategory(int page, int size, String sortBy, String category) {
-        return null;
+    public ResponseDto CategoryPage(String category, Pageable pageable) {
     }
 
-    public ResponseDto findByProductNameOrBrand(int page, int size, String sortBy, String keyword) {
-        return null;
+    public ResponseDto findPage(String keyword, Pageable pageable) {
     }
 }
