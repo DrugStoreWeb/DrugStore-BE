@@ -13,4 +13,5 @@ public interface UserJpa extends JpaRepository<User,Integer> {
     Optional<User> findByEmailFetchJoin(String email);
     boolean existsByEmail(String email);
     boolean existsByNickname(String nickname);
+    Optional<User> findByUserId(Integer userId);
 }
