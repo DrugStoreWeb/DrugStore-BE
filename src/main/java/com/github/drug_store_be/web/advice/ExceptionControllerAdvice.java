@@ -61,5 +61,13 @@ public class ExceptionControllerAdvice {
         return new ResponseEntity<>(responseDto, HttpStatus.FORBIDDEN);
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(EmptyException.class)
+    public ResponseEntity<ResponseDto> handleEmptyException(EmptyException ee){
+        log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + ee.getMessage());
+        ResponseDto responseDto = new ResponseDto(HttpStatus.NOT_FOUND.value(), ee.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
+    }
+
 
 }
