@@ -4,18 +4,21 @@ import com.github.drug_store_be.repository.like.Likes;
 import com.github.drug_store_be.repository.like.LikesJpa;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductJpa;
-import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
-import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import com.github.drug_store_be.repository.review.ReviewJpa;
+import com.github.drug_store_be.repository.user.UserJpa;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageResponse;
 import com.github.drug_store_be.web.DTO.MainPage.productListQueryDto;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -25,20 +28,19 @@ import java.util.stream.Collectors;
 @Service
 public class MainService {
     private final ProductJpa productJpa;
+    private final UserJpa userJpa;
     private final ReviewJpa reviewJpa;
     private final LikesJpa likeJpa;
 
-    Authentication authentication = (Authentication) SecurityContextHolder.getContext().getAuthentication();
-
-    // Retrieve all products
-    List<Product> productList = productJpa.findAll();
+    //현재 로그인한 유저 아이디
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    User user = (User)authentication.getPrincipal();
+    String userEmail=user.getUsername();
+    int userId=userJpa.findByEmailFetchJoin(userEmail);
 
 
     //정렬+광고
     public ResponseDto mainpage(String sortBy, Pageable pageable) {
-
-
-
         return null;
     }
 
@@ -50,27 +52,39 @@ public class MainService {
 
     //페이징+정렬+검색
     public ResponseDto findPage(String keyword, Pageable pageable) {
+        Product products= (Product) productJpa.findByBrandOrProductName(keyword); //상품검색
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), result.size());
+        return new PageImpl<>(result.subList(start, end), pageable, result.size());
         return null;
     }
 
-    //대표이미지 찾기
-    public List<String> getMainImgUrls() {
-        // Filter and map photo URLs
-        List<String> photoUrls = productList.stream()
-                .flatMap(product -> product.getProductPhotoList().stream()) // Flatten the list of ProductPhoto lists
-                .filter(ProductPhoto::getPhotoType) // Filter by photo_type == true
-                .map(ProductPhoto::getPhotoUrl) // Map to photo_url
-                .collect(Collectors.toList()); // Collect to a list
 
-        return photoUrls;
+
+    void getLists(Pageable pageable,Product products) {
+
+    Likes userLike= (Likes) likeJpa.findByUserIdAndProductId(userId,products.getProductId());//상품에 유저가 좋아요를 눌렀는지 여부
+    int productLike=likeJpa.findByProductId(products.getProductId());
+    boolean isUserLike = (userLike.getLikesId() != null) ? true : false;
+    boolean isSales=(products.getProductSales()!=null)? true:false; //세일 여부
+
+
+    productListQueryDto plqd=productListQueryDto.builder()
+            .product_id(products.getProductId())
+            .product_name(products.getProductName())
+            .brand_name(products.getBrand())
+            .price(products.getPrice())
+            .final_price(products.getFinalPrice())
+            .product_img(products.getMainImgUrls(products))
+            .likes(isUserLike)
+            .best(products.isBest())
+            .sales(isSales) //update product_sales
+            .review_avg(products.getReviewAvg()) //update ReviewAvg
+            .product_like(productLike)
+            .build();
+
     }
-
-    //사용자 좋아요 여부
-//    public List<Boolean> getUserLike(){
-//        List<Boolean> userlike = likesList.stream()
-//    }
-//
-
     void PageSorting(String sortBy){
         List<productListQueryDto> productList = new ArrayList<>();
         switch (sortBy) {
@@ -117,4 +131,20 @@ public class MainService {
                 break;
         }
     }
+
+    MainPageResponse toMainpageResponseDto(productListQueryDto pld) {
+        return MainPageResponse.builder()
+                .product_id(pld.getProduct_id())
+                .product_name(pld.getProduct_name())
+                .brand_name(pld.getBrand_name())
+                .price(pld.getPrice())
+                .final_price(pld.getFinal_price())
+                .product_img(pld.getProduct_img())
+                .likes(pld.isLikes())
+                .best(pld.isBest())
+                .sales(pld.isSales())
+                .build();
+
+    }
+
 }
