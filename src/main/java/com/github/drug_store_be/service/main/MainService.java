@@ -53,20 +53,16 @@ public class MainService{
         //mainpageAdImg
         List<MainPageAdImg> mainPageAdImgList = new ArrayList<>();
 
-        // 리뷰가 가장 많은 제품
+        //광고 이미지
         Product topProductByReview = productJpa.findTopByOrderByReviewCountDesc();
-        String reviewTopImageUrl = topProductByReview.getMainImgUrls(topProductByReview);
-        mainPageAdImgList.add(new MainPageAdImg(reviewTopImageUrl));
-
-        // 판매가 가장 많은 제품
         Product topProductBySales = productJpa.findTopByOrderBySalesDesc();
-        String salesTopImageUrl = topProductBySales.getMainImgUrls(topProductBySales);
-        mainPageAdImgList.add(new MainPageAdImg(salesTopImageUrl));
-
-        // 좋아요가 가장 많은 제품
         Product topProductByLikes = productJpa.findTopByOrderByLikesDesc();
-        String likesTopImageUrl = topProductByLikes.getMainImgUrls(topProductByLikes);
-        mainPageAdImgList.add(new MainPageAdImg(likesTopImageUrl));
+
+        MainPageAdImg mpai=MainPageAdImg.builder()
+                .likesTopImageUrl(topProductByLikes.getMainImgUrls(topProductByLikes))
+                .salesTopImageUrl(topProductBySales.getMainImgUrls(topProductBySales))
+                .reviewTopImageUrl(topProductByReview.getMainImgUrls(topProductByReview))
+                .build();
 //
 //// sortedMainPageProductResponseList와 mainPageAdImgList를 합치는 로직
 //        List<MainPageResponse> mainPageResponseList = new ArrayList<>();
