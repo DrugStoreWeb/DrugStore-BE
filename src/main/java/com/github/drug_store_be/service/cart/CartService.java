@@ -11,9 +11,13 @@ import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserJpa;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
+import com.github.drug_store_be.service.exceptions.CAuthenticationEntryPointException;
+import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.Cart.CartRequest;
 import com.github.drug_store_be.web.DTO.Cart.CartResponse;
 import com.github.drug_store_be.web.DTO.ResponseDto;
+import jakarta.persistence.EntityNotFoundException;
+import org.hibernate.annotations.NotFound;
 import org.springframework.http.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,10 +34,14 @@ public class CartService {
     private final CartJpa cartJpa;
 
     // 장바구니 조회
-    public List<CartResponse> findAllCarts(int userId) {
+    public List<CartResponse> findAllCarts(CustomUserDetails customUserDetails) {
+        int userId = customUserDetails.getUserId();
+        User user = userJpa.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+
         List<Cart> carts = cartJpa.findAllByUser_UserId(userId);
         if (carts.isEmpty()) {
-            throw new RuntimeException("No cart items found");
+            throw new NotFoundException("No cart items found");
         }
 
         return carts.stream()
@@ -42,6 +50,7 @@ public class CartService {
                     Product product = options.getProduct();
 
                     List<String> productPhotoUrls = productPhotoJpa.findByProduct(product).stream()
+                            .filter(ProductPhoto::isPhotoType)
                             .map(ProductPhoto::getPhotoUrl)
                             .collect(Collectors.toList());
 
@@ -61,15 +70,33 @@ public class CartService {
                 .collect(Collectors.toList());
     }
 
+    //장바구니 추가
     public ResponseDto addCartItem(CustomUserDetails customUserDetails, CartRequest cartRequest) {
         int userId = customUserDetails.getUserId();
         User user = userJpa.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new NotFoundException("User not found"));
+
+        Product product = productJpa.findById(cartRequest.getProductId())
+                .orElseThrow(() -> new NotFoundException("Product not found"));
 
         Options options = optionsJpa.findById(cartRequest.getOptionsId())
-                .orElseThrow(() -> new RuntimeException("Options not found"));
+                .orElseThrow(() -> new NotFoundException("Options not found"));
+
+        if (!options.getProduct().getProductId().equals(product.getProductId())) {
+            throw new NotFoundException("Options do not belong to the specified product");
+        }
 
         List<Cart> existingCarts = cartJpa.findByUserAndOptions(user, options);
+        int totalQuantity = cartRequest.getQuantity();
+        if (!existingCarts.isEmpty()) {
+            Cart existingCart = existingCarts.get(0);
+            totalQuantity += existingCart.getQuantity();
+        }
+
+        if (totalQuantity > options.getStock()) {
+            throw new IllegalArgumentException("No stock available for the selected option");
+        }
+
         if (!existingCarts.isEmpty()) {
             Cart existingCart = existingCarts.get(0);
             existingCart.setQuantity(existingCart.getQuantity() + 1);
@@ -80,27 +107,27 @@ public class CartService {
         Cart cart = Cart.builder()
                 .user(user)
                 .options(options)
-                .quantity(1)
+                .quantity(cartRequest.getQuantity())
                 .build();
         cartJpa.save(cart);
         return new ResponseDto(HttpStatus.OK.value(), "Cart item added successfully");
     }
 
+    //장바구니 업데이트
     public ResponseDto updateCartItem(CustomUserDetails customUserDetails, CartRequest cartRequest) {
         int userId = customUserDetails.getUserId();
         User user = userJpa.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new NotFoundException("User not found"));
 
         Integer cartId = cartRequest.getCartId();
-        if (cartId == null) {
-            throw new IllegalArgumentException("Cart ID must not be null for update");
-        }
-
         Cart cart = cartJpa.findById(cartId)
-                .orElseThrow(() -> new RuntimeException("Cart item not found"));
+                .orElseThrow(() -> new NotFoundException("Cart item not found"));
 
-        if (cart.getUser().getUserId() != userId) {
-            throw new RuntimeException("Unauthorized access to cart item");
+        Integer optionId = cartRequest.getOptionsId();
+        if (optionId != null) {
+            Options options = optionsJpa.findById(optionId)
+                    .orElseThrow(() -> new NotFoundException("Options not found"));
+            cart.setOptions(options);
         }
 
         int quantity = cartRequest.getQuantity();
@@ -108,27 +135,26 @@ public class CartService {
             cartJpa.delete(cart);
             return new ResponseDto(HttpStatus.OK.value(), "Cart item removed successfully");
         }
-        cart.setQuantity(quantity);
 
-        Integer optionId = cartRequest.getOptionsId();
-        if (optionId != null) {
-            Options options = optionsJpa.findById(optionId)
-                    .orElseThrow(() -> new RuntimeException("Options not found"));
-            cart.setOptions(options);
+        Options currentOptions = cart.getOptions();
+        if (currentOptions.getStock() < quantity) {
+            throw new IllegalArgumentException("No stock available for the selected quantity");
         }
 
+        cart.setQuantity(quantity);
         cartJpa.save(cart);
+
         return new ResponseDto(HttpStatus.OK.value(), "Cart item updated successfully");
     }
 
-    //상품 삭제
+    //장바구니 삭제
     public ResponseDto removeCartItem(CustomUserDetails customUserDetails, int cartId) {
         int userId = customUserDetails.getUserId();
         User user = userJpa.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new NotFoundException("User not found"));
 
         Cart cartToDelete = cartJpa.findByIdAndUserId(cartId, userId)
-                .orElseThrow(() -> new RuntimeException("Product not found in user's cart"));
+                .orElseThrow(() -> new NotFoundException("Product not found in user's cart"));
 
         cartJpa.delete(cartToDelete);
         return new ResponseDto(HttpStatus.OK.value(), "Product deleted from cart successfully");
@@ -144,7 +170,7 @@ public class CartService {
             cartJpa.deleteAll(userCarts);
             return new ResponseDto(HttpStatus.OK.value(), "Cart cleared successfully");
         } else {
-            throw new RuntimeException("Cart is already empty");
+            throw new NotFoundException("Cart is already empty");
         }
     }
 }

@@ -22,7 +22,7 @@ public class CartController {
     @GetMapping("/myCart")
     public ResponseDto getCartItems(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         int userId = customUserDetails.getUserId();
-        List<CartResponse> cartItems = cartService.findAllCarts(userId);
+        List<CartResponse> cartItems = cartService.findAllCarts(customUserDetails);
         return new ResponseDto(HttpStatus.OK.value(), "Cart items retrieved successfully", cartItems);
     }
 
