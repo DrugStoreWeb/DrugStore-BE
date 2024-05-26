@@ -81,8 +81,10 @@ public class MainService{
     public Page<MainPageProductResponse> CategoryPage(int category, String sortBy, org.springframework.data.domain.Pageable pageable) {
         //카테고리별 상품 찾기
         List<Product> productList=productJpa.findByCategory(category);
+
         //product+productPhoto+sorting기준 필드=productListQueryDto 생성
         List<productListQueryDto> productListQueryDtoList=getProductListQueryDto(productList);
+
         //sorting
         List<MainPageProductResponse> sortedMainPageProductResponseList=pageSorting(sortBy,productListQueryDtoList);
 
@@ -98,18 +100,31 @@ public class MainService{
     }
 
 
-//    //페이징+정렬+검색
-//    public ResponseDto findPage(String keyword, String pageable, Pageable sortBy) {
-//        //브랜드와 상품 이름으로 검색
-//        List<Product> productList=productJpa.findByBrandOrProductName(keyword);
-//        //product+productPhoto+sorting기준 필드=productListQueryDto 생성
-//        List<productListQueryDto> productListQueryDtoList=getProductListQueryDto(productList);
-//        //sorting
-//        List<MainPageProductResponse> sortedMainPageProductResponseList=pageSorting(sortBy.toString(),productListQueryDtoList);
-//        return null;
-//    }
+    //페이징+정렬+검색
+    public Page<MainPageProductResponse> findPage(String keyword, String sortBy, org.springframework.data.domain.Pageable pageable) {
+        //브랜드와 상품 이름으로 검색
+        List<Product> productList=productJpa.findByBrandOrProductNameContaining(keyword);
+
+        //product+productPhoto+sorting기준 필드=productListQueryDto 생성
+        List<productListQueryDto> productListQueryDtoList=getProductListQueryDto(productList);
+
+        //sorting
+        List<MainPageProductResponse> sortedMainPageProductResponseList=pageSorting(sortBy.toString(),productListQueryDtoList);
+
+        //List->page
+        PageRequest pageRequest = PageRequest.of(0, 24);
+
+        int start = (int) pageRequest.getOffset();
+        int end = Math.min((start + pageRequest.getPageSize()), sortedMainPageProductResponseList.size());
+        List<MainPageProductResponse> pageContent = sortedMainPageProductResponseList.subList(start, end);
+
+        Page<MainPageProductResponse> page = new PageImpl<>(pageContent, pageRequest, sortedMainPageProductResponseList.size());
+        return page;
+    }
 
 
+    /**메소드 영역**/
+    //user가 product를 like했는가 여부를 알기 위한 userId 찾기
     private Integer getUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal(); // Object 타입으로 받음
@@ -128,6 +143,7 @@ public class MainService{
         }
     }
 
+    //MainResponse에 필요한 값과 정렬에 필요한 값을 합쳐 놓은 dto
     public List<productListQueryDto> getProductListQueryDto(List<Product> productList) {
         Integer userId = getUserId();
         List<productListQueryDto> plqdList = new ArrayList<>();

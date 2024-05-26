@@ -32,9 +32,10 @@ public class MainController {
         Page<MainPageProductResponse> mainPageProductResponse=mainservice.CategoryPage(category, sortBy, pageable);
         return new ResponseDto(HttpStatus.OK.value(),"카테고리 페이지 조회에 성공했습니다.",mainPageProductResponse);
     }
-//
-//    @GetMapping(path = "/find")
-//    public ResponseDto mainPageSearch(@RequestParam(value = "keyword", defaultValue = "", required = true) String keyword, String sortBy,Pageable pageable ) {
-//        return mainservice.findPage(keyword,sortBy,pageable);
-//    }
+
+    @GetMapping(path = "/find")
+    public ResponseDto mainPageSearch(@RequestParam(value = "keyword", defaultValue = "", required = true) String keyword, String sortBy, org.springframework.data.domain.Pageable pageable ) {
+        Page<MainPageProductResponse> mainPageProductResponse=mainservice.findPage(keyword,sortBy,pageable);
+        return new ResponseDto(HttpStatus.OK.value(),"검색에 성공했습니다.",mainPageProductResponse);
+    }
 }
