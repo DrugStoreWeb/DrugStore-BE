@@ -2,23 +2,23 @@ package com.github.drug_store_be.service.main;
 
 import com.github.drug_store_be.repository.like.Likes;
 import com.github.drug_store_be.repository.like.LikesJpa;
+import com.github.drug_store_be.repository.option.OptionsJpa;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductJpa;
+import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
+import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import com.github.drug_store_be.repository.review.ReviewJpa;
 import com.github.drug_store_be.repository.user.UserJpa;
-import com.github.drug_store_be.web.DTO.MainPage.MainPageResponse;
+import com.github.drug_store_be.web.DTO.MainPage.MainPageProductResponse;
 import com.github.drug_store_be.web.DTO.MainPage.productListQueryDto;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -26,125 +26,96 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class MainService {
+public class MainService{
     private final ProductJpa productJpa;
+    private final ProductPhotoJpa productPhotoJpa;
+    private final LikesJpa likesJpa;
     private final UserJpa userJpa;
     private final ReviewJpa reviewJpa;
-    private final LikesJpa likeJpa;
+    private final OptionsJpa optionsJpa;
 
     //현재 로그인한 유저 아이디
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     User user = (User)authentication.getPrincipal();
     String userEmail=user.getUsername();
-    int userId=userJpa.findByEmailFetchJoin(userEmail);
+    int userId= userJpa.findByEmail(userEmail);
 
 
     //정렬+광고
     public ResponseDto mainpage(String sortBy, Pageable pageable) {
+
         return null;
     }
 
     //페이징+정렬
-    public ResponseDto CategoryPage(String category, Pageable pageable) {
+    public ResponseDto CategoryPage(String category, String sortBy, Pageable pageable) {
         return null;
     }
 
 
     //페이징+정렬+검색
-    public ResponseDto findPage(String keyword, Pageable pageable) {
-        Product products= (Product) productJpa.findByBrandOrProductName(keyword); //상품검색
-
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), result.size());
-        return new PageImpl<>(result.subList(start, end), pageable, result.size());
+    public ResponseDto findPage(String keyword, String pageable, Pageable sortBy) {
         return null;
     }
 
+    public List<productListQueryDto> getProductListQueryDto() {
+        List<Product> productList = productJpa.findAll();
+        List<productListQueryDto> plqdList = new ArrayList<>();
 
+        for (Product product : productList) {
+            Likes userLike = (Likes) likesJpa.findByUserIdAndProductId(userId, product.getProductId());
+            productJpa.updateProductSales(product.getProductId(), product.getOriginalStock(), optionsJpa.findTotalOptionsStock());
+            reviewJpa.updateReviewAvg();
 
-    void getLists(Pageable pageable,Product products) {
+            productListQueryDto plqd = productListQueryDto.builder()
+                    .product_id(product.getProductId())
+                    .product_name(product.getProductName())
+                    .brand_name(product.getBrand())
+                    .price(product.getPrice())
+                    .final_price(product.getFinalPrice())
+                    .product_img(product.getMainImgUrls(product))
+                    .best(product.isBest())
+                    .likes(userLike != null && userLike.getLikesId() != null)
+                    .sales(product.getProductSales() != null)
+                    .product_sales(product.getProductSales())
+                    .product_like(likesJpa.findByProductId(product.getProductId()))
+                    .review_avg(product.getReviewAvg())
+                    .build();
 
-    Likes userLike= (Likes) likeJpa.findByUserIdAndProductId(userId,products.getProductId());//상품에 유저가 좋아요를 눌렀는지 여부
-    int productLike=likeJpa.findByProductId(products.getProductId());
-    boolean isUserLike = (userLike.getLikesId() != null) ? true : false;
-    boolean isSales=(products.getProductSales()!=null)? true:false; //세일 여부
-
-
-    productListQueryDto plqd=productListQueryDto.builder()
-            .product_id(products.getProductId())
-            .product_name(products.getProductName())
-            .brand_name(products.getBrand())
-            .price(products.getPrice())
-            .final_price(products.getFinalPrice())
-            .product_img(products.getMainImgUrls(products))
-            .likes(isUserLike)
-            .best(products.isBest())
-            .sales(isSales) //update product_sales
-            .review_avg(products.getReviewAvg()) //update ReviewAvg
-            .product_like(productLike)
-            .build();
-
+            plqdList.add(plqd);
+        }
+        return plqdList;
     }
-    void PageSorting(String sortBy){
-        List<productListQueryDto> productList = new ArrayList<>();
+
+
+
+    //정렬
+    List<MainPageProductResponse> pageSorting(String sortBy, List<productListQueryDto> productList) {
+
+        Comparator<productListQueryDto> comparator;
         switch (sortBy) {
             case "likes":
-                Comparator<productListQueryDto> comparingLikesReverse = Comparator.comparing(productListQueryDto::getProduct_like, Comparator.reverseOrder());
-
-                productList.stream()
-                        .sorted(comparingLikesReverse)
-                        .map(productListQueryDto::toMainpageResponseDto)
-                        .collect(Collectors.toList());
+                comparator = Comparator.comparing(productListQueryDto::getProduct_like, Comparator.reverseOrder());
                 break;
-
             case "new":
-                Comparator<productListQueryDto> comparingNewReverse = Comparator.comparing(productListQueryDto::getProduct_id, Comparator.reverseOrder());
-
-                productList.stream()
-                        .sorted(comparingNewReverse)
-                        .map(productListQueryDto::toMainpageResponseDto)
-                        .collect(Collectors.toList());
+                comparator = Comparator.comparing(productListQueryDto::getProduct_id, Comparator.reverseOrder());
                 break;
             case "price":
-                Comparator<productListQueryDto> comparingPriceReverse = Comparator.comparing(productListQueryDto::getPrice, Comparator.reverseOrder());
-
-                productList.stream()
-                        .sorted(comparingPriceReverse)
-                        .map(productListQueryDto::toMainpageResponseDto)
-                        .collect(Collectors.toList());
+                comparator = Comparator.comparing(productListQueryDto::getPrice, Comparator.reverseOrder());
                 break;
             case "reviews":
-                Comparator<productListQueryDto> comparingReviewsReverse = Comparator.comparing(productListQueryDto::getReview_avg, Comparator.reverseOrder());
-
-                productList.stream()
-                        .sorted(comparingReviewsReverse)
-                        .map(productListQueryDto::toMainpageResponseDto)
-                        .collect(Collectors.toList());
+                comparator = Comparator.comparing(productListQueryDto::getReview_avg, Comparator.reverseOrder());
                 break;
             case "sales":
-                Comparator<productListQueryDto> comparingProductSalesReverse = Comparator.comparing(productListQueryDto::getProduct_sales, Comparator.reverseOrder());
-
-                productList.stream()
-                        .sorted(comparingProductSalesReverse)
-                        .map(productListQueryDto::toMainpageResponseDto)
-                        .collect(Collectors.toList());
+                comparator = Comparator.comparing(productListQueryDto::getProduct_sales, Comparator.reverseOrder());
                 break;
+            default:
+                throw new IllegalArgumentException("Invalid sortBy parameter: " + sortBy);
         }
+
+        return productList.stream()
+                .sorted(comparator)
+                .map(productListQueryDto::toMainpageResponseDto)
+                .collect(Collectors.toList());
     }
-
-    MainPageResponse toMainpageResponseDto(productListQueryDto pld) {
-        return MainPageResponse.builder()
-                .product_id(pld.getProduct_id())
-                .product_name(pld.getProduct_name())
-                .brand_name(pld.getBrand_name())
-                .price(pld.getPrice())
-                .final_price(pld.getFinal_price())
-                .product_img(pld.getProduct_img())
-                .likes(pld.isLikes())
-                .best(pld.isBest())
-                .sales(pld.isSales())
-                .build();
-
-    }
-
 }
