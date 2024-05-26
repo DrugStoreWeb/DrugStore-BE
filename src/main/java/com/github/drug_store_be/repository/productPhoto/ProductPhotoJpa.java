@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductPhotoJpa extends JpaRepository<ProductPhoto,Integer> {
-    @Query("")
-    ProductPhoto findByPhotoType();
+//    @Query("")
+//    ProductPhoto findByPhotoType();
 }

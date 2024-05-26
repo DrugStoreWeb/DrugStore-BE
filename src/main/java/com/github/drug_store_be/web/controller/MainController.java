@@ -20,18 +20,18 @@ public class MainController {
     private final MainService mainservice;
 
     @GetMapping(path = "/")
-    public ResponseDto mainPage(String sortBy, Pageable pageable) {
-        return mainservice.mainpage(sortBy, pageable);
+    public ResponseDto mainPage(@RequestParam(defaultValue = "sales") String sortBy, Pageable pageable) {
+        return mainservice.mainpage(sortBy,pageable);
     }
 
 
-    @GetMapping(path = "/category")
-    public ResponseDto mainPageCategory(@RequestParam(value = "category", defaultValue = "", required = true) String category, Pageable pageable) {
-        return mainservice.CategoryPage(category, pageable);
-    }
-
-    @GetMapping(path = "/find")
-    public ResponseDto mainPageSearch(@RequestParam(value = "keyword", defaultValue = "", required = true) String keyword, Pageable pageable ) {
-        return mainservice.findPage(keyword, pageable);
-    }
+//    @GetMapping(path = "/category")
+//    public ResponseDto mainPageCategory(@RequestParam(value = "category", defaultValue = "", required = true) String category,String sortBy, Pageable pageable) {
+//        return mainservice.CategoryPage(category, sortBy, pageable);
+//    }
+//
+//    @GetMapping(path = "/find")
+//    public ResponseDto mainPageSearch(@RequestParam(value = "keyword", defaultValue = "", required = true) String keyword, String sortBy,Pageable pageable ) {
+//        return mainservice.findPage(keyword,sortBy,pageable);
+//    }
 }

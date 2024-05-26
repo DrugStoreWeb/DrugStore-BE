@@ -1,25 +1,35 @@
 package com.github.drug_store_be.repository.product;
 
-import com.github.drug_store_be.web.DTO.MainPage.productListQueryDto;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface ProductJpa extends JpaRepository<Product,Integer> {
-    Page<productListQueryDto> findAllOrderByLike(PageRequest pageRequest);
+    @Modifying
+    @Query(value = "UPDATE Product p " +
+            "SET p.productSales = p.originalStock - :totalOptionsStock " +
+            "WHERE p.productId = :productId")
+    void updateProductSales(@Param("productId") Integer productId,
+                            @Param("totalOptionsStock") Integer totalOptionsStock);
 
-    Page<productListQueryDto> findAllOrderByNew(PageRequest pageRequest);
+    @Query("UPDATE Product p " +
+            "SET p.reviewAvg = (SELECT AVG(r.reviewScore) FROM Review r WHERE r.product = p) " +
+            "WHERE p IN (SELECT r.product FROM Review r)")
+    void updateReviewAvg();
 
-    Page<productListQueryDto> findAllOrderByReview(PageRequest pageRequest);
+    Product findTopByOrderByReviewCountDesc();
 
-    Page<productListQueryDto> findAllOrderBySales(PageRequest pageRequest);
+    Product findTopByOrderBySalesDesc();
 
-    void updateProductSales(Integer productId, Integer originalStock, Integer totalOptionsStock);
-
-    Optional<Object> findById(Long productId);
-
-    }
+    Product findTopByOrderByLikesDesc();
+//
+//    List<Product> findByBrandOrProductName(String keyword);
+//    List<Product> findByCategory(String category);
+}
