@@ -14,9 +14,9 @@ import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.web.DTO.Cart.CartRequest;
 import com.github.drug_store_be.web.DTO.Cart.CartResponse;
 import com.github.drug_store_be.web.DTO.ResponseDto;
+import org.springframework.http.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +41,10 @@ public class CartService {
                     Options options = cart.getOptions();
                     Product product = options.getProduct();
 
+                    List<String> productPhotoUrls = productPhotoJpa.findByProduct(product).stream()
+                            .map(ProductPhoto::getPhotoUrl)
+                            .collect(Collectors.toList());
+
                     return CartResponse.builder()
                             .cartId(cart.getCartId())
                             .productId(product.getProductId())
@@ -49,6 +53,9 @@ public class CartService {
                             .optionId(options.getOptionsId())
                             .quantity(cart.getQuantity())
                             .price(product.getPrice())
+                            .productPhotoUrls(productPhotoUrls)
+                            .productDiscount(product.getProductDiscount())
+                            .finalPrice(product.getFinalPrice())
                             .build();
                 })
                 .collect(Collectors.toList());
@@ -62,24 +69,21 @@ public class CartService {
         Options options = optionsJpa.findById(cartRequest.getOptionsId())
                 .orElseThrow(() -> new RuntimeException("Options not found"));
 
-        Product product = options.getProduct(); // Option에서 Product를 가져옴
-
         List<Cart> existingCarts = cartJpa.findByUserAndOptions(user, options);
         if (!existingCarts.isEmpty()) {
             Cart existingCart = existingCarts.get(0);
-            existingCart.setQuantity(existingCart.getQuantity() + cartRequest.getQuantity());
+            existingCart.setQuantity(existingCart.getQuantity() + 1);
             cartJpa.save(existingCart);
-            return new ResponseDto(200, "Cart item updated successfully");
+            return new ResponseDto(HttpStatus.OK.value(), "Cart item quantity increased by 1 successfully");
         }
 
-        Cart newCart = Cart.builder()
+        Cart cart = Cart.builder()
                 .user(user)
                 .options(options)
-                .quantity(cartRequest.getQuantity())
+                .quantity(1)
                 .build();
-
-        cartJpa.save(newCart);
-        return new ResponseDto(200, "Cart item added successfully");
+        cartJpa.save(cart);
+        return new ResponseDto(HttpStatus.OK.value(), "Cart item added successfully");
     }
 
     public ResponseDto updateCartItem(CustomUserDetails customUserDetails, CartRequest cartRequest) {
@@ -102,7 +106,7 @@ public class CartService {
         int quantity = cartRequest.getQuantity();
         if (quantity <= 0) {
             cartJpa.delete(cart);
-            return new ResponseDto(200, "Cart item removed successfully");
+            return new ResponseDto(HttpStatus.OK.value(), "Cart item removed successfully");
         }
         cart.setQuantity(quantity);
 
@@ -114,7 +118,7 @@ public class CartService {
         }
 
         cartJpa.save(cart);
-        return new ResponseDto(200, "Cart item updated successfully");
+        return new ResponseDto(HttpStatus.OK.value(), "Cart item updated successfully");
     }
 
     //상품 삭제
@@ -127,7 +131,7 @@ public class CartService {
                 .orElseThrow(() -> new RuntimeException("Product not found in user's cart"));
 
         cartJpa.delete(cartToDelete);
-        return new ResponseDto(200, "Product deleted from cart successfully");
+        return new ResponseDto(HttpStatus.OK.value(), "Product deleted from cart successfully");
     }
 
     //장바구니 비우기
@@ -138,7 +142,7 @@ public class CartService {
 
         if (!userCarts.isEmpty()) {
             cartJpa.deleteAll(userCarts);
-            return new ResponseDto(200, "Cart cleared successfully");
+            return new ResponseDto(HttpStatus.OK.value(), "Cart cleared successfully");
         } else {
             throw new RuntimeException("Cart is already empty");
         }
