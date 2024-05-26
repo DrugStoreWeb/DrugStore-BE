@@ -12,23 +12,21 @@ import java.util.Optional;
 
 @Repository
 public interface ProductJpa extends JpaRepository<Product,Integer> {
-    @Modifying
-    @Query(value = "UPDATE Product p " +
-            "SET p.productSales = p.originalStock - :totalOptionsStock " +
-            "WHERE p.productId = :productId")
-    void updateProductSales(@Param("productId") Integer productId,
-                            @Param("totalOptionsStock") Integer totalOptionsStock);
+    @Query("UPDATE Product p SET p.productSales = p.originalStock-((SELECT SUM(o.stock) FROM Options o))")
+    void updateProductSales();
 
     @Query("UPDATE Product p " +
             "SET p.reviewAvg = (SELECT AVG(r.reviewScore) FROM Review r WHERE r.product = p) " +
             "WHERE p IN (SELECT r.product FROM Review r)")
     void updateReviewAvg();
 
-    Product findTopByOrderByReviewCountDesc();
+    @Query("SELECT p FROM Product p ORDER BY p.productSales DESC")
+    Product findTopByOrderByProductSalesDesc();
 
-    Product findTopByOrderBySalesDesc();
 
-    Product findTopByOrderByLikesDesc();
+
+    @Query("SELECT p FROM Product p ORDER BY p.reviewAvg DESC")
+    Product findTopByOrderByReviewAvgDesc();
 //
 //    List<Product> findByBrandOrProductName(String keyword);
 //    List<Product> findByCategory(String category);

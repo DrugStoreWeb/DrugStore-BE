@@ -5,7 +5,6 @@ import com.github.drug_store_be.repository.like.LikesJpa;
 import com.github.drug_store_be.repository.option.OptionsJpa;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductJpa;
-import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import com.github.drug_store_be.repository.review.ReviewJpa;
 import com.github.drug_store_be.repository.user.UserJpa;
@@ -13,10 +12,7 @@ import com.github.drug_store_be.web.DTO.MainPage.MainPageAdImg;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageProductResponse;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageResponse;
 import com.github.drug_store_be.web.DTO.MainPage.productListQueryDto;
-import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -40,7 +36,7 @@ public class MainService{
 
 
     //정렬+광고+페이징
-    public ResponseDto mainpage(String sortBy, Pageable pageable) {
+    public MainPageResponse mainpage(String sortBy, Pageable pageable) {
         //모든 상품 찾기
         List<Product> productList=productJpa.findAll();
 
@@ -50,41 +46,26 @@ public class MainService{
         //sorting
         List<MainPageProductResponse> sortedMainPageProductResponseList=pageSorting(sortBy,productListQueryDtoList);
 
-        //mainpageAdImg
-        List<MainPageAdImg> mainPageAdImgList = new ArrayList<>();
-
         //광고 이미지
-        Product topProductByReview = productJpa.findTopByOrderByReviewCountDesc();
-        Product topProductBySales = productJpa.findTopByOrderBySalesDesc();
-        Product topProductByLikes = productJpa.findTopByOrderByLikesDesc();
+        productJpa.updateReviewAvg();
+        Product topProductByReview = productJpa.findTopByOrderByReviewAvgDesc();
+        productJpa.updateProductSales();
+        Product topProductBySales = productJpa.findTopByOrderByProductSalesDesc();
+        Product topProductByLikes = LikesJpa.findTopByOrderByLikesDesc();
 
         MainPageAdImg mpai=MainPageAdImg.builder()
                 .likesTopImageUrl(topProductByLikes.getMainImgUrls(topProductByLikes))
                 .salesTopImageUrl(topProductBySales.getMainImgUrls(topProductBySales))
                 .reviewTopImageUrl(topProductByReview.getMainImgUrls(topProductByReview))
                 .build();
-//
-//// sortedMainPageProductResponseList와 mainPageAdImgList를 합치는 로직
-//        List<MainPageResponse> mainPageResponseList = new ArrayList<>();
-//
-//// sortedMainPageProductResponseList를 추가
-//        mainPageResponseList.addAll(sortedMainPageProductResponseList);
-//
-//// mainPageAdImgList를 MainPageResponse로 변환하여 추가
-//        for (MainPageAdImg adImg : mainPageAdImgList) {
-//            MainPageResponse adResponse = new MainPageResponse(adImg.getUrl());
-//            mainPageResponseList.add(adResponse);
-//        }
-//
-//// 페이지로 만들기
-//        int pageSize = pageable.getPageSize();
-//        int page = pageable.getPageNumber();
-//        int start = page * pageSize;
-//        int end = Math.min(start + pageSize, mainPageResponseList.size());
-//        List<MainPageResponse> pageContent = mainPageResponseList.subList(start, end);
-//        Page<MainPageResponse> pageResponse = new PageImpl<>(pageContent, pageable, mainPageResponseList.size());
-//
-//        return new ResponseDto(pageResponse);
+
+        //mainPageResponse
+        MainPageResponse mainPageResponse=MainPageResponse.builder()
+                .productList(sortedMainPageProductResponseList)
+                .mainPageAdImg(mpai)
+                .build();
+
+        return mainPageResponse;
     }
 
 //    //페이징+정렬
@@ -128,9 +109,9 @@ public class MainService{
 
         for (Product product : productList) {
             Likes userLike = (Likes) likesJpa.findByUserIdAndProductId(userId, product.getProductId());
-            productJpa.updateProductSales(product.getProductId(), optionsJpa.getTotalOptionsStock());
+            productJpa.updateProductSales();
             productJpa.updateReviewAvg();
-
+            int productLike=likesJpa.findByProductId(product.getProductId());
             productListQueryDto plqd = productListQueryDto.builder()
                     .product_id(product.getProductId())
                     .product_name(product.getProductName())
@@ -142,7 +123,7 @@ public class MainService{
                     .likes(userLike != null && userLike.getLikesId() != null)
                     .sales(product.getProductSales() != null)
                     .product_sales(product.getProductSales())
-                    .product_like(likesJpa.findByProductId(product.getProductId()))
+                    .product_like(productLike)
                     .review_avg(product.getReviewAvg())
                     .build();
 
