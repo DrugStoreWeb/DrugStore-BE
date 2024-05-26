@@ -67,28 +67,28 @@ public class MainService{
         Product topProductByLikes = productJpa.findTopByOrderByLikesDesc();
         String likesTopImageUrl = topProductByLikes.getMainImgUrls(topProductByLikes);
         mainPageAdImgList.add(new MainPageAdImg(likesTopImageUrl));
-
-// sortedMainPageProductResponseList와 mainPageAdImgList를 합치는 로직
-        List<MainPageResponse> mainPageResponseList = new ArrayList<>();
-
-// sortedMainPageProductResponseList를 추가
-        mainPageResponseList.addAll(sortedMainPageProductResponseList);
-
-// mainPageAdImgList를 MainPageResponse로 변환하여 추가
-        for (MainPageAdImg adImg : mainPageAdImgList) {
-            MainPageResponse adResponse = new MainPageResponse(adImg.getUrl());
-            mainPageResponseList.add(adResponse);
-        }
-
-// 페이지로 만들기
-        int pageSize = pageable.getPageSize();
-        int page = pageable.getPageNumber();
-        int start = page * pageSize;
-        int end = Math.min(start + pageSize, mainPageResponseList.size());
-        List<MainPageResponse> pageContent = mainPageResponseList.subList(start, end);
-        Page<MainPageResponse> pageResponse = new PageImpl<>(pageContent, pageable, mainPageResponseList.size());
-
-        return new ResponseDto(pageResponse);
+//
+//// sortedMainPageProductResponseList와 mainPageAdImgList를 합치는 로직
+//        List<MainPageResponse> mainPageResponseList = new ArrayList<>();
+//
+//// sortedMainPageProductResponseList를 추가
+//        mainPageResponseList.addAll(sortedMainPageProductResponseList);
+//
+//// mainPageAdImgList를 MainPageResponse로 변환하여 추가
+//        for (MainPageAdImg adImg : mainPageAdImgList) {
+//            MainPageResponse adResponse = new MainPageResponse(adImg.getUrl());
+//            mainPageResponseList.add(adResponse);
+//        }
+//
+//// 페이지로 만들기
+//        int pageSize = pageable.getPageSize();
+//        int page = pageable.getPageNumber();
+//        int start = page * pageSize;
+//        int end = Math.min(start + pageSize, mainPageResponseList.size());
+//        List<MainPageResponse> pageContent = mainPageResponseList.subList(start, end);
+//        Page<MainPageResponse> pageResponse = new PageImpl<>(pageContent, pageable, mainPageResponseList.size());
+//
+//        return new ResponseDto(pageResponse);
     }
 
 //    //페이징+정렬
