@@ -18,10 +18,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -35,8 +35,8 @@ public class MainService{
     private final OptionsJpa optionsJpa;
 
 
-    //정렬+광고+페이징
-    public MainPageResponse mainpage(String sortBy, Pageable pageable) {
+    //정렬+광고
+    public MainPageResponse mainpage(String sortBy) {
         //모든 상품 찾기
         List<Product> productList=productJpa.findAll();
 
@@ -51,10 +51,11 @@ public class MainService{
         Product topProductByReview = productJpa.findTopByOrderByReviewAvgDesc();
         productJpa.updateProductSales();
         Product topProductBySales = productJpa.findTopByOrderByProductSalesDesc();
-        Product topProductByLikes = LikesJpa.findTopByOrderByLikesDesc();
+        Integer productId= likesJpa.findProductWithMostLikes().getProductId();
+        Optional<Product> topProductByLikes = productJpa.findById(productId);
 
         MainPageAdImg mpai=MainPageAdImg.builder()
-                .likesTopImageUrl(topProductByLikes.getMainImgUrls(topProductByLikes))
+                .likesTopImageUrl(topProductByLikes.map(Product::getMainImgUrls).orElse(null))
                 .salesTopImageUrl(topProductBySales.getMainImgUrls(topProductBySales))
                 .reviewTopImageUrl(topProductByReview.getMainImgUrls(topProductByReview))
                 .build();
@@ -94,13 +95,20 @@ public class MainService{
 
     private Integer getUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
-        String userEmail = user.getUsername();
-        Integer userId = userJpa.findByEmail(userEmail);
-        if (userId == null) {
-            throw new IllegalStateException("User not found: " + userEmail);
+        Object principal = authentication.getPrincipal(); // Object 타입으로 받음
+
+        // principal이 String 타입인 경우 처리
+        if (principal instanceof String) {
+            String userEmail = (String) principal; // 캐스팅
+            Integer userId = userJpa.findByEmail(userEmail);
+            return userId;
+        } else {
+            // principal이 User 타입인 경우 처리
+            User user = (User) principal; // 캐스팅
+            String userEmail = user.getUsername();
+            Integer userId = userJpa.findByEmail(userEmail);
+            return userId;
         }
-        return userId;
     }
 
     public List<productListQueryDto> getProductListQueryDto(List<Product> productList) {
@@ -108,7 +116,10 @@ public class MainService{
         List<productListQueryDto> plqdList = new ArrayList<>();
 
         for (Product product : productList) {
-            Likes userLike = (Likes) likesJpa.findByUserIdAndProductId(userId, product.getProductId());
+            Likes userLike;
+            if(userId!=null) {
+                userLike= likesJpa.findByUserIdAndProductId(userId, product.getProductId());
+            }else {userLike =null;}
             productJpa.updateProductSales();
             productJpa.updateReviewAvg();
             int productLike=likesJpa.findByProductId(product.getProductId());

@@ -1,7 +1,9 @@
 package com.github.drug_store_be.web.DTO.MainPage;
 
 import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 @Builder
 public class MainPageProductResponse {
     private Integer product_id;

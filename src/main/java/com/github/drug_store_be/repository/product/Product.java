@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -65,7 +66,7 @@ public class Product {
 
 
     //대표이미지 찾기 메서드? 클래스?
-    public String getMainImgUrls(Product product) {
+    public static String getMainImgUrls(Product product) {
         return product.getProductPhotoList().stream()
                 .filter(ProductPhoto::getPhotoType) // photoType이 true인 경우 필터링
                 .map(ProductPhoto::getPhotoUrl) // photoUrl로 매핑
