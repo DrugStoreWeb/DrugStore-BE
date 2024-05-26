@@ -13,6 +13,10 @@ import com.github.drug_store_be.web.DTO.MainPage.MainPageProductResponse;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageResponse;
 import com.github.drug_store_be.web.DTO.MainPage.productListQueryDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -24,6 +28,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 @RequiredArgsConstructor
 @Service
 public class MainService{
@@ -33,6 +38,9 @@ public class MainService{
     private final UserJpa userJpa;
     private final ReviewJpa reviewJpa;
     private final OptionsJpa optionsJpa;
+    private String category;
+    private String sortBy;
+    private Pageable pageable;
 
 
     //정렬+광고
@@ -69,18 +77,27 @@ public class MainService{
         return mainPageResponse;
     }
 
-//    //페이징+정렬
-//    public ResponseDto CategoryPage(String category, String sortBy, Pageable pageable) {
-//        //카테고리별 상품 찾기
-//        List<Product> productList=productJpa.findByCategory(category);
-//        //product+productPhoto+sorting기준 필드=productListQueryDto 생성
-//        List<productListQueryDto> productListQueryDtoList=getProductListQueryDto(productList);
-//        //sorting
-//        List<MainPageProductResponse> sortedMainPageProductResponseList=pageSorting(sortBy,productListQueryDtoList);
-//        return null;
-//    }
-//
-//
+    //페이징+정렬
+    public Page<MainPageProductResponse> CategoryPage(int category, String sortBy, org.springframework.data.domain.Pageable pageable) {
+        //카테고리별 상품 찾기
+        List<Product> productList=productJpa.findByCategory(category);
+        //product+productPhoto+sorting기준 필드=productListQueryDto 생성
+        List<productListQueryDto> productListQueryDtoList=getProductListQueryDto(productList);
+        //sorting
+        List<MainPageProductResponse> sortedMainPageProductResponseList=pageSorting(sortBy,productListQueryDtoList);
+
+        //List->page
+        PageRequest pageRequest = PageRequest.of(0, 24);
+
+        int start = (int) pageRequest.getOffset();
+        int end = Math.min((start + pageRequest.getPageSize()), sortedMainPageProductResponseList.size());
+        List<MainPageProductResponse> pageContent = sortedMainPageProductResponseList.subList(start, end);
+
+        Page<MainPageProductResponse> page = new PageImpl<>(pageContent, pageRequest, sortedMainPageProductResponseList.size());
+        return page;
+    }
+
+
 //    //페이징+정렬+검색
 //    public ResponseDto findPage(String keyword, String pageable, Pageable sortBy) {
 //        //브랜드와 상품 이름으로 검색
@@ -174,4 +191,5 @@ public class MainService{
                 .map(productListQueryDto::toMainpageResponseDto)
                 .collect(Collectors.toList());
     }
+
 }

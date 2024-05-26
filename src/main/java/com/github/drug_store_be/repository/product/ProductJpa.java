@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -32,6 +33,7 @@ public interface ProductJpa extends JpaRepository<Product,Integer> {
     @Query("SELECT p FROM Product p ORDER BY p.reviewAvg DESC limit 1")
     Product findTopByOrderByReviewAvgDesc();
 //
-//    List<Product> findByBrandOrProductName(String keyword);
-//    List<Product> findByCategory(String category);
+//    List<Product> findByBrandOrProductNameContain(String keyword);
+    @Query("SELECT p FROM Product p WHERE p.category=:category")
+    List<Product> findByCategory(int category);
 }
