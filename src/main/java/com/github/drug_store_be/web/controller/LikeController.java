@@ -19,15 +19,21 @@ public class LikeController {
 
     private final LikeService likeService;
 
-    @GetMapping("/myLikes")
-    public ResponseDto likeGet(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
+    @GetMapping("/myList")
+    public ResponseDto getLike(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         List<MyLikesResponse> myLikesResponseList = likeService.getMyLikes(customUserDetails);
         return new ResponseDto(HttpStatus.OK.value(),"조회 성공", myLikesResponseList );
     }
 
     @PostMapping
-    public ResponseDto likeAdd(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+    public ResponseDto addLike(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                @RequestBody LikeRequest likeRequest) {
-        return likeService.addProductLike(customUserDetails, likeRequest.getProductId());
+        return likeService.addMyLike(customUserDetails, likeRequest.getProductId());
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseDto deleteLike(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                  @RequestBody LikeRequest likeRequest) {
+        return likeService.deleteMyLike(customUserDetails, likeRequest.getProductId());
     }
 }

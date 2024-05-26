@@ -11,12 +11,12 @@ import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.Like.MyLikesResponse;
 import com.github.drug_store_be.web.DTO.ResponseDto;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,14 +26,19 @@ public class LikeService {
     private final ProductJpa productJpa;
     private final LikesJpa likesJpa;
 
-    private User findUser(Integer userId) {
+    private User findUser(CustomUserDetails customUserDetails) {
+        Integer userId = customUserDetails.getUserId();
         return userJpa.findByUserId(userId)
                 .orElseThrow(() -> new NotFoundException("아이디를 찾을 수 없습니다."));
     }
 
+    private Product findProduct(Integer productId) {
+        return productJpa.findById(productId)
+                .orElseThrow(() -> new NotFoundException("제품을 찾을 수 없습니다."));
+    }
+
         public List<MyLikesResponse> getMyLikes(CustomUserDetails customUserDetails) {
-            Integer userId = customUserDetails.getUserId();
-            User user = findUser(userId);
+            User user = findUser(customUserDetails);
             List<Likes> likes = likesJpa.findByUser(user);
 
             return likes.stream()
@@ -55,11 +60,9 @@ public class LikeService {
                     .collect(Collectors.toList());
         }
 
-    public ResponseDto addProductLike(CustomUserDetails customUserDetails, Integer productId) {
-        Integer userId = customUserDetails.getUserId();
-        User user = findUser(userId);
-        Product product = productJpa.findById(productId)
-                .orElseThrow(() -> new NotFoundException("제품을 찾을 수 없습니다."));
+    public ResponseDto addMyLike(CustomUserDetails customUserDetails, Integer productId) {
+        User user = findUser(customUserDetails);
+        Product product = findProduct(productId);
 
         Likes like = Likes.builder()
                 .user(user)
@@ -68,5 +71,15 @@ public class LikeService {
 
         likesJpa.save(like);
         return new ResponseDto(HttpStatus.OK.value(),"좋아요 추가 성공");
+    }
+
+    @Transactional
+    public ResponseDto deleteMyLike(CustomUserDetails customUserDetails, Integer productId) {
+        User user = findUser(customUserDetails);
+        Product product = findProduct(productId);
+
+        likesJpa.deleteByUserAndProduct(user, product);
+
+        return new ResponseDto(HttpStatus.OK.value(), "좋아요 취소 성공");
     }
 }
