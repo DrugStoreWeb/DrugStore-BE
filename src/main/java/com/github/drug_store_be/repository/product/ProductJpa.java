@@ -34,6 +34,6 @@ public interface ProductJpa extends JpaRepository<Product,Integer> {
     Product findTopByOrderByReviewAvgDesc();
 //
 //    List<Product> findByBrandOrProductNameContain(String keyword);
-    @Query("SELECT p FROM Product p WHERE p.category=:category")
+    @Query("SELECT p FROM Product p WHERE p.category.categoryId=:category")
     List<Product> findByCategory(int category);
 }
