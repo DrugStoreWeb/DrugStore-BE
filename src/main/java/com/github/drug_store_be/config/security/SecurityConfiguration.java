@@ -29,8 +29,8 @@ public class SecurityConfiguration {
                 .authorizeRequests((requests) -> requests
                         .requestMatchers("/resources/static/**","/auth/sign-up",
                                 "/auth/login","/auth/email-check","/auth/nickname-check","/product/detail/**","/product/review/**").permitAll()
-                        .anyRequest().authenticated())
-                .exceptionHandling((exception) -> exception
+//                        .anyRequest().authenticated())
+                ).exceptionHandling((exception) -> exception
                         .authenticationEntryPoint(new CustomerAuthenticationEntryPoint())
                         .accessDeniedHandler(new CustomerAccessDeniedHandler()))
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);

@@ -16,4 +16,5 @@ public interface ReviewJpa extends JpaRepository<Review, Integer> {
     Page<Review> findByProductOrderByCreateAtDesc(Product product,Pageable pageable);
     Page<Review> findByProductOrderByReviewScoreDesc(Product product,Pageable pageable);
     Page<Review> findByProductOrderByReviewScoreAsc(Product product,Pageable pageable);
+
 }

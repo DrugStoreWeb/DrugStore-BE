@@ -22,6 +22,8 @@ import com.github.drug_store_be.web.DTO.Detail.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -45,38 +47,21 @@ public class DetailService {
     private final UserJpa userJpa;
     private final LikesJpa likesJpa;
     private final QuestionAnswerJpa questionAnswerJpa;
-
+    @Cacheable(value = "productDetails",key = "#productId")
     public ResponseDto productDetailResult(Integer productId, CustomUserDetails customUserDetails) {
         User user =userJpa.findById(customUserDetails.getUserId())
                 .orElseThrow(()-> new NotFoundException("토큰에 해당하는 유저를 찾을 수 없습니다."));
         Product product = productJpa.findById(productId)
                 .orElseThrow(()-> new NotFoundException(productId+"에 해당하는 상세 페이지를 찾을 수 없습니다."));
         List<Review> reviewListByProduct =reviewJpa.findAllByProduct(product);
-        List<Integer> reviewScoreList = reviewListByProduct.stream().map(Review::getReviewScore).collect(Collectors.toList());
-//        int reviewScoreSum = reviewScoreList.stream().mapToInt((i)->i).sum();
         int reviewCount= reviewListByProduct.size();
-//        Double reviewAvg = reviewScoreSum / (double)reviewCount;
         List<ProductPhoto> productPhotosByProduct=productPhotoJpa.findAllByProduct(product);
         List<Options> optionsByProduct = optionsJpa.findAllByProduct(product);
         List<ProductImg> productImgs = productPhotosByProduct.stream().map(ProductImg::new).toList();
         List<ProductOption> productOptions = optionsByProduct.stream().map(ProductOption::new).toList();
-        ProductDetailResponse productDetailResponse= ProductDetailResponse.builder()
-                .productId(productId)
-                .productName(product.getProductName())
-                .sales(product.getProductDiscount())
-                .price(product.getPrice())
-                .finalPrice(product.getFinalPrice())
-                .productImg(productImgs)
-                .reviewCount(reviewCount)
-                .reviewAvg(product.getReviewAvg())
-                .best(product.isBest())
-                .brandName(product.getBrand())
-                .productOptions(productOptions)
-                .build();
-
+        ProductDetailResponse productDetailResponse = new ProductDetailResponse(product,productImgs,reviewCount,productOptions);
             if (likesJpa.existsByUserAndProduct(user,product)) {
                 productDetailResponse.setIsLike(true);
-                log.error(likesJpa.existsByUserAndProduct(user,product)+"는");
                 return new ResponseDto(HttpStatus.OK.value(), "조회 성공",productDetailResponse);
             }else {
                 productDetailResponse.setIsLike(false);
@@ -84,40 +69,25 @@ public class DetailService {
             }
 
     }
-
+    @Cacheable(value = "productDetails",key = "#productId")
     public ResponseDto productDetailResultByNotLogin(Integer productId) {
         Product product = productJpa.findById(productId)
                 .orElseThrow(()-> new NotFoundException(productId+"에 해당하는 상세 페이지를 찾을 수 없습니다."));
         List<Review> reviewListByProduct =reviewJpa.findAllByProduct(product);
-        List<Integer> reviewScoreList = reviewListByProduct.stream().map(Review::getReviewScore).collect(Collectors.toList());
-//        int reviewScoreSum = reviewScoreList.stream().mapToInt((i)->i).sum();
-        int reviewCount= reviewListByProduct.size();
-//        Double reviewAvg = reviewScoreSum / (double)reviewCount;
+        Integer reviewCount= reviewListByProduct.size();
+
         List<ProductPhoto> productPhotosByProduct=productPhotoJpa.findAllByProduct(product);
         List<Options> optionsByProduct = optionsJpa.findAllByProduct(product);
         List<ProductImg> productImgs = productPhotosByProduct.stream().map(ProductImg::new).toList();
         List<ProductOption> productOptions = optionsByProduct.stream().map(ProductOption::new).toList();
-        ProductDetailResponse productDetailResponse=  ProductDetailResponse.builder()
-                .productId(productId)
-                .productName(product.getProductName())
-                .sales(product.getProductDiscount())
-                .price(product.getPrice())
-                .finalPrice(product.getFinalPrice())
-                .productImg(productImgs)
-                .reviewCount(reviewCount)
-                .reviewAvg(product.getReviewAvg())
-                .isLike(false)
-                .best(product.isBest())
-                .brandName(product.getBrand())
-                .productOptions(productOptions)
-                .build();
+        ProductDetailResponse productDetailResponse = new ProductDetailResponse(product,productImgs,reviewCount,productOptions);
+        productDetailResponse.setIsLike(false);
         return new ResponseDto(HttpStatus.OK.value(), "조회 성공",productDetailResponse);
     }
-
+    @Cacheable(value = "productDetails",key = "#productId")
     public ResponseDto productReviewResult(Integer productId, Integer pageNum, String criteria) {
         Product product = productJpa.findById(productId)
                 .orElseThrow(()-> new NotFoundException("해당 상품을 찾을 수 없습니다."));
-
         Pageable pageable = PageRequest.of(pageNum,10);
         if (criteria.equals("createAt")){
             Page<Review> reviewPage =reviewJpa.findByProductOrderByCreateAtDesc(product,pageable);
@@ -132,10 +102,14 @@ public class DetailService {
             Page<ReviewRetrieval> reviewRetrievalPage=reviewPage.map(ReviewRetrieval::new);
             return new ResponseDto(HttpStatus.OK.value(),"조회성공",reviewRetrievalPage);
         }else {
-            throw new NotFoundException("해당 정렬은 없는 정렬입니다.");
+            Page<Review> reviewPage =reviewJpa.findByProductOrderByCreateAtDesc(product,pageable);
+            Page<ReviewRetrieval> reviewRetrievalPage=reviewPage.map(ReviewRetrieval::new);
+            return new ResponseDto(HttpStatus.OK.value(),"조회성공",reviewRetrievalPage);
         }
     }
+
 @Transactional
+@CacheEvict(value = "productDetails",allEntries = true)
     public ResponseDto answerByAdminResult(Integer questionId, CustomUserDetails customUserDetails, Answer answer) {
         String userEmail = customUserDetails.getEmail();
         User user = userJpa.findByEmailFetchJoin(userEmail)
