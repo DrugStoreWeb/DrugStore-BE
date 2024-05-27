@@ -5,6 +5,7 @@ import com.github.drug_store_be.repository.like.LikesJpa;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductJpa;
 import com.github.drug_store_be.repository.user.UserJpa;
+import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageAdImg;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageProductResponse;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageResponse;
@@ -119,20 +120,11 @@ public class MainService{
     //user가 product를 like했는가 여부를 알기 위한 userId 찾기
     private Integer getUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal(); // Object 타입으로 받음
+        String principal = authentication.getName();
 
-        // principal이 String 타입인 경우 처리
-        if (principal instanceof String) {
-            String userEmail = (String) principal; // 캐스팅
-            Integer userId = userJpa.findByEmail(userEmail);
+            String Email = principal; // 캐스팅
+            int userId = userJpa.findByEmail(Email);
             return userId;
-        } else {
-            // principal이 User 타입인 경우 처리
-            User user = (User) principal; // 캐스팅
-            String userEmail = user.getUsername();
-            Integer userId = userJpa.findByEmail(userEmail);
-            return userId;
-        }
     }
 
     //MainResponse에 필요한 값과 정렬에 필요한 값을 합쳐 놓은 dto
