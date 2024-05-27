@@ -6,10 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
 public interface LikesJpa extends JpaRepository<Likes,Integer> {
     List<Likes> findByUser(User user);
-    void deleteByUserAndProduct(User user, Product product);
+    boolean existsByUserAndProduct(User user, Product product);
+    Optional<Likes> findByUserAndProduct(User user, Product product);
 }

@@ -1,9 +1,6 @@
 package com.github.drug_store_be.web.advice;
 
-import com.github.drug_store_be.service.exceptions.CAuthenticationEntryPointException;
-import com.github.drug_store_be.service.exceptions.InvalidValueException;
-import com.github.drug_store_be.service.exceptions.NotAcceptException;
-import com.github.drug_store_be.service.exceptions.NotFoundException;
+import com.github.drug_store_be.service.exceptions.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -54,5 +51,13 @@ public class ExceptionControllerAdvice {
         log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + ae.getMessage());
         ResponseDto responseDto = new ResponseDto(HttpStatus.UNAUTHORIZED.value(), ae.getMessage());
         return new ResponseEntity<>(responseDto, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<ResponseDto> handleAlreadyExistsException(AlreadyExistsException aee){
+        log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + aee.getMessage());
+        ResponseDto responseDto = new ResponseDto(HttpStatus.CONFLICT.value(), aee.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.CONFLICT);
     }
 }
