@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface LikesJpa extends JpaRepository<Likes,Integer> {
 
@@ -13,7 +15,7 @@ public interface LikesJpa extends JpaRepository<Likes,Integer> {
 //    static Product findTopByOrderByLikesDesc();
 
     @Query("SELECT l FROM Likes l WHERE l.user.userId = :userId AND l.product.productId = :productId")
-    Likes findByUserIdAndProductId(int userId, Integer productId);
+    Likes findByUserIdAndProductId(Optional<Integer> userId, Integer productId);
 
     @Query("SELECT COUNT(l.likesId) FROM Likes l WHERE l.product.productId = :productId")
     Integer findByProductId(@Param("productId") Integer productId);

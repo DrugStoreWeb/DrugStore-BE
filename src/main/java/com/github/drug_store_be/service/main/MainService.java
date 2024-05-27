@@ -14,15 +14,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -70,7 +69,7 @@ public class MainService{
     }
 
     //페이징+정렬
-    public Page<MainPageProductResponse> CategoryPage(int category, String sortBy, org.springframework.data.domain.Pageable pageable) {
+    public Page<MainPageProductResponse> CategoryPage(int category, String sortBy, Pageable pageable) {
         //카테고리별 상품 찾기
         List<Product> productList=productJpa.findByCategory(category);
 
@@ -81,19 +80,17 @@ public class MainService{
         List<MainPageProductResponse> sortedMainPageProductResponseList=pageSorting(sortBy,productListQueryDtoList);
 
         //List->page
-        PageRequest pageRequest = PageRequest.of(0, 24);
-
-        int start = (int) pageRequest.getOffset();
-        int end = Math.min((start + pageRequest.getPageSize()), sortedMainPageProductResponseList.size());
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), sortedMainPageProductResponseList.size());
         List<MainPageProductResponse> pageContent = sortedMainPageProductResponseList.subList(start, end);
 
-        Page<MainPageProductResponse> page = new PageImpl<>(pageContent, pageRequest, sortedMainPageProductResponseList.size());
+        Page<MainPageProductResponse> page = new PageImpl<>(pageContent, pageable, sortedMainPageProductResponseList.size());
         return page;
     }
 
 
     //페이징+정렬+검색
-    public Page<MainPageProductResponse> findPage(String keyword, String sortBy, org.springframework.data.domain.Pageable pageable) {
+    public Page<MainPageProductResponse> findPage(String keyword, String sortBy, Pageable pageable) {
         //브랜드와 상품 이름으로 검색
         List<Product> productList=productJpa.findByBrandOrProductNameContaining(keyword);
 
@@ -103,38 +100,38 @@ public class MainService{
         //sorting
         List<MainPageProductResponse> sortedMainPageProductResponseList=pageSorting(sortBy.toString(),productListQueryDtoList);
 
-        //List->page
-        PageRequest pageRequest = PageRequest.of(0, 24);
+        // List -> Page
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), sortedMainPageProductResponseList.size());
 
-        int start = (int) pageRequest.getOffset();
-        int end = Math.min((start + pageRequest.getPageSize()), sortedMainPageProductResponseList.size());
+        if (start > end) {
+            // start 인덱스가 end 인덱스보다 큰 경우 빈 페이지를 반환
+            return new PageImpl<>(Collections.emptyList(), pageable, sortedMainPageProductResponseList.size());
+        }
+
         List<MainPageProductResponse> pageContent = sortedMainPageProductResponseList.subList(start, end);
-
-        Page<MainPageProductResponse> page = new PageImpl<>(pageContent, pageRequest, sortedMainPageProductResponseList.size());
-        return page;
+        return new PageImpl<>(pageContent, pageable, sortedMainPageProductResponseList.size());
     }
 
 
     /**메소드 영역**/
 
     //user가 product를 like했는가 여부를 알기 위한 userId 찾기
-    private Integer getUserId() {
+    private Optional<Integer> getUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String principal = authentication.getName();
-
-            String Email = principal; // 캐스팅
-            int userId = userJpa.findByEmail(Email);
+        String Email = authentication.getName();
+            Optional<Integer> userId = userJpa.findByEmail(Email);
             return userId;
     }
 
     //MainResponse에 필요한 값과 정렬에 필요한 값을 합쳐 놓은 dto
     public List<productListQueryDto> getProductListQueryDto(List<Product> productList) {
-        Integer userId = getUserId();
+        Optional<Integer> userId = getUserId();
         List<productListQueryDto> plqdList = new ArrayList<>();
 
         for (Product product : productList) {
             Likes userLike;
-            if(userId!=null) {
+            if(userId.isPresent()) {
                 userLike= likesJpa.findByUserIdAndProductId(userId, product.getProductId());
             }else {userLike =null;}
             productJpa.updateProductSales();
