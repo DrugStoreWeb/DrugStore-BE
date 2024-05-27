@@ -2,11 +2,8 @@ package com.github.drug_store_be.service.main;
 
 import com.github.drug_store_be.repository.like.Likes;
 import com.github.drug_store_be.repository.like.LikesJpa;
-import com.github.drug_store_be.repository.option.OptionsJpa;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductJpa;
-import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
-import com.github.drug_store_be.repository.review.ReviewJpa;
 import com.github.drug_store_be.repository.user.UserJpa;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageAdImg;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageProductResponse;
@@ -16,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -33,14 +29,9 @@ import java.util.stream.Collectors;
 @Service
 public class MainService{
     private final ProductJpa productJpa;
-    private final ProductPhotoJpa productPhotoJpa;
     private final LikesJpa likesJpa;
     private final UserJpa userJpa;
-    private final ReviewJpa reviewJpa;
-    private final OptionsJpa optionsJpa;
-    private String category;
-    private String sortBy;
-    private Pageable pageable;
+
 
 
     //정렬+광고
@@ -124,6 +115,7 @@ public class MainService{
 
 
     /**메소드 영역**/
+
     //user가 product를 like했는가 여부를 알기 위한 userId 찾기
     private Integer getUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -165,7 +157,7 @@ public class MainService{
                     .product_img(product.getMainImgUrls(product))
                     .best(product.isBest())
                     .likes(userLike != null && userLike.getLikesId() != null)
-                    .sales(product.getProductSales() != null)
+                    .sales(product.getProductDiscount()>0)
                     .product_sales(product.getProductSales())
                     .product_like(productLike)
                     .review_avg(product.getReviewAvg())
@@ -190,7 +182,7 @@ public class MainService{
                 comparator = Comparator.comparing(productListQueryDto::getProduct_id, Comparator.reverseOrder());
                 break;
             case "price":
-                comparator = Comparator.comparing(productListQueryDto::getPrice, Comparator.reverseOrder());
+                comparator = Comparator.comparing(productListQueryDto::getPrice, Comparator.naturalOrder());
                 break;
             case "reviews":
                 comparator = Comparator.comparing(productListQueryDto::getReview_avg, Comparator.reverseOrder());
