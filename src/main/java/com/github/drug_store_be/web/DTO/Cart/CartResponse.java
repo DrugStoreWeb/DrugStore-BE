@@ -12,7 +12,7 @@ import java.util.List;
 public class CartResponse {
     private Integer cartId;
     private Integer productId;
-    private List<String> productPhotoUrls;
+    private String productPhotoUrl;
     private String brand;
     private String productName;
     private Integer optionId;

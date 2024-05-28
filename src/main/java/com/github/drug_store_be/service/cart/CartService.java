@@ -11,13 +11,10 @@ import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserJpa;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
-import com.github.drug_store_be.service.exceptions.CAuthenticationEntryPointException;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.Cart.CartRequest;
 import com.github.drug_store_be.web.DTO.Cart.CartResponse;
 import com.github.drug_store_be.web.DTO.ResponseDto;
-import jakarta.persistence.EntityNotFoundException;
-import org.hibernate.annotations.NotFound;
 import org.springframework.http.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -49,10 +46,11 @@ public class CartService {
                     Options options = cart.getOptions();
                     Product product = options.getProduct();
 
-                    List<String> productPhotoUrls = productPhotoJpa.findByProduct(product).stream()
+                    String productPhotoUrl = productPhotoJpa.findByProduct(product).stream()
                             .filter(ProductPhoto::isPhotoType)
+                            .findFirst()
                             .map(ProductPhoto::getPhotoUrl)
-                            .collect(Collectors.toList());
+                            .orElse(null);
 
                     return CartResponse.builder()
                             .cartId(cart.getCartId())
@@ -62,7 +60,7 @@ public class CartService {
                             .optionId(options.getOptionsId())
                             .quantity(cart.getQuantity())
                             .price(product.getPrice())
-                            .productPhotoUrls(productPhotoUrls)
+                            .productPhotoUrl(productPhotoUrl)
                             .productDiscount(product.getProductDiscount())
                             .finalPrice(product.getFinalPrice())
                             .build();
@@ -79,6 +77,10 @@ public class CartService {
         Product product = productJpa.findById(cartRequest.getProductId())
                 .orElseThrow(() -> new NotFoundException("Product not found"));
 
+        if (!product.isProductStatus()){
+            throw new IllegalArgumentException("Product is not available for sale");
+        }
+
         Options options = optionsJpa.findById(cartRequest.getOptionsId())
                 .orElseThrow(() -> new NotFoundException("Options not found"));
 
@@ -91,17 +93,16 @@ public class CartService {
         if (!existingCarts.isEmpty()) {
             Cart existingCart = existingCarts.get(0);
             totalQuantity += existingCart.getQuantity();
+            if (totalQuantity > options.getStock()) {
+                throw new IllegalArgumentException("No stock available for the selected option");
+            }
+            existingCart.setQuantity(totalQuantity);
+            cartJpa.save(existingCart);
+            return new ResponseDto(HttpStatus.OK.value(), "Cart item quantity increased successfully");
         }
 
         if (totalQuantity > options.getStock()) {
             throw new IllegalArgumentException("No stock available for the selected option");
-        }
-
-        if (!existingCarts.isEmpty()) {
-            Cart existingCart = existingCarts.get(0);
-            existingCart.setQuantity(existingCart.getQuantity() + 1);
-            cartJpa.save(existingCart);
-            return new ResponseDto(HttpStatus.OK.value(), "Cart item quantity increased by 1 successfully");
         }
 
         Cart cart = Cart.builder()
@@ -134,6 +135,12 @@ public class CartService {
         if (quantity <= 0) {
             cartJpa.delete(cart);
             return new ResponseDto(HttpStatus.OK.value(), "Cart item removed successfully");
+        }
+
+        Product product = cart.getOptions().getProduct();
+
+        if (!product.isProductStatus()){
+            throw new IllegalArgumentException("Product is not available for sale");
         }
 
         Options currentOptions = cart.getOptions();
