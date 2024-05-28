@@ -18,6 +18,14 @@ spring:
   jpa:
     show-sql: true
 
+aws:
+  s3:
+    credentials:
+      access-key: ${ACCESS_KEY}
+      secret-key: ${SECRET_KEY}
+    bucket-name: ${BUCKET_NAME}
+    region: ap-northeast-2
+
 jwtpassword:
   source: ${JWT_SECRET_KEY}
 
