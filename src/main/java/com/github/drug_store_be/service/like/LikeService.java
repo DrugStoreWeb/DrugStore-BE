@@ -55,6 +55,7 @@ public class LikeService {
                                 .findFirst()
                                 .orElse("");
                         myLikesResponse.setProductImag(productMainPhoto);
+                        myLikesResponse.setLike(true);
                         return myLikesResponse;
                     })
                     .collect(Collectors.toList());

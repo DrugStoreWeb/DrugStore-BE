@@ -17,4 +17,5 @@ public class MyLikesResponse {
     private String productImag;
     private Integer price;
     private String brandName;
+    private boolean isLike;
 }
