@@ -47,6 +47,7 @@ public class DetailService {
     private final UserJpa userJpa;
     private final LikesJpa likesJpa;
     private final QuestionAnswerJpa questionAnswerJpa;
+
     @Cacheable(value = "productDetails",key = "#productId")
     public ResponseDto productDetailResult(Integer productId, CustomUserDetails customUserDetails) {
         User user =userJpa.findById(customUserDetails.getUserId())
@@ -133,5 +134,25 @@ public class DetailService {
         }
 
 
+    }
+
+    public ResponseDto productQuestionAndAnswer(Integer productId) {
+//        [
+    //        {
+    //            "question" : "언제 입고되나요",
+    //                "answer" : null,
+    //                "user_name" : "jieun",
+    //                "created_at" : "2024-05-27",
+    //                "product_name" : "어노브 대용량 딥 데미지 트리트먼트",
+    //                "brand": "어노브",
+    //                "question_id" : 1,
+    //                "question_status" : "답변대기" 0 = 비활성(답변대기), 1 = 활성(답변완료)
+    //         }
+    //     ]
+        Product product = productJpa.findById(productId)
+                .orElseThrow(()-> new NotFoundException("해당 상품을 찾을 수 없습니다."));
+        QuestionAnswer question = questionAnswerJpa.findByProductAndQuestion(product);
+        
+        return null;
     }
 }

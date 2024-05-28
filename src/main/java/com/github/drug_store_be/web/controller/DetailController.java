@@ -39,4 +39,8 @@ public class DetailController {
 
     }
 
+    @GetMapping("question")
+    public ResponseDto getProductQAndA(@RequestParam("product-id")Integer productId){
+        return detailService.productQuestionAndAnswer(productId);
+    }
 }
