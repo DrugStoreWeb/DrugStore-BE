@@ -8,7 +8,6 @@ import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserJpa;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
-import com.github.drug_store_be.service.exceptions.AlreadyExistsException;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.Like.MyLikesResponse;
 import com.github.drug_store_be.web.DTO.ResponseDto;
@@ -65,10 +64,6 @@ public class LikeService {
         User user = findUser(customUserDetails);
         Product product = findProduct(productId);
 
-        if(likesJpa.existsByUserAndProduct(user, product)){
-            throw new AlreadyExistsException("이미 좋아요를 누른 제품입니다.");
-        }
-
         Likes like = Likes.builder()
                 .user(user)
                 .product(product)
@@ -88,11 +83,8 @@ public class LikeService {
         User user = findUser(customUserDetails);
         Product product = findProduct(productId);
 
-        Likes like = likesJpa.findByUserAndProduct(user, product)
-                        .orElseThrow(() -> new NotFoundException("해당 제품에 대한 좋아요를 찾을 수 없습니다."));
-
         try{
-            likesJpa.delete(like);
+            likesJpa.deleteByUserAndProduct(user, product);
         }catch (DataAccessException e){
             throw new RuntimeException("좋아요 취소 중 오류가 발생하였습니다.");
         }

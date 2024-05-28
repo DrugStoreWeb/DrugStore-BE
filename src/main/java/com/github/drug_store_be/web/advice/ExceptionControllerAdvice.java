@@ -52,12 +52,4 @@ public class ExceptionControllerAdvice {
         ResponseDto responseDto = new ResponseDto(HttpStatus.UNAUTHORIZED.value(), ae.getMessage());
         return new ResponseEntity<>(responseDto, HttpStatus.UNAUTHORIZED);
     }
-
-    @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(AlreadyExistsException.class)
-    public ResponseEntity<ResponseDto> handleAlreadyExistsException(AlreadyExistsException aee){
-        log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + aee.getMessage());
-        ResponseDto responseDto = new ResponseDto(HttpStatus.CONFLICT.value(), aee.getMessage());
-        return new ResponseEntity<>(responseDto, HttpStatus.CONFLICT);
-    }
 }
