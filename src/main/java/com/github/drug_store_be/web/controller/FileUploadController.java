@@ -20,10 +20,10 @@ import java.io.IOException;
 public class FileUploadController {
     private final AmazonS3Client amazonS3Client;
 
-    @Value("${aws.s3.bucket-name}")
+    @Value("${cloud.aws.s3.bucket-name}")
     private String bucket;
 
-    @PostMapping
+    @PostMapping("/pics")
     public ResponseDto uploadFile(@RequestParam("file") MultipartFile file){
         try{
             String fileName= file.getOriginalFilename();
