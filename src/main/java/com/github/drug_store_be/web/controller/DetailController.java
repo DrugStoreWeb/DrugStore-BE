@@ -61,4 +61,10 @@ public class DetailController {
                                    @RequestBody QuestionRequest questionRequest){
         return detailService.addQuestionResult(customUserDetails,productId, questionRequest);
     }
+
+    @DeleteMapping("/question/del")
+    public ResponseDto delQuestion(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                   @RequestParam("question-answer-id")Integer questionAnswerId){
+        return detailService.delQuestionResult(customUserDetails,questionAnswerId);
+    }
 }

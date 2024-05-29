@@ -183,4 +183,21 @@ public class DetailService {
             return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "문의글 등록 중 오류가 발생했습니다.");
         }
     }
+
+    public ResponseDto delQuestionResult(CustomUserDetails customUserDetails, Integer questionAnswerId) {
+        try{
+            User user = userJpa.findById(customUserDetails.getUserId())
+                    .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
+            QuestionAnswer questionAnswer = questionAnswerJpa.findByQuestionAnswerIdAndUser(questionAnswerId, user)
+                    .orElseThrow(() -> new NotFoundException("해당 Q&A를 찾을 수 없습니다."));
+            questionAnswerJpa.delete(questionAnswer);
+            return new ResponseDto(HttpStatus.OK.value(), "등록하신 문의글이 삭제되었습니다.");
+        }catch(NotFoundException e){
+            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        }catch(DataAccessException e){
+            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "데이터 오류:" + e.getMessage());
+        }catch(Exception e){
+            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "문의글 삭제 중 오류가 발생했습니다.");
+        }
+    }
 }
