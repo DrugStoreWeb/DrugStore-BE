@@ -23,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +31,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -106,8 +108,8 @@ public class DetailService {
         }
     }
 
-@Transactional
-@CacheEvict(value = "productDetails",allEntries = true)
+    @Transactional
+    @CacheEvict(value = "productDetails",allEntries = true)
     public ResponseDto answerByAdminResult(Integer questionId, CustomUserDetails customUserDetails, Answer answer) {
         String userEmail = customUserDetails.getEmail();
         User user = userJpa.findByEmailFetchJoin(userEmail)
@@ -129,8 +131,6 @@ public class DetailService {
             e.printStackTrace();
             return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "답변 작성에 실패했습니다.");
         }
-
-
     }
 
     public List<ProductQAndAResponse> productQuestionAndAnswer(Integer productId) {
@@ -156,4 +156,31 @@ public class DetailService {
                 .collect(Collectors.toList());
     }
 
+    public ResponseDto addQuestionResult(CustomUserDetails customUserDetails, Integer productId, QuestionRequest questionRequest) {
+        try{
+            User user = userJpa.findById(customUserDetails.getUserId())
+                    .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
+            Product product = productJpa.findById(productId)
+                    .orElseThrow(() -> new NotFoundException("해당 상품을 찾을 수 없습니다."));
+
+            if(questionRequest.getQuestion() == null || questionRequest.getQuestion().isEmpty()){
+                return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "문의 내용을 입력 바랍니다.");
+            }
+
+            QuestionAnswer questionAnswer = new QuestionAnswer();
+            questionAnswer.setUser(user);
+            questionAnswer.setProduct(product);
+            questionAnswer.setQuestion(questionRequest.getQuestion());
+            questionAnswer.setCreateAt(LocalDate.now());
+            questionAnswer.setQuestionStatus(false);
+            questionAnswerJpa.save(questionAnswer);
+            return new ResponseDto(HttpStatus.OK.value(), "문의글이 등록되었습니다.");
+        }catch(NotFoundException e){
+            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        }catch(DataAccessException e){
+            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "데이터 오류:" + e.getMessage());
+        }catch(Exception e){
+            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "문의글 등록 중 오류가 발생했습니다.");
+        }
+    }
 }

@@ -6,6 +6,7 @@ import com.github.drug_store_be.service.detail.DetailService;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.Detail.Answer;
 import com.github.drug_store_be.web.DTO.Detail.ProductQAndAResponse;
+import com.github.drug_store_be.web.DTO.Detail.QuestionRequest;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -52,5 +53,12 @@ public class DetailController {
         } catch (NotFoundException e) {
             return new ResponseDto(HttpStatus.BAD_REQUEST.value(),e.getMessage());
         }
+    }
+
+    @PostMapping("/question")
+    public ResponseDto addQuestion(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                   @RequestParam("product-id")Integer productId,
+                                   @RequestBody QuestionRequest questionRequest){
+        return detailService.addQuestionResult(customUserDetails,productId, questionRequest);
     }
 }
