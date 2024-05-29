@@ -4,9 +4,6 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 
-
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,13 +11,6 @@ import java.time.LocalDate;
 @ToString
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class ProductQAndAResponse {
+public class QuestionRequest {
     private String question;
-    private String answer;
-    private String userName;
-    private LocalDate createdAt;
-    private String productName;
-    private String brand;
-    private Integer questionId;
-    private String questionStatus;
 }

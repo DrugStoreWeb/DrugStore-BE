@@ -4,7 +4,9 @@ import com.github.drug_store_be.repository.product.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface QuestionAnswerJpa extends JpaRepository<QuestionAnswer,Integer> {
-    QuestionAnswer findByProductAndQuestion(Product product);
+    List<QuestionAnswer> findByProduct(Product product);
 }

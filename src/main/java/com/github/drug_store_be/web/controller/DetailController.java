@@ -1,20 +1,25 @@
 package com.github.drug_store_be.web.controller;
 
+import com.github.drug_store_be.repository.like.LikesJpa;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.service.detail.DetailService;
+import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.Detail.Answer;
-import com.github.drug_store_be.web.DTO.Detail.ProductDetailResponse;
+import com.github.drug_store_be.web.DTO.Detail.ProductQAndAResponse;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/product")
 @RequiredArgsConstructor
 public class DetailController {
     private final DetailService detailService;
+    private final LikesJpa likesJpa;
 
     @GetMapping(value = "/detail")
     public ResponseDto productDetail(@RequestParam("product-id") Integer productId , @AuthenticationPrincipal CustomUserDetails customUserDetails){
@@ -39,8 +44,13 @@ public class DetailController {
 
     }
 
-    @GetMapping("question")
+    @GetMapping("/question/list")
     public ResponseDto getProductQAndA(@RequestParam("product-id")Integer productId){
-        return detailService.productQuestionAndAnswer(productId);
+        try {
+            List<ProductQAndAResponse> productQAndAResponseList = detailService.productQuestionAndAnswer(productId);
+            return new ResponseDto(HttpStatus.OK.value(),"조회 성공",productQAndAResponseList);
+        } catch (NotFoundException e) {
+            return new ResponseDto(HttpStatus.BAD_REQUEST.value(),e.getMessage());
+        }
     }
 }

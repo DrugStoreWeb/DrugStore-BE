@@ -1,6 +1,5 @@
 package com.github.drug_store_be.service.detail;
 
-import com.github.drug_store_be.repository.like.Likes;
 import com.github.drug_store_be.repository.like.LikesJpa;
 import com.github.drug_store_be.repository.option.Options;
 import com.github.drug_store_be.repository.option.OptionsJpa;
@@ -27,13 +26,11 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -136,23 +133,27 @@ public class DetailService {
 
     }
 
-    public ResponseDto productQuestionAndAnswer(Integer productId) {
-//        [
-    //        {
-    //            "question" : "언제 입고되나요",
-    //                "answer" : null,
-    //                "user_name" : "jieun",
-    //                "created_at" : "2024-05-27",
-    //                "product_name" : "어노브 대용량 딥 데미지 트리트먼트",
-    //                "brand": "어노브",
-    //                "question_id" : 1,
-    //                "question_status" : "답변대기" 0 = 비활성(답변대기), 1 = 활성(답변완료)
-    //         }
-    //     ]
+    public List<ProductQAndAResponse> productQuestionAndAnswer(Integer productId) {
         Product product = productJpa.findById(productId)
-                .orElseThrow(()-> new NotFoundException("해당 상품을 찾을 수 없습니다."));
-        QuestionAnswer question = questionAnswerJpa.findByProductAndQuestion(product);
-        
-        return null;
+                .orElseThrow(() -> new NotFoundException("해당 상품을 찾을 수 없습니다."));
+        List<QuestionAnswer> questionAnswerList = questionAnswerJpa.findByProduct(product);
+        if (questionAnswerList.isEmpty()){
+            throw new NotFoundException("등록된 Q&A가 없습니다.");
+        }
+        return questionAnswerList.stream()
+                .map(question -> {
+                    ProductQAndAResponse questions = new ProductQAndAResponse();
+                    questions.setQuestion(question.getQuestion());
+                    questions.setAnswer(question.getAnswer());
+                    questions.setUserName(question.getUser().getName());
+                    questions.setCreatedAt(question.getCreateAt());
+                    questions.setProductName(question.getProduct().getProductName());
+                    questions.setBrand(question.getProduct().getBrand());
+                    questions.setQuestionId(question.getQuestionAnswerId());
+                    questions.setQuestionStatus(question.getQuestionStatus() ? "답변완료" : "답변대기");
+                    return questions;
+                })
+                .collect(Collectors.toList());
     }
+
 }
