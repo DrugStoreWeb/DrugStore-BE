@@ -13,11 +13,14 @@ import java.util.List;
 public class ReviewResponse {
     private Integer reviewId;
     private String optionName;
-    private List<String> productImg;
+    private String productImg;
     private String productName;
     private Integer reviewScore;
     private String reviewContent;
     private LocalDate createAt;
+    private Integer price;
+    private String brand;
+    private Integer ordersId;
 }
 
 

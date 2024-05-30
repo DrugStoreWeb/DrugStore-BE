@@ -9,6 +9,7 @@ import com.github.drug_store_be.repository.order.OrdersJpa;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductJpa;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
+import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import com.github.drug_store_be.repository.review.Review;
 import com.github.drug_store_be.repository.review.ReviewJpa;
 import com.github.drug_store_be.repository.user.User;
@@ -28,6 +29,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -41,7 +43,7 @@ public class MypageService {
     private final UserJpa userJpa;
     private final ProductJpa productJpa;
 
-    public ResponseDto addReview(CustomUserDetails customUserDetails, ReviewRequest reviewRequest, int ordersId) throws ReviewException  {
+    public ResponseDto addReview(CustomUserDetails customUserDetails, ReviewRequest reviewRequest, int ordersId) throws ReviewException {
         Integer userId = customUserDetails.getUserId();
 
         if (getReviewStatusForOrder(userId, ordersId)) {
@@ -61,6 +63,7 @@ public class MypageService {
 
         Integer reviewScore = reviewRequest.getReview_score();
         String reviewContent = reviewRequest.getReview_content();
+        String photoUrl = getTruePhotoUrl(product.getProductPhotoList());
 
         if (reviewScore < 0 || reviewScore > 5) {
             throw new IllegalArgumentException("평점은 0부터 5까지 가능합니다.");
@@ -82,8 +85,11 @@ public class MypageService {
                 .optionName(options.getOptionsName())
                 .reviewScore(reviewScore)
                 .reviewContent(reviewContent)
+                .price(review.getOrders().getCart().getOptions().getProduct().getPrice())
+                .brand(review.getOrders().getCart().getOptions().getProduct().getBrand())
+                .ordersId(review.getOrders().getOrdersId())
                 .productName(product.getProductName())
-                .productImg(product.getProductPhotoList().stream().map(ProductPhoto::getPhotoUrl).collect(Collectors.toList()))
+                .productImg(photoUrl)
                 .createAt(savedReview.getCreateAt())
                 .build();
 
@@ -106,6 +112,8 @@ public class MypageService {
 
         Product product = productJpa.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
 
+        String photoUrl = getTruePhotoUrl(product.getProductPhotoList());
+
         if (reviewScore < 0 || reviewScore > 5) {
             throw new IllegalArgumentException("평점은 0부터 5까지 가능합니다.");
         }
@@ -127,8 +135,11 @@ public class MypageService {
                 .optionName(options.getOptionsName())
                 .reviewScore(reviewScore)
                 .reviewContent(reviewContent)
+                .price(review.getOrders().getCart().getOptions().getProduct().getPrice())
+                .brand(review.getOrders().getCart().getOptions().getProduct().getBrand())
+                .ordersId(review.getOrders().getOrdersId())
                 .productName(product.getProductName())
-                .productImg(product.getProductPhotoList().stream().map(ProductPhoto::getPhotoUrl).collect(Collectors.toList()))
+                .productImg(photoUrl)
                 .createAt(updateReview.getCreateAt())
                 .build();
         return new ResponseDto(HttpStatus.OK.value(), "리뷰가 수정되었습니다.", response);
@@ -147,7 +158,7 @@ public class MypageService {
 
             reviewJpa.delete(review);
 
-            return new ResponseDto(HttpStatus.OK.value(),"리뷰가 삭제되었습니다.");
+            return new ResponseDto(HttpStatus.OK.value(), "리뷰가 삭제되었습니다.");
         } else {
             throw new NotFoundException("해당 제품에 대한 리뷰를 찾을 수 없습니다.");
         }
@@ -201,6 +212,51 @@ public class MypageService {
         Optional<Review> existingReview = reviewJpa.findByUserIdAndOrdersId(userId, orderId);
 
         return existingReview.isPresent(); // 리뷰가 존재하면 true, 없으면 false 반환
+    }
+
+    public ResponseDto findAllReviewsByOrdersId(int ordersId, Pageable pageable) {
+        Page<Review> reviews = reviewJpa.findAllReviewsByOrdersId(ordersId, pageable);
+        if (reviews.isEmpty()) {
+            throw new NotFoundException("등록된 리뷰가 존재하지 않습니다.");
+        }
+        Orders orders = ordersJpa.findById(ordersId).orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
+        Integer cartId = orders.getCart().getCartId();
+
+        Cart cart = cartJpa.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
+        Integer optionId = cart.getOptions().getOptionsId();
+
+        Options options = optionsJpa.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
+        Integer productId = options.getProduct().getProductId();
+
+        Product product = productJpa.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
+
+        String photoUrl = getTruePhotoUrl(product.getProductPhotoList());
+
+        List<ReviewResponse> reviewResponses = reviews.stream()
+                .map(review -> ReviewResponse.builder()
+                        .reviewId(review.getReviewId())
+                        .reviewScore(review.getReviewScore())
+                        .reviewContent(review.getReviewContent())
+                        .productImg(photoUrl)
+                        .ordersId(review.getOrders().getOrdersId())
+                        .productName(review.getOrders().getCart().getOptions().getProduct().getProductName())
+                        .price(review.getOrders().getCart().getOptions().getProduct().getPrice())
+                        .optionName(review.getOrders().getCart().getOptions().getOptionsName())
+                        .brand(review.getOrders().getCart().getOptions().getProduct().getBrand())
+                        .createAt(review.getCreateAt())
+                        .build())
+                .collect(Collectors.toList());
+
+        return new ResponseDto(HttpStatus.OK.value(), "", reviewResponses);
+    }
+
+    public String getTruePhotoUrl(List<ProductPhoto> productPhotoList) {
+        Optional<String> optionalPhotoUrl = productPhotoList.stream()
+                .filter(ProductPhoto::isPhotoType) // type이 true인 경우만 필터링
+                .map(ProductPhoto::getPhotoUrl) // photoUrl만 추출
+                .findFirst();
+
+        return optionalPhotoUrl.orElse("");
     }
 }
 
