@@ -1,5 +1,6 @@
 package com.github.drug_store_be.web.advice;
 
+import com.amazonaws.services.ec2.model.Storage;
 import com.github.drug_store_be.service.exceptions.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
@@ -69,5 +70,12 @@ public class ExceptionControllerAdvice {
         return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
     }
 
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(StorageUpdateFailedException.class)
+    public ResponseEntity<ResponseDto> handleFileUploadFailedException(StorageUpdateFailedException sufe){
+        ResponseDto responseDto = new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), sufe.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 }
