@@ -26,7 +26,7 @@ public class MainController {
 
 
     @GetMapping(path = "/category/{category}")
-    public ResponseDto mainPageCategory(@PathVariable(value = "category") int category, String sortBy, @PageableDefault(page = 0, size = 24) Pageable pageable) {
+    public ResponseDto mainPageCategory(@PathVariable(value = "category") int category,@RequestParam(defaultValue = "sales")  String sortBy, @PageableDefault(page = 0, size = 24) Pageable pageable) {
         Page<MainPageProductResponse> mainPageProductResponse=mainservice.CategoryPage(category, sortBy,pageable);
         return new ResponseDto(HttpStatus.OK.value(),"카테고리 페이지 조회에 성공했습니다.",mainPageProductResponse);
     }

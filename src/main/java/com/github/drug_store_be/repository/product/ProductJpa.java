@@ -17,13 +17,16 @@ public interface ProductJpa extends JpaRepository<Product,Integer> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE Product p SET p.productSales = p.originalStock-((SELECT SUM(o.stock) FROM Options o))")
+    @Query("UPDATE Product p SET p.productSales = CASE " +
+            "WHEN p.originalStock = 0 THEN 0 " +
+            "ELSE (p.originalStock - (SELECT COALESCE(SUM(o.stock), 0) FROM Options o WHERE o.product.productId = p.productId)) / p.originalStock * 100 " +
+            "END")
     void updateProductSales();
 
     @Transactional
     @Modifying
     @Query("UPDATE Product p " +
-            "SET p.reviewAvg = (SELECT AVG(r.reviewScore) FROM Review r WHERE r.product = p) " +
+            "SET p.reviewAvg = (SELECT ROUND(AVG(r.reviewScore),1) FROM Review r WHERE r.product = p) " +
             "WHERE p IN (SELECT r.product FROM Review r)")
     void updateReviewAvg();
 
@@ -32,8 +35,6 @@ public interface ProductJpa extends JpaRepository<Product,Integer> {
 
     @Query("SELECT p FROM Product p ORDER BY p.reviewAvg DESC limit 1")
     Product findTopByOrderByReviewAvgDesc();
-//
-//    List<Product> findByBrandOrProductNameContain(String keyword);
     @Query("SELECT p FROM Product p WHERE p.category.categoryId=:category")
     List<Product> findByCategory(int category);
 

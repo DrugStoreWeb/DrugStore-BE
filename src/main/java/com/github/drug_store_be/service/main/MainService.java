@@ -79,15 +79,18 @@ public class MainService{
         //sorting
         List<MainPageProductResponse> sortedMainPageProductResponseList=pageSorting(sortBy,productListQueryDtoList);
 
-        //List->page
+        // List -> Page
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), sortedMainPageProductResponseList.size());
+
+        if (start > end) {
+            // start 인덱스가 end 인덱스보다 큰 경우 빈 페이지를 반환
+            return new PageImpl<>(Collections.emptyList(), pageable, sortedMainPageProductResponseList.size());
+        }
+
         List<MainPageProductResponse> pageContent = sortedMainPageProductResponseList.subList(start, end);
-
-        Page<MainPageProductResponse> page = new PageImpl<>(pageContent, pageable, sortedMainPageProductResponseList.size());
-        return page;
+        return new PageImpl<>(pageContent, pageable, sortedMainPageProductResponseList.size());
     }
-
 
     //페이징+정렬+검색
     public Page<MainPageProductResponse> findPage(String keyword, String sortBy, Pageable pageable) {
