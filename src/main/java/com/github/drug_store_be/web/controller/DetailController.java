@@ -62,9 +62,16 @@ public class DetailController {
         return detailService.addQuestionResult(customUserDetails,productId, questionRequest);
     }
 
+    @PutMapping("/question/update")
+    public ResponseDto updateQuestion(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                      @RequestParam("question-id")Integer questionId,
+                                      @RequestBody QuestionRequest questionRequest){
+        return detailService.updateQuestionResult(customUserDetails, questionId,questionRequest);
+    }
+
     @DeleteMapping("/question/del")
     public ResponseDto delQuestion(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-                                   @RequestParam("question-answer-id")Integer questionAnswerId){
-        return detailService.delQuestionResult(customUserDetails,questionAnswerId);
+                                   @RequestParam("question-id")Integer questionId){
+        return detailService.delQuestionResult(customUserDetails,questionId);
     }
 }

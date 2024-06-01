@@ -156,7 +156,8 @@ public class DetailService {
                 .collect(Collectors.toList());
     }
 
-    public ResponseDto addQuestionResult(CustomUserDetails customUserDetails, Integer productId, QuestionRequest questionRequest) {
+    public ResponseDto addQuestionResult(CustomUserDetails customUserDetails, Integer productId,
+                                         QuestionRequest questionRequest) {
         try{
             User user = userJpa.findById(customUserDetails.getUserId())
                     .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
@@ -184,11 +185,37 @@ public class DetailService {
         }
     }
 
-    public ResponseDto delQuestionResult(CustomUserDetails customUserDetails, Integer questionAnswerId) {
+    public ResponseDto updateQuestionResult(CustomUserDetails customUserDetails, Integer questionId,
+                                            QuestionRequest questionRequest) {
         try{
             User user = userJpa.findById(customUserDetails.getUserId())
                     .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
-            QuestionAnswer questionAnswer = questionAnswerJpa.findByQuestionAnswerIdAndUser(questionAnswerId, user)
+            QuestionAnswer questionAnswer = questionAnswerJpa.findByQuestionAnswerIdAndUser(questionId, user)
+                    .orElseThrow(() -> new NotFoundException("해당 Q&A를 찾을 수 없습니다."));
+            if(questionRequest.getQuestion() == null || questionRequest.getQuestion().isEmpty()){
+                return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "문의 내용을 입력 바랍니다.");
+            }
+            if(questionAnswer.getQuestionStatus()){
+                return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "이미 답변이 완료되었습니다. 새로운 문의 글을 작성해 주시기 바랍니다.");
+            }
+            questionAnswer.setUser(user);
+            questionAnswer.setQuestion(questionRequest.getQuestion());
+            questionAnswerJpa.save(questionAnswer);
+            return new ResponseDto(HttpStatus.OK.value(),"해당 Q&A가 수정되었습니다.");
+        }catch(NotFoundException e){
+            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        }catch(DataAccessException e){
+            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "데이터 오류:" + e.getMessage());
+        }catch(Exception e){
+            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "문의글 수정 중 오류가 발생했습니다.");
+        }
+    }
+
+    public ResponseDto delQuestionResult(CustomUserDetails customUserDetails, Integer questionId) {
+        try{
+            User user = userJpa.findById(customUserDetails.getUserId())
+                    .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
+            QuestionAnswer questionAnswer = questionAnswerJpa.findByQuestionAnswerIdAndUser(questionId, user)
                     .orElseThrow(() -> new NotFoundException("해당 Q&A를 찾을 수 없습니다."));
             questionAnswerJpa.delete(questionAnswer);
             return new ResponseDto(HttpStatus.OK.value(), "등록하신 문의글이 삭제되었습니다.");
