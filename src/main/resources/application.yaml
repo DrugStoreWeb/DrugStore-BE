@@ -37,5 +37,8 @@ jasypt:
 jwtpassword:
   source: ENC(w2RTaxjoAr3LtJK5AtxFGIGrsu6QwayI)
 
+pay:
+  admin-key: ENC(Ysfi34R/drtyXOwIx3USsi57khyAY7y+lMEsBk9KwtuZjo1PpZ/OirmoLBaUxVVA)
+
   logging:
     level: debug
