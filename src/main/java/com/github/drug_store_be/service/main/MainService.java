@@ -35,7 +35,7 @@ public class MainService{
 
 
     //정렬+광고
-    public MainPageResponse mainpage(String sortBy) {
+    public MainPageResponse mainpage(String sortBy,Pageable pageable) {
         //모든 상품 찾기
         List<Product> productList=productJpa.findAll();
 
@@ -44,6 +44,12 @@ public class MainService{
 
         //sorting
         List<MainPageProductResponse> sortedMainPageProductResponseList=pageSorting(sortBy,productListQueryDtoList);
+
+        // Pageable로 페이징 처리
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), sortedMainPageProductResponseList.size());
+        List<MainPageProductResponse> paginatedList = sortedMainPageProductResponseList.subList(start, end);
+        Page<MainPageProductResponse> paginatedResult = new PageImpl<>(paginatedList, pageable, sortedMainPageProductResponseList.size());
 
         //광고 이미지
         productJpa.updateReviewAvg();
@@ -59,10 +65,14 @@ public class MainService{
                 .reviewTopImageUrl(topProductByReview.getMainImgUrls(topProductByReview))
                 .build();
 
-        //mainPageResponse
-        MainPageResponse mainPageResponse=MainPageResponse.builder()
-                .productList(sortedMainPageProductResponseList)
+        // MainPageResponse 생성
+        MainPageResponse mainPageResponse = MainPageResponse.builder()
+                .productList(paginatedResult.getContent())
                 .mainPageAdImg(mpai)
+                .totalPages(paginatedResult.getTotalPages())
+                .totalElements(paginatedResult.getTotalElements())
+                .currentPage(pageable.getPageNumber())
+                .pageSize(pageable.getPageSize())
                 .build();
 
         return mainPageResponse;
