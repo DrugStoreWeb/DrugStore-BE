@@ -10,12 +10,12 @@ spring:
   #    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
   datasource:
-    username: root
-    password: ilovecoding
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://drugstoredb.cn000owqib3s.ap-northeast-2.rds.amazonaws.com:3306/drug_store_db?useUnicode=true&characterEncoding=UTF-8
   jpa:
-    show-sql: true
+    show-sql: ${JWT_SECRET_KEY}
 
 jwtpassword:
   source: iloveyou

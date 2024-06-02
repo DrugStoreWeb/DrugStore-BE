@@ -59,7 +59,7 @@ public class ExceptionControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ResponseDto> handleIllegalArgumentException(IllegalArgumentException ex){
-        log.error("IllegalArgumentException: " + ex.getMessage());
+        log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + ex.getMessage());
         ResponseDto responseDto = new ResponseDto(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
         return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
     }
@@ -67,7 +67,7 @@ public class ExceptionControllerAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseDto> handleGlobalException(Exception ex){
-        log.error("Exception: " + ex.getMessage(), ex);
+        log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + ex.getMessage(), ex);
         ResponseDto responseDto = new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), "An unexpected error occurred.");
         return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
