@@ -9,18 +9,16 @@ import com.github.drug_store_be.repository.order.OrdersJpa;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductJpa;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
-import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
+import com.github.drug_store_be.repository.questionAnswer.QuestionAnswer;
 import com.github.drug_store_be.repository.review.Review;
 import com.github.drug_store_be.repository.review.ReviewJpa;
 import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserJpa;
+import com.github.drug_store_be.repository.userCoupon.UserCoupon;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.service.exceptions.ReviewException;
-import com.github.drug_store_be.web.DTO.Mypage.OrdersResponse;
-import com.github.drug_store_be.web.DTO.Mypage.ReviewRequest;
-import com.github.drug_store_be.web.DTO.Mypage.ReviewResponse;
-import com.github.drug_store_be.web.DTO.Mypage.UserInfoResponse;
+import com.github.drug_store_be.web.DTO.Mypage.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,6 +27,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -252,11 +251,57 @@ public class MypageService {
 
     public String getTruePhotoUrl(List<ProductPhoto> productPhotoList) {
         Optional<String> optionalPhotoUrl = productPhotoList.stream()
-                .filter(ProductPhoto::isPhotoType) // type이 true인 경우만 필터링
-                .map(ProductPhoto::getPhotoUrl) // photoUrl만 추출
+                .filter(ProductPhoto::isPhotoType)
+                .map(ProductPhoto::getPhotoUrl)
                 .findFirst();
 
         return optionalPhotoUrl.orElse("");
+    }
+
+    public ResponseDto findAllCoupon(CustomUserDetails customUserDetails) {
+        User user = userJpa.findById(customUserDetails.getUserId()).orElseThrow(() -> new NotFoundException("회원가입 후 이용해 주시길 바랍니다."));
+        int userId = userJpa.findById(customUserDetails.getUserId()).map(User::getUserId)
+                .orElseThrow(() -> new NotFoundException("아이디를 찾을 수 없습니다."));
+
+        List<UserCoupon> couponPage = reviewJpa.findAllByUserId(userId);
+        if (couponPage.isEmpty()) {
+            throw new NotFoundException("가지고 있는 쿠폰이 없습니다.");
+        }
+
+        List<CouponResponse> responsePage = couponPage.stream()
+                .map(userCoupon -> CouponResponse.builder()
+                        .couponName(userCoupon.getCoupon().getCouponName())
+                        .couponDiscount(userCoupon.getCoupon().getCouponDiscount())
+                        .build())
+                .collect(Collectors.toList());
+
+        return new ResponseDto(HttpStatus.OK.value(), "", responsePage);
+    }
+
+    public ResponseDto findAllQnA(CustomUserDetails customUserDetails, Pageable pageable) {
+        int userId = userJpa.findById(customUserDetails.getUserId()).map(User::getUserId)
+                .orElseThrow(() -> new NotFoundException("아이디를 찾을 수 없습니다."));
+
+
+        List<QuestionAnswer> QnA = reviewJpa.findAllQnA(userId, pageable);
+        if (QnA.isEmpty()) {
+            throw new NotFoundException("등록된 질문이 존재하지 않습니다.");
+        }
+
+        List<QnAResponse> qnAResponses = QnA.stream()
+                .map(questionAnswer -> QnAResponse.builder()
+                        .questionAnswerId(questionAnswer.getQuestionAnswerId())
+                        .question(questionAnswer.getQuestion())
+                        .answer(questionAnswer.getAnswer())
+                        .userName(questionAnswer.getUser().getName())
+                        .createdAt(questionAnswer.getCreateAt())
+                        .productName(questionAnswer.getProduct().getProductName())
+                        .brand(questionAnswer.getProduct().getBrand())
+                        .questionStatus(questionAnswer.getQuestionStatus())
+                        .build())
+                .collect(Collectors.toList());
+
+        return new ResponseDto(HttpStatus.OK.value(), "", qnAResponses);
     }
 }
 
