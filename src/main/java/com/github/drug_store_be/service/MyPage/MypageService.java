@@ -27,7 +27,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,8 +59,8 @@ public class MypageService {
 
         Product product = productJpa.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
 
-        Integer reviewScore = reviewRequest.getReview_score();
-        String reviewContent = reviewRequest.getReview_content();
+        Integer reviewScore = reviewRequest.getReviewScore();
+        String reviewContent = reviewRequest.getReviewContent();
         String photoUrl = getTruePhotoUrl(product.getProductPhotoList());
 
         if (reviewScore < 0 || reviewScore > 5) {
@@ -97,8 +96,8 @@ public class MypageService {
 
     public ResponseDto updateReview(CustomUserDetails customUserDetails, ReviewRequest reviewRequest, Integer ordersId) {
         Integer userId = customUserDetails.getUserId();
-        Integer reviewScore = reviewRequest.getReview_score();
-        String reviewContent = reviewRequest.getReview_content();
+        Integer reviewScore = reviewRequest.getReviewScore();
+        String reviewContent = reviewRequest.getReviewContent();
 
         Orders orders = ordersJpa.findById(ordersId).orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
         Integer cartId = orders.getCart().getCartId();
@@ -196,8 +195,8 @@ public class MypageService {
                 .productName(orders.getCart().getOptions().getProduct().getProductName())
                 .optionName(orders.getCart().getOptions().getOptionsName())
                 .brand(orders.getCart().getOptions().getProduct().getBrand())
-                .review_status(getReviewStatusForOrder(userId, orders.getOrdersId()))
-                .review_deadline(getReviewDeadline(orders.getOrdersAt()))
+                .reviewStatus(getReviewStatusForOrder(userId, orders.getOrdersId()))
+                .reviewDeadline(getReviewDeadline(orders.getOrdersAt()))
                 .build());
 
         return new ResponseDto(HttpStatus.OK.value(), "", responsePage);

@@ -17,6 +17,6 @@ public class OrdersResponse {
     private String productName;
     private String optionName;
     private String brand;
-    private boolean review_status;
-    private LocalDate review_deadline;
+    private boolean reviewStatus;
+    private LocalDate reviewDeadline;
 }
