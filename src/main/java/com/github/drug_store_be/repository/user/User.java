@@ -44,4 +44,12 @@ public class User{
     private List<UserRole> userRole;
     @OneToMany(mappedBy= "user", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<UserCoupon> userCouponList;
+
+    //kakaoPay
+//    @Column(name="tid",nullable = false)
+//    private String tid;
+//
+//    public void updateTid(String tid) {
+//        this.tid = tid;
+//    }
 }

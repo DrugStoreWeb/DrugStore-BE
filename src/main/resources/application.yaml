@@ -10,8 +10,8 @@ spring:
   #    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
   datasource:
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    username: ENC(TGTXnlkPQu5tZnI2EUSF1A==)
+    password: ENC(ssiwx5mdhQVVOa0qAmQxgk6Zy9Wff9/E)
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://drugstoredb.cn000owqib3s.ap-northeast-2.rds.amazonaws.com:3306/drug_store_db?useUnicode=true&characterEncoding=UTF-8
 
@@ -20,8 +20,27 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
 
 
+cloud:
+  aws:
+    s3:
+      credentials:
+        access-key: ENC(5o+mxDnFD3CBZRrn53l4t9TG1QxsPmmo0XnfILZhekw=)
+        secret-key: ENC(al11oKsyM3Of7h8eecqrKo/XQD10l2cUZi7cJyGZLwLSfFTsmXjRo4s2kQ2RH/rX7HMg6F6ZOp4=)
+      bucket-name: ENC(lZ4y3sJbKw6sa1JAnhLHXj2sPoUtYQQr)
+      region.static: ENC(RhlVJ6kX8/WBkrD2WSS5TEV2/JWvj0ct)
+      stack.auto: false
+
+
+jasypt:
+  encryptor:
+    password: ${JASYPT_SECRET_KEY}
+    bean: jasyptStringEncryptor
+
 jwtpassword:
-  source: ${JWT_SECRET_KEY}
+  source: ENC(w2RTaxjoAr3LtJK5AtxFGIGrsu6QwayI)
+
+pay:
+  admin-key: ENC(Ysfi34R/drtyXOwIx3USsi57khyAY7y+lMEsBk9KwtuZjo1PpZ/OirmoLBaUxVVA)
 
   logging:
     level: debug

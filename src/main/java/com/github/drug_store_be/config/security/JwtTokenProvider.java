@@ -47,6 +47,11 @@ public class JwtTokenProvider {
     }
     public String resolveToken(HttpServletRequest request) {
         return request.getHeader("token");
+//        String bearerToken = request.getHeader("Authorization");
+//        if (bearerToken != null && bearerToken.startsWith("kakaoAK")) {
+//            return bearerToken.substring(7);
+//        }
+//        return null;
     }
 
     public boolean validToken(String jwtToken) {
