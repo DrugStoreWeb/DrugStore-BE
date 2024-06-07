@@ -18,4 +18,6 @@ public interface UserJpa extends JpaRepository<User,Integer> {
     Optional<Integer> findByEmail(String email);
 
     Optional<User> findByUserId(Integer userId);
+    Optional<User> findByNicknameAndPhoneNumber(String nickname,String phoneNum);
+
 }

@@ -12,6 +12,7 @@ import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.Auth.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.control.MappingControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -117,5 +119,21 @@ public class AuthService {
                 return new ResponseDto(HttpStatus.OK.value(), "중복 여부 확인",checkResponse);
             }
 
+    }
+    public ResponseDto findEmailResult(FindEmail findEmail) {
+        User user = userJpa.findByNicknameAndPhoneNumber(findEmail.getNickname(),findEmail.getPhoneNum())
+                .orElseThrow(()->new NotFoundException("닉네임과 휴대폰에 해당하는 유저를 찾을 수 없습니다."));
+        String userEmail = user.getEmail();
+        return new ResponseDto(HttpStatus.OK.value(),"email : " + userEmail);
+    }
+@Transactional
+    public ResponseDto changePasswordResult(ChangePassword changePassword) {
+        User user =userJpa.findByEmailFetchJoin(changePassword.getEmail())
+                .orElseThrow(()-> new NotFoundException("가입되지 않은 이메일입니다."));
+        if (!changePassword.getNewPassword().equals(changePassword.getNewPasswordCheck())){
+            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "비밀번호 체크란이 비밀번호와 동일하지 않습니다.");
+        }
+        user.setPassword(passwordEncoder.encode(changePassword.getNewPassword()));
+        return new ResponseDto(HttpStatus.OK.value(), "변경된 비밀번호로 다시 로그인해주세요");
     }
 }

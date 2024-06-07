@@ -1,10 +1,7 @@
 package com.github.drug_store_be.web.controller;
 
 import com.github.drug_store_be.service.auth.AuthService;
-import com.github.drug_store_be.web.DTO.Auth.EmailCheck;
-import com.github.drug_store_be.web.DTO.Auth.Login;
-import com.github.drug_store_be.web.DTO.Auth.NicknameCheck;
-import com.github.drug_store_be.web.DTO.Auth.SignUp;
+import com.github.drug_store_be.web.DTO.Auth.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import io.swagger.models.Response;
 import jakarta.servlet.http.HttpServletResponse;
@@ -36,5 +33,14 @@ public class AuthController {
         String token = authService.login(loginRequest);
         httpServletResponse.setHeader("token", token);
         return new ResponseDto(HttpStatus.OK.value(),"Login Success");
+    }
+    @PostMapping(value = "/find-email")
+    public ResponseDto findEmail(@RequestBody FindEmail findEmail){
+
+        return  authService.findEmailResult(findEmail);
+    }
+    @PutMapping(value = "/change-password")
+    public ResponseDto changePassword(@RequestBody ChangePassword changePassword){
+        return authService.changePasswordResult(changePassword);
     }
 }
