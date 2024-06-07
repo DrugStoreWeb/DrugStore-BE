@@ -64,6 +64,12 @@ dependencies {
     // Cache
     implementation 'org.springframework.boot:spring-boot-starter-cache'
 
+    //Oauth
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+    //webclient
+    compileOnly 'org.springframework.boot:spring-boot-starter-webflux'
+
 }
 
 tasks.named('test') {

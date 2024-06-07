@@ -8,17 +8,16 @@ import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductJpa;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
-import com.github.drug_store_be.repository.role.Role;
 import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserJpa;
-import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
-import com.github.drug_store_be.service.exceptions.NotAcceptException;
+import com.github.drug_store_be.repository.userDetails.PrincipalDetails;
 import com.github.drug_store_be.service.exceptions.NotAuthorizedException;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import com.github.drug_store_be.web.DTO.order.ProductRegisterDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -35,9 +34,9 @@ public class AdminService {
     private final ProductPhotoJpa productPhotoJpa;
     private final OptionsJpa optionsJpa;
 
-    public ResponseDto registerProduct(CustomUserDetails customUserDetails, ProductRegisterDto productRegisterDto) {
-        User user= userJpa.findById(customUserDetails.getUserId())
-                .orElseThrow(()-> new NotFoundException("아이디가  "+ customUserDetails.getUserId() +"인 유저를 찾을 수 없습니다."));
+    public ResponseDto registerProduct(PrincipalDetails UserDetails, ProductRegisterDto productRegisterDto) {
+        User user= userJpa.findById(UserDetails.getUserId())
+                .orElseThrow(()-> new NotFoundException("아이디가  "+ UserDetails.getUserId() +"인 유저를 찾을 수 없습니다."));
         List<String> role= user.getUserRole().stream().map(ur-> ur.getRole().getRoleName()).collect(Collectors.toList());
         if(role.stream().findFirst().get().equals("ROLE_ADMIN")){
             Category category= categoryJpa.findById(productRegisterDto.getCategoryId())

@@ -1,6 +1,6 @@
 package com.github.drug_store_be.web.controller;
 
-import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
+import com.github.drug_store_be.repository.userDetails.PrincipalDetails;
 import com.github.drug_store_be.service.service.AdminService;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import com.github.drug_store_be.web.DTO.order.ProductRegisterDto;
@@ -22,9 +22,9 @@ public class AdminController {
 
     @Operation(summary= "상품 등록")
     @PostMapping("/addProduct")
-    public ResponseDto registerProduct(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+    public ResponseDto registerProduct(@AuthenticationPrincipal PrincipalDetails UserDetails,
                                        @RequestBody ProductRegisterDto productRegisterDto){
-        return adminService.registerProduct(customUserDetails, productRegisterDto );
+        return adminService.registerProduct(UserDetails, productRegisterDto );
     }
 
 }
