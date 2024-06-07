@@ -9,7 +9,7 @@ import org.springframework.util.LinkedMultiValueMap;
 @RequiredArgsConstructor
 public class MakePayRequest {
 
-    public PayRequest getReadyRequest(Long id, PayInfoDto payInfoDto){
+    public PayRequest getReadyRequest(Integer id, PayInfoDto payInfoDto){
         LinkedMultiValueMap<String, String> map= new LinkedMultiValueMap<>();
         String memberId=id+"";
         String orderId="point"+id;
@@ -29,7 +29,7 @@ public class MakePayRequest {
         return new PayRequest("https://kapi.kakao.com/v1/payment/ready",map);
     }
 
-    public PayRequest getApproveRequest(String tid, Long id,String pgToken){
+    public PayRequest getApproveRequest(String tid, Integer id,String pgToken){
         LinkedMultiValueMap<String,String> map=new LinkedMultiValueMap<>();
 
         String orderId="point"+id;
