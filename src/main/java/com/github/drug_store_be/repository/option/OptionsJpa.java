@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OptionsJpa extends JpaRepository<Options,Integer> {
-//    @Query("SELECT o.product.productId, SUM(o.stock) FROM Options o GROUP BY o.product.productId")
-//    Integer findTotalOptionsStock();
     @Query(value = "SELECT SUM(stock) FROM Options")
     Integer getTotalOptionsStock();
     @Modifying
