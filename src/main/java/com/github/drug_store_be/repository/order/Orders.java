@@ -8,9 +8,10 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@EqualsAndHashCode(of ="ordersId")
 @Table(name= "orders")
 @Entity
 public class Orders {

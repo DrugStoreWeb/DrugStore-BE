@@ -3,11 +3,8 @@ package com.github.drug_store_be.service.service;
 import com.github.drug_store_be.repository.cart.Cart;
 import com.github.drug_store_be.repository.cart.CartJpa;
 import com.github.drug_store_be.repository.coupon.Coupon;
-import com.github.drug_store_be.repository.coupon.CouponJpa;
-import com.github.drug_store_be.repository.option.Options;
 import com.github.drug_store_be.repository.order.Orders;
 import com.github.drug_store_be.repository.order.OrdersJpa;
-
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserJpa;
@@ -101,7 +98,7 @@ public class OrderService {
         List<OrderProductResponseDto> orderProductResponseDtoList = cartList.stream()
                 .map(c -> {
                     String productPhotoUrl = c.getOptions().getProduct().getProductPhotoList().stream()
-                            .filter(ProductPhoto::getPhotoType)
+                            .filter(ProductPhoto::isPhotoType)
                             .map(ProductPhoto::getPhotoUrl)
                             .findFirst()
                             .orElse(null);

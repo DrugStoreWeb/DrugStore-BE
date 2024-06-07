@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -28,38 +29,39 @@ public class Product {
     @Column(name = "product_name", nullable = false, length = 20)
     private String productName;
 
-    @Column(name = "brand", nullable = false, length =10)
+    @Column(name = "brand", nullable = false, length = 10)
     private String brand;
 
-    @Column(name = "price",nullable = false)
+    @Column(name = "price", nullable = false)
     private Integer price;
 
-    @Column(name="product_discount",nullable = false)
+    @Column(name = "product_discount", nullable = false)
     private Integer productDiscount;
 
-    @Column(name="final_price",nullable = false)
+    @Column(name = "final_price", nullable = false)
     private Integer finalPrice;
 
-    @Column(name = "best",nullable = false)
-    private boolean best=false;
+    @Column(name = "best", nullable = false)
+    private boolean best;
 
-    @Column(name = "product_status",nullable = false )
-    private boolean productStatus=false;
+    @Column(name = "product_status", nullable = false)
+    private boolean productStatus;
 
-    @Column(name="create_at",nullable = false)
+    @Column(name = "create_at", nullable = false)
     private LocalDate createAt;
 
-    @Column(name="original_stock",nullable = false)
+    @Column(name = "original_stock", nullable = false)
     private Integer originalStock;
 
-    @Column(name="product_sales",nullable = false)
+    @Column(name = "product_sales", nullable = false)
     private Double productSales;
 
-    @Column(name="review_avg",nullable = false)
+    @Column(name = "review_avg", nullable = false)
     private Double reviewAvg;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductPhoto> productPhotoList;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Options> optionsList;
+
 }

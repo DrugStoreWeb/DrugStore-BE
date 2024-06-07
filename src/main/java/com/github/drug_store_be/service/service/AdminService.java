@@ -8,11 +8,9 @@ import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductJpa;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
-import com.github.drug_store_be.repository.role.Role;
 import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserJpa;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
-import com.github.drug_store_be.service.exceptions.NotAcceptException;
 import com.github.drug_store_be.service.exceptions.NotAuthorizedException;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.ResponseDto;
@@ -68,7 +66,7 @@ public class AdminService {
                     .map((pp) -> ProductPhoto.builder()
                             .product(product)
                             .photoUrl(pp.getPhotoUrl())
-                            .photoType(pp.getPhotoType())
+                            .photoType(pp.isPhotoType())
                             .build())
                     .collect(Collectors.toList());
             productPhotoJpa.saveAll(productPhotoList);

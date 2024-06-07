@@ -2,6 +2,7 @@ package com.github.drug_store_be.repository.cart;
 
 import com.github.drug_store_be.repository.option.Options;
 import com.github.drug_store_be.repository.product.Product;
+import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;

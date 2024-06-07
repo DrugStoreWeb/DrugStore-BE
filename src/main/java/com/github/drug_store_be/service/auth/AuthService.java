@@ -9,10 +9,7 @@ import com.github.drug_store_be.repository.userRole.UserRole;
 import com.github.drug_store_be.repository.userRole.UserRoleJpa;
 import com.github.drug_store_be.service.exceptions.NotAcceptException;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
-import com.github.drug_store_be.web.DTO.Auth.EmailCheck;
-import com.github.drug_store_be.web.DTO.Auth.Login;
-import com.github.drug_store_be.web.DTO.Auth.NicknameCheck;
-import com.github.drug_store_be.web.DTO.Auth.SignUp;
+import com.github.drug_store_be.web.DTO.Auth.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -39,14 +36,16 @@ public class AuthService {
 
     public ResponseDto signUpResult(SignUp signUpRequest) {
         if (userJpa.existsByEmail(signUpRequest.getEmail())){
-            return new ResponseDto(HttpStatus.CONFLICT.value(), signUpRequest.getEmail()+"은 이미 존재하는 이메일입니다. 다른 이메일을 이용헤주세요.");
+            CheckResponse checkResponse = new CheckResponse(signUpRequest.getEmail()+"(는)은 이미 존재하는 이메일입니다. 다른 이메일을 이용헤주세요.",true);
+            return new ResponseDto(HttpStatus.CONFLICT.value(), "중복 여부 확인",checkResponse);
         }
         if (!signUpRequest.getPassword().equals(signUpRequest.getPasswordCheck())){
             return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "비밀번호 체크란이 비밀번호와 동일하지 않습니다.");
         }
 
         if (userJpa.existsByNickname(signUpRequest.getNickname())){
-            return new ResponseDto(HttpStatus.CONFLICT.value(), signUpRequest.getNickname() + "은 이미 존재하는 닉네임입니다. 다른 닉네임을 이용해주세요.");
+            CheckResponse checkResponse = new CheckResponse(signUpRequest.getNickname() + "(는)은 이미 존재하는 닉네임입니다. 다른 닉네임을 이용해주세요.",true);
+            return new ResponseDto(HttpStatus.CONFLICT.value(), "중복 여부 확인",checkResponse);
         }
 
         Role role =roleJpa.findByRoleName("ROLE_USER")
@@ -69,7 +68,9 @@ public class AuthService {
         userRoleJpa.save(signUpUserRole);
         return new ResponseDto(HttpStatus.OK.value(),signUpRequest.getName()+ "님 회원 가입에 성공하셨습니다.");
     }
-
+    //트러블 슈팅 정리하기 90번의 exception 없을 경우 예외처리가 정상 발동하지 않는다.
+    //구글, 챗봇에서 확인 한 결과 notFoundException 예외처리가 catch에서 정의되어 해당 오류를 잡아야하는데
+    //해당 오류는 없고 바로 최종보스 exception만 남아서 정상 처리 못함
     public String login(Login loginRequest) {
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
@@ -96,19 +97,24 @@ public class AuthService {
     }
 
     public ResponseDto nicknameCheckResult(NicknameCheck nicknameCheck) {
-
         if (userJpa.existsByNickname(nicknameCheck.getNickname())){
-            return new ResponseDto(HttpStatus.CONFLICT.value(), nicknameCheck.getNickname() + "(는)은 이미 존재하는 닉네임입니다. 다른 닉네임을 이용해주세요.");
+
+            CheckResponse checkResponse = new CheckResponse(nicknameCheck.getNickname() + "(는)은 이미 존재하는 닉네임입니다. 다른 닉네임을 이용해주세요.",true);
+            return new ResponseDto(HttpStatus.CONFLICT.value(), "중복 여부 확인",checkResponse);
         }else {
-            return new ResponseDto(HttpStatus.OK.value(), nicknameCheck.getNickname() + "(는)은 사용하실 수 있는 닉네임입니다.");
+            CheckResponse checkResponse = new CheckResponse(nicknameCheck.getNickname() + "(는)은 사용하실 수 있는 닉네임입니다.",false);
+            return new ResponseDto(HttpStatus.OK.value(),"중복 여부 확인",checkResponse );
         }
     }
 
     public ResponseDto emailCheckResult(EmailCheck emailCheck) {
-            if (userJpa.existsByEmail(emailCheck.getEmail())){
-                return new ResponseDto(HttpStatus.CONFLICT.value(), emailCheck.getEmail()+"(는)은 이미 존재하는 이메일입니다. 다른 이메일을 이용헤주세요.");
+        String email=emailCheck.getEmail().toLowerCase();
+            if (userJpa.existsByEmail(email)){
+                CheckResponse checkResponse = new CheckResponse(emailCheck.getEmail()+"(는)은 이미 존재하는 이메일입니다. 다른 이메일을 이용헤주세요.",true);
+                return new ResponseDto(HttpStatus.CONFLICT.value(), "중복 여부 확인",checkResponse);
             }else {
-                return new ResponseDto(HttpStatus.OK.value(), emailCheck.getEmail()+"(는)은 사용하실 수 있는 이메일입니다.");
+                CheckResponse checkResponse = new CheckResponse(emailCheck.getEmail()+"(는)은 사용하실 수 있는 이메일입니다.",false);
+                return new ResponseDto(HttpStatus.OK.value(), "중복 여부 확인",checkResponse);
             }
 
     }

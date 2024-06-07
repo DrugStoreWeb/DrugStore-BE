@@ -26,8 +26,8 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(NotAcceptException.class)
     public ResponseEntity<ResponseDto> handleNotAcceptException(NotAcceptException nae){
         log.error("Client 요청이 모종의 이유로 거부됩니다. " + nae.getMessage());
-        ResponseDto responseDto = new ResponseDto(HttpStatus.NOT_FOUND.value(), nae.getMessage());
-        return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
+        ResponseDto responseDto = new ResponseDto(HttpStatus.NOT_ACCEPTABLE.value(), nae.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.NOT_ACCEPTABLE);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

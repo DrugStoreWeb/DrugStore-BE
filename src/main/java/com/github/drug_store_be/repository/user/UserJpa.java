@@ -14,11 +14,8 @@ public interface UserJpa extends JpaRepository<User,Integer> {
     boolean existsByEmail(String email);
     boolean existsByNickname(String nickname);
 
-//    @Query("SELECT u FROM User u WHERE u.email = :email")
-//    Optional<User> findByEmail(String email);
+    @Query("SELECT u.userId FROM User u WHERE u.email = ?1")
+    Optional<Integer> findByEmail(String email);
 
-
-//    @Query("SELECT u FROM User u " +
-//            "WHERE u.email = :name ")
-
+    Optional<User> findByUserId(Integer userId);
 }
