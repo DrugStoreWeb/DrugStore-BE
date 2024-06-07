@@ -10,13 +10,13 @@ import java.util.List;
 @Getter
 @Builder
 public class MainPageResponse {
-    @JsonProperty("productList")
-    private List<MainPageProductResponse> productList;
-    @JsonProperty("mainPageAdImg")
-    private MainPageAdImg mainPageAdImg;
+    @JsonProperty("product_list")
+    private List<MainPageProductResponse> product_list;
+    @JsonProperty("main_page_ad_img")
+    private MainPageAdImg main_page_ad_img;
 
-    private int totalPages;
-    private long totalElements;
-    private int currentPage;
-    private int pageSize;
+    private int total_pages;
+    private long total_elements;
+    private int current_page;
+    private int page_size;
 }

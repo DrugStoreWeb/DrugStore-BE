@@ -8,8 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class MainPageAdImg {
-    private String reviewTopImageUrl;
-    private String salesTopImageUrl;
-    private String likesTopImageUrl;
+    private String review_top_image_url;
+    private String sales_top_image_url;
+    private String likes_top_image_url;
 
 }

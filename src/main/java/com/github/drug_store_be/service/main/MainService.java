@@ -48,9 +48,16 @@ public class MainService{
         // Pageable로 페이징 처리
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), sortedMainPageProductResponseList.size());
-        List<MainPageProductResponse> paginatedList = sortedMainPageProductResponseList.subList(start, end);
-        Page<MainPageProductResponse> paginatedResult = new PageImpl<>(paginatedList, pageable, sortedMainPageProductResponseList.size());
 
+        Page<MainPageProductResponse> paginatedResult;
+        if (start > end) {
+            // start 인덱스가 end 인덱스보다 큰 경우 빈 페이지를 반환
+            paginatedResult =new PageImpl<>(Collections.emptyList(), pageable, sortedMainPageProductResponseList.size());
+        }else {
+
+            List<MainPageProductResponse> paginatedList = sortedMainPageProductResponseList.subList(start, end);
+            paginatedResult = new PageImpl<>(paginatedList, pageable, sortedMainPageProductResponseList.size());
+        }
         //광고 이미지
         productJpa.updateReviewAvg();
         Product topProductByReview = productJpa.findTopByOrderByReviewAvgDesc();
@@ -60,19 +67,19 @@ public class MainService{
         Optional<Product> topProductByLikes = productJpa.findById(productId);
 
         MainPageAdImg mpai=MainPageAdImg.builder()
-                .likesTopImageUrl(topProductByLikes.map(Product::getMainImgUrls).orElse(null))
-                .salesTopImageUrl(topProductBySales.getMainImgUrls(topProductBySales))
-                .reviewTopImageUrl(topProductByReview.getMainImgUrls(topProductByReview))
+                .likes_top_image_url(topProductByLikes.map(Product::getMainImgUrls).orElse(null))
+                .sales_top_image_url(topProductBySales.getMainImgUrls(topProductBySales))
+                .review_top_image_url(topProductByReview.getMainImgUrls(topProductByReview))
                 .build();
 
         // MainPageResponse 생성
         MainPageResponse mainPageResponse = MainPageResponse.builder()
-                .productList(paginatedResult.getContent())
-                .mainPageAdImg(mpai)
-                .totalPages(paginatedResult.getTotalPages())
-                .totalElements(paginatedResult.getTotalElements())
-                .currentPage(pageable.getPageNumber())
-                .pageSize(pageable.getPageSize())
+                .product_list(paginatedResult.getContent())
+                .main_page_ad_img(mpai)
+                .total_pages(paginatedResult.getTotalPages())
+                .total_elements(paginatedResult.getTotalElements())
+                .current_page(pageable.getPageNumber())
+                .page_size(pageable.getPageSize())
                 .build();
 
         return mainPageResponse;
