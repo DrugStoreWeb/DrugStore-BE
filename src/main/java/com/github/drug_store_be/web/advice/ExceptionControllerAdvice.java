@@ -33,39 +33,23 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(InvalidValueException.class)
     public ResponseEntity<ResponseDto> handleInvalidValueException(InvalidValueException ive){
         log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + ive.getMessage());
-        ResponseDto responseDto = new ResponseDto(HttpStatus.BAD_REQUEST.value(), ive.getMessage());
-        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+        ResponseDto responseDto = new ResponseDto(HttpStatus.NOT_FOUND.value(), ive.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ResponseDto> handleAccessDeniedException(AccessDeniedException ade){
         log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + ade.getMessage());
-        ResponseDto responseDto = new ResponseDto(HttpStatus.FORBIDDEN.value(), ade.getMessage());
-        return new ResponseEntity<>(responseDto, HttpStatus.FORBIDDEN);
+        ResponseDto responseDto = new ResponseDto(HttpStatus.NOT_FOUND.value(), ade.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(CAuthenticationEntryPointException.class)
     public ResponseEntity<ResponseDto> handleAuthenticationException(CAuthenticationEntryPointException ae){
         log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + ae.getMessage());
-        ResponseDto responseDto = new ResponseDto(HttpStatus.UNAUTHORIZED.value(), ae.getMessage());
-        return new ResponseEntity<>(responseDto, HttpStatus.UNAUTHORIZED);
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ResponseDto> handleIllegalArgumentException(IllegalArgumentException ex){
-        log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + ex.getMessage());
-        ResponseDto responseDto = new ResponseDto(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
-    }
-
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ResponseDto> handleGlobalException(Exception ex){
-        log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + ex.getMessage(), ex);
-        ResponseDto responseDto = new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), "An unexpected error occurred.");
-        return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseDto responseDto = new ResponseDto(HttpStatus.NOT_FOUND.value(), ae.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
     }
 }

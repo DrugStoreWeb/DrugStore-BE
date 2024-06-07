@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
 @Repository
 public interface ProductPhotoJpa extends JpaRepository<ProductPhoto,Integer> {
     List<ProductPhoto> findAllByProduct(Product product);

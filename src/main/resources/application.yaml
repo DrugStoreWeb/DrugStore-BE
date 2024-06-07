@@ -17,6 +17,8 @@ spring:
 
   jpa:
     show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+
 
 jwtpassword:
   source: ${JWT_SECRET_KEY}

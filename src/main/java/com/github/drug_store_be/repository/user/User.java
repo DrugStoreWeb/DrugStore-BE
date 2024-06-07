@@ -1,5 +1,6 @@
 package com.github.drug_store_be.repository.user;
 
+import com.github.drug_store_be.repository.userCoupon.UserCoupon;
 import com.github.drug_store_be.repository.userRole.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -39,6 +40,10 @@ public class User{
     private String profilePic;
     @Column(name="money",nullable = false)
     private Integer money;
+    @Column(name="kakao_num",length = 20)
+    private String kakaoNum;
     @OneToMany(mappedBy= "user", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<UserRole> userRole;
+    @OneToMany(mappedBy= "user", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<UserCoupon> userCouponList;
 }

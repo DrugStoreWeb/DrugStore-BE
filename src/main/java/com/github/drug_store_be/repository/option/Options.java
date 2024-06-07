@@ -2,13 +2,11 @@ package com.github.drug_store_be.repository.option;
 
 import com.github.drug_store_be.repository.product.Product;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name= "options")
@@ -26,6 +24,9 @@ public class Options {
     @Column(name = "options_name",nullable = false,length = 20)
     private String optionsName;
     @Column(name = "options_price",nullable = false)
+    private Integer optionsPrice;
+
+    @Column(name="options_price",nullable = false)
     private Integer optionsPrice;
 
     @Column(name="stock",nullable = false)
