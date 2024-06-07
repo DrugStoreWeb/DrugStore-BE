@@ -250,7 +250,7 @@ public class MypageService {
 
     public String getTruePhotoUrl(List<ProductPhoto> productPhotoList) {
         Optional<String> optionalPhotoUrl = productPhotoList.stream()
-                .filter(ProductPhoto::getPhotoType)
+                .filter(ProductPhoto::isPhotoType)
                 .map(ProductPhoto::getPhotoUrl)
                 .findFirst();
 

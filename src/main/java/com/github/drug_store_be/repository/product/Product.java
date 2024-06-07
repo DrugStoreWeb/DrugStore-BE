@@ -42,10 +42,10 @@ public class Product {
     private Integer finalPrice;
 
     @Column(name = "best", nullable = false)
-    private boolean best = false;
+    private boolean best;
 
     @Column(name = "product_status", nullable = false)
-    private boolean productStatus = false;
+    private boolean productStatus;
 
     @Column(name = "create_at", nullable = false)
     private LocalDate createAt;

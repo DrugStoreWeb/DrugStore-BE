@@ -23,8 +23,6 @@ public class Options {
 
     @Column(name = "options_name",nullable = false,length = 20)
     private String optionsName;
-    @Column(name = "options_price",nullable = false)
-    private Integer optionsPrice;
 
     @Column(name="options_price",nullable = false)
     private Integer optionsPrice;

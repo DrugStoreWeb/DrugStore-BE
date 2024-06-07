@@ -26,4 +26,9 @@ public class ProductPhoto {
 
     @Column(name="photo_type",nullable = false)
     private Boolean photoType;
+
+
+    public boolean isPhotoType() {
+        return photoType;
+    }
 }
