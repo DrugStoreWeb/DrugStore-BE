@@ -14,5 +14,5 @@ import lombok.Setter;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ProductPhotoRegisterDto {
     private String photoUrl;
-    private Boolean photoType;
+    private boolean photoType;
 }

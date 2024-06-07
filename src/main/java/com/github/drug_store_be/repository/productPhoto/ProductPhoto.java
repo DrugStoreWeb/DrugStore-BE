@@ -25,10 +25,6 @@ public class ProductPhoto {
     private String photoUrl;
 
     @Column(name="photo_type",nullable = false)
-    private Boolean photoType;
+    private boolean photoType;
 
-
-    public boolean isPhotoType() {
-        return photoType;
-    }
 }

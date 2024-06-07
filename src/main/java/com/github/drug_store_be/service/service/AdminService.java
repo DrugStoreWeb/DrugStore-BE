@@ -66,7 +66,7 @@ public class AdminService {
                     .map((pp) -> ProductPhoto.builder()
                             .product(product)
                             .photoUrl(pp.getPhotoUrl())
-                            .photoType(pp.getPhotoType())
+                            .photoType(pp.isPhotoType())
                             .build())
                     .collect(Collectors.toList());
             productPhotoJpa.saveAll(productPhotoList);
