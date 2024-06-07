@@ -15,10 +15,10 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://drugstoredb.cn000owqib3s.ap-northeast-2.rds.amazonaws.com:3306/drug_store_db?useUnicode=true&characterEncoding=UTF-8
   jpa:
-    show-sql: ${JWT_SECRET_KEY}
+    show-sql: true
 
 jwtpassword:
-  source: iloveyou
+  source: ${JWT_SECRET_KEY}
 
   logging:
     level: debug

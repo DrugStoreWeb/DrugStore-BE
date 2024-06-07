@@ -36,7 +36,7 @@ public class CartService {
         User user = userJpa.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        List<Cart> carts = cartJpa.findAllByUser_UserId(userId);
+        List<Cart> carts = cartJpa.findAllByUserOrderByCartIdDesc(user);
         if (carts.isEmpty()) {
             throw new NotFoundException("No cart items found");
         }
@@ -46,7 +46,7 @@ public class CartService {
                     Options options = cart.getOptions();
                     Product product = options.getProduct();
 
-                    String productPhotoUrl = productPhotoJpa.findByProduct(product).stream()
+                    String productPhotoUrl = product.getProductPhotoList().stream()
                             .filter(ProductPhoto::isPhotoType)
                             .findFirst()
                             .map(ProductPhoto::getPhotoUrl)
@@ -88,20 +88,24 @@ public class CartService {
             throw new NotFoundException("Options do not belong to the specified product");
         }
 
+        int requestedQuantity = cartRequest.getQuantity();
+        if (requestedQuantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be positive");
+        }
+
         List<Cart> existingCarts = cartJpa.findByUserAndOptions(user, options);
-        int totalQuantity = cartRequest.getQuantity();
         if (!existingCarts.isEmpty()) {
             Cart existingCart = existingCarts.get(0);
-            totalQuantity += existingCart.getQuantity();
+            int totalQuantity = existingCart.getQuantity() + requestedQuantity;
             if (totalQuantity > options.getStock()) {
                 throw new IllegalArgumentException("No stock available for the selected option");
             }
             existingCart.setQuantity(totalQuantity);
             cartJpa.save(existingCart);
-            return new ResponseDto(HttpStatus.OK.value(), "Cart item quantity increased successfully");
+            return new ResponseDto(HttpStatus.OK.value(), "Cart item quantity updated successfully");
         }
 
-        if (totalQuantity > options.getStock()) {
+        if (requestedQuantity > options.getStock()) {
             throw new IllegalArgumentException("No stock available for the selected option");
         }
 
@@ -133,8 +137,7 @@ public class CartService {
 
         int quantity = cartRequest.getQuantity();
         if (quantity <= 0) {
-            cartJpa.delete(cart);
-            return new ResponseDto(HttpStatus.OK.value(), "Cart item removed successfully");
+            throw new IllegalArgumentException("Quantity must be positive"); // 예외를 발생시켜 0 이하의 수량이 입력되지 않도록 합니다.
         }
 
         Product product = cart.getOptions().getProduct();

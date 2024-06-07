@@ -13,6 +13,8 @@ import java.util.Optional;
 public interface CartJpa extends JpaRepository<Cart,Integer> {
     List<Cart> findAllByUser(User user);
 
+    List<Cart> findAllByUserOrderByCartIdDesc(User user);
+
     List<Cart> findByUserAndOptions(User user, Options options);
 
     @Query("SELECT c FROM Cart c WHERE c.user.userId = :userId")
