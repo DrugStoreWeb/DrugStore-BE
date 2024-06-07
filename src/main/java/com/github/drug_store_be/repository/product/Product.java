@@ -64,13 +64,4 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Options> optionsList;
 
-
-    //대표이미지 찾기 메서드? 클래스?
-    public static String getMainImgUrls(Product product) {
-        return product.getProductPhotoList().stream()
-                .filter(ProductPhoto::getPhotoType) // photoType이 true인 경우 필터링
-                .map(ProductPhoto::getPhotoUrl) // photoUrl로 매핑
-                .findFirst() // 첫 번째 요소를 찾음
-                .orElse(""); // 값이 없으면 빈 문자열 반환
-    }
 }

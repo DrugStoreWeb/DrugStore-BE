@@ -4,6 +4,7 @@ import com.github.drug_store_be.repository.like.Likes;
 import com.github.drug_store_be.repository.like.LikesJpa;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductJpa;
+import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.user.UserJpa;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageAdImg;
@@ -66,10 +67,10 @@ public class MainService{
         Integer productId= likesJpa.findProductWithMostLikes().getProductId();
         Optional<Product> topProductByLikes = productJpa.findById(productId);
 
-        MainPageAdImg mpai=MainPageAdImg.builder()
-                .likes_top_image_url(topProductByLikes.map(Product::getMainImgUrls).orElse(null))
-                .sales_top_image_url(topProductBySales.getMainImgUrls(topProductBySales))
-                .review_top_image_url(topProductByReview.getMainImgUrls(topProductByReview))
+        MainPageAdImg mpai = MainPageAdImg.builder()
+                .likes_top_image_url(topProductByLikes.map(this::getMainImgUrls).orElse(null))
+                .sales_top_image_url(getMainImgUrls(topProductBySales))
+                .review_top_image_url(getMainImgUrls(topProductByReview))
                 .build();
 
         // MainPageResponse 생성
@@ -136,6 +137,17 @@ public class MainService{
 
     /**메소드 영역**/
 
+
+    //대표이미지 찾기 메서드? 클래스?
+    public String getMainImgUrls(Product product) {
+        return product.getProductPhotoList().stream()
+                .filter(ProductPhoto::getPhotoType) // photoType이 true인 경우 필터링
+                .map(ProductPhoto::getPhotoUrl) // photoUrl로 매핑
+                .findFirst() // 첫 번째 요소를 찾음
+                .orElse(""); // 값이 없으면 빈 문자열 반환
+    }
+
+
     //user가 product를 like했는가 여부를 알기 위한 userId 찾기
     private Optional<Integer> getUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -163,7 +175,7 @@ public class MainService{
                     .brand_name(product.getBrand())
                     .price(product.getPrice())
                     .final_price(product.getFinalPrice())
-                    .product_img(product.getMainImgUrls(product))
+                    .product_img(getMainImgUrls(product))
                     .best(product.isBest())
                     .likes(userLike != null && userLike.getLikesId() != null)
                     .sales(product.getProductDiscount()>0)
