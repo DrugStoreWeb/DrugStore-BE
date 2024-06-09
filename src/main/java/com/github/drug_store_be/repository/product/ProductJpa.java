@@ -40,7 +40,7 @@ public interface ProductJpa extends JpaRepository<Product,Integer> {
     @Query("SELECT p FROM Product p WHERE p.category.categoryId=:category")
     List<Product> findByCategory(int category);
 
-    //세 글자 이상 일치하는 검색어 찾기
-    @Query("SELECT p FROM Product p WHERE LENGTH(:keyword) >= 3 AND (p.brand LIKE %:keyword% OR p.productName LIKE %:keyword%)")
+    //두 글자 이상 일치하는 검색어 찾기
+    @Query("SELECT p FROM Product p WHERE LENGTH(:keyword) >= 2 AND (p.brand LIKE %:keyword% OR p.productName LIKE %:keyword%)")
     List<Product> findByBrandOrProductNameContaining(@Param("keyword") String keyword);
 }
