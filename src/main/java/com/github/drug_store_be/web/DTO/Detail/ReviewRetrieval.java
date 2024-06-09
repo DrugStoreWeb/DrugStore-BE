@@ -17,16 +17,20 @@ import java.time.LocalDate;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ReviewRetrieval {
     private String nickname;
+    private String profileImg;
     private Integer reviewScore;
     private String reviewContent;
     private String productName;
+    private String optionName;
     private LocalDate createAt;
 
     public ReviewRetrieval(Review review) {
         this.nickname = review.getUser().getNickname();
+        this.profileImg=review.getUser().getProfilePic();
         this.reviewScore = review.getReviewScore();
         this.reviewContent = review.getReviewContent();
         this.productName=review.getProduct().getProductName();
+        this.optionName=review.getOrders().getCart().getOptions().getOptionsName();
         this.createAt = review.getCreateAt();
     }
 }

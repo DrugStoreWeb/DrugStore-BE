@@ -2,12 +2,28 @@ server:
   port:8080
 
 spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
 
   #  autoconfigure:
   #    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  mail:
+    # Google smtp server 사용
+    host: smtp.gmail.com
+    port: 587
+    username: ENC(pFQU1mumd6kWbx3E5HCxpq+2QZzxNQALpDZN5S0KhMM=)
+    password: ENC(N7pFf2aEmgVLUfYjgD4vW7alZcOjQOvFV2hNqy8gq2c=)
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
 
   datasource:
     username: ENC(TGTXnlkPQu5tZnI2EUSF1A==)

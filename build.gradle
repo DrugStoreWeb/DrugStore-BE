@@ -57,6 +57,10 @@ dependencies {
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.2'
     runtimeOnly 'mysql:mysql-connector-java:8.0.26'
+    //redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    //mail
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 
     // Add the spring-boot-configuration-processor dependency for annotation processing
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

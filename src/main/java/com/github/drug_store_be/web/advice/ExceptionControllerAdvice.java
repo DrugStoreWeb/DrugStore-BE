@@ -3,6 +3,7 @@ package com.github.drug_store_be.web.advice;
 import com.amazonaws.services.ec2.model.Storage;
 import com.github.drug_store_be.service.exceptions.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
+import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,13 @@ public class ExceptionControllerAdvice {
         log.error("Client 요청이후 DB 검색 중 에러로 다음처럼 출력합니다. " + nfe.getMessage());
         ResponseDto responseDto = new ResponseDto(HttpStatus.NOT_FOUND.value(), nfe.getMessage());
         return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
+    }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MessagingException.class)
+    public ResponseEntity<ResponseDto> handleMessagingException(MessagingException messageE){
+        log.error("Client 요청이후 DB 검색 중 에러로 다음처럼 출력합니다. " + messageE.getMessage());
+        ResponseDto responseDto = new ResponseDto(HttpStatus.BAD_REQUEST.value(), "이메일 전송 중 에러 발생");
+        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
