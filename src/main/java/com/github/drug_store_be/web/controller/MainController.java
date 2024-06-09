@@ -32,7 +32,7 @@ public class MainController {
     }
 
     @GetMapping(path = "/find")
-    public ResponseDto mainPageSearch(@RequestParam(value = "keyword", defaultValue = "", required = true) String keyword, String sortBy, @PageableDefault(page = 0, size = 24) Pageable pageable ) {
+    public ResponseDto mainPageSearch(@RequestParam(value = "keyword", defaultValue = "", required = true) String keyword,@RequestParam(defaultValue = "sales") String sortBy, @PageableDefault(page = 0, size = 24) Pageable pageable ) {
         Page<MainPageProductResponse> mainPageProductResponse=mainservice.findPage(keyword,sortBy,pageable);
         return new ResponseDto(HttpStatus.OK.value(),"검색에 성공했습니다.",mainPageProductResponse);
     }

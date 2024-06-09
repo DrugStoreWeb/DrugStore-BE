@@ -134,7 +134,7 @@ public class MainService{
     /**메소드 영역**/
 
 
-    //대표이미지 찾기 메서드? 클래스?
+    //대표이미지 찾기
     public String getMainImgUrls(Product product) {
         return product.getProductPhotoList().stream()
                 .filter(ProductPhoto::isPhotoType) // photoType이 true인 경우 필터링
