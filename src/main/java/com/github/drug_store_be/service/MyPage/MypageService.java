@@ -22,6 +22,7 @@ import com.github.drug_store_be.web.DTO.Mypage.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -179,7 +180,8 @@ public class MypageService {
     }
 
     public ResponseDto findAllOrders(CustomUserDetails customUserDetails, Pageable pageable) {
-        int userId = userJpa.findById(customUserDetails.getUserId()).map(User::getUserId)
+        int userId = userJpa.findById(customUserDetails.getUserId())
+                .map(User::getUserId)
                 .orElseThrow(() -> new NotFoundException("아이디를 찾을 수 없습니다."));
 
         Page<Orders> ordersPage = ordersJpa.findAllByUserId(userId, pageable);
@@ -188,20 +190,31 @@ public class MypageService {
             throw new NotFoundException("구매 정보를 찾을 수 없습니다.");
         }
 
-        Page<OrdersResponse> responsePage = ordersPage.map(orders -> OrdersResponse.builder()
-                .ordersId(orders.getOrdersId())
-                .productImg(orders.getCart().getOptions().getProduct().getProductPhotoList().stream().map(ProductPhoto::getPhotoUrl).collect(Collectors.toList()))
-                .price(orders.getCart().getOptions().getProduct().getPrice())
-                .productName(orders.getCart().getOptions().getProduct().getProductName())
-                .optionName(orders.getCart().getOptions().getOptionsName())
-                .brand(orders.getCart().getOptions().getProduct().getBrand())
-                .reviewStatus(getReviewStatusForOrder(userId, orders.getOrdersId()))
-                .reviewDeadline(getReviewDeadline(orders.getOrdersAt()))
-                .build());
+        List<OrdersResponse> ordersResponseList = ordersPage.stream().map(orders -> {
+            Integer cartId = orders.getCart().getCartId();
+            Cart cart = cartJpa.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
+            Integer optionId = cart.getOptions().getOptionsId();
+            Options options = optionsJpa.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
+            Integer productId = options.getProduct().getProductId();
+            Product product = productJpa.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
+            String photoUrl = getTruePhotoUrl(product.getProductPhotoList());
 
-        return new ResponseDto(HttpStatus.OK.value(), "", responsePage);
+            return OrdersResponse.builder()
+                    .ordersId(orders.getOrdersId())
+                    .productImg(photoUrl)
+                    .price(product.getPrice())
+                    .productName(product.getProductName())
+                    .optionName(options.getOptionsName())
+                    .brand(product.getBrand())
+                    .reviewStatus(getReviewStatusForOrder(userId, orders.getOrdersId()))
+                    .reviewDeadline(getReviewDeadline(orders.getOrdersAt()))
+                    .build();
+        }).collect(Collectors.toList());
+
+        Page<OrdersResponse> responsePage = new PageImpl<>(ordersResponseList, pageable, ordersPage.getTotalElements());
+
+        return new ResponseDto(HttpStatus.OK.value(), "구매 정보를 성공적으로 조회했습니다.", responsePage);
     }
-
     public LocalDate getReviewDeadline(LocalDate orderAt) {
         return orderAt.plusDays(30); // 구매일로부터 30일 후를 리뷰 마감일로 설정
     }
@@ -227,7 +240,6 @@ public class MypageService {
         Integer productId = options.getProduct().getProductId();
 
         Product product = productJpa.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
-
         String photoUrl = getTruePhotoUrl(product.getProductPhotoList());
 
         List<ReviewResponse> reviewResponses = reviews.stream()
@@ -271,6 +283,7 @@ public class MypageService {
                 .map(userCoupon -> CouponResponse.builder()
                         .couponName(userCoupon.getCoupon().getCouponName())
                         .couponDiscount(userCoupon.getCoupon().getCouponDiscount())
+                        .money(userCoupon.getUser().getMoney())
                         .build())
                 .collect(Collectors.toList());
 

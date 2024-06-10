@@ -10,4 +10,5 @@ import lombok.*;
 public class CouponResponse {
     private String couponName;
     private Integer couponDiscount;
+    private Integer money;
 }

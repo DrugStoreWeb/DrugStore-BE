@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 public class OrdersResponse {
     private Integer ordersId;
-    private List<String> productImg;
+    private String productImg;
     private Integer price;
     private String productName;
     private String optionName;
