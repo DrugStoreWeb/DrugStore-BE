@@ -47,7 +47,7 @@ public class DetailService {
     private final LikesJpa likesJpa;
     private final QuestionAnswerJpa questionAnswerJpa;
 
-    @Cacheable(value = "productDetails",key = "#productId")
+
     public ResponseDto productDetailResult(Integer productId, CustomUserDetails customUserDetails) {
         User user =userJpa.findById(customUserDetails.getUserId())
                 .orElseThrow(()-> new NotFoundException("토큰에 해당하는 유저를 찾을 수 없습니다."));
@@ -60,13 +60,13 @@ public class DetailService {
         List<ProductImg> productImgs = productPhotosByProduct.stream().map(ProductImg::new).toList();
         List<ProductOption> productOptions = optionsByProduct.stream().map(ProductOption::new).toList();
         ProductDetailResponse productDetailResponse = new ProductDetailResponse(product,productImgs,reviewCount,productOptions);
-            if (likesJpa.existsByUserAndProduct(user,product)) {
-                productDetailResponse.setIsLike(true);
-                return new ResponseDto(HttpStatus.OK.value(), "조회 성공",productDetailResponse);
-            }else {
-                productDetailResponse.setIsLike(false);
-                return new ResponseDto(HttpStatus.OK.value(), "조회 성공",productDetailResponse);
-            }
+        if (likesJpa.existsByUserAndProduct(user,product)) {
+            productDetailResponse.setIsLike(true);
+            return new ResponseDto(HttpStatus.OK.value(), "조회 성공",productDetailResponse);
+        }else {
+            productDetailResponse.setIsLike(false);
+            return new ResponseDto(HttpStatus.OK.value(), "조회 성공",productDetailResponse);
+        }
 
     }
     @Cacheable(value = "productDetails",key = "#productId")
@@ -84,7 +84,7 @@ public class DetailService {
         productDetailResponse.setIsLike(false);
         return new ResponseDto(HttpStatus.OK.value(), "조회 성공",productDetailResponse);
     }
-    @Cacheable(value = "productDetails",key = "#productId")
+    @Cacheable(value = "productReview",key = "#productId")
     public ResponseDto productReviewResult(Integer productId, Integer pageNum, String criteria) {
         Product product = productJpa.findById(productId)
                 .orElseThrow(()-> new NotFoundException("해당 상품을 찾을 수 없습니다."));
@@ -109,7 +109,7 @@ public class DetailService {
     }
 
     @Transactional
-    @CacheEvict(value = "productDetails",allEntries = true)
+    @CacheEvict(value = "answerByAdmin",allEntries = true)
     public ResponseDto answerByAdminResult(Integer questionId, CustomUserDetails customUserDetails, Answer answer) {
         String userEmail = customUserDetails.getEmail();
         User user = userJpa.findByEmailFetchJoin(userEmail)
