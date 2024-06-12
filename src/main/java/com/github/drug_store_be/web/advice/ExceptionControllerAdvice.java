@@ -42,24 +42,24 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(InvalidValueException.class)
     public ResponseEntity<ResponseDto> handleInvalidValueException(InvalidValueException ive){
         log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + ive.getMessage());
-        ResponseDto responseDto = new ResponseDto(HttpStatus.NOT_FOUND.value(), ive.getMessage());
-        return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
+        ResponseDto responseDto = new ResponseDto(HttpStatus.BAD_REQUEST.value(), ive.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ResponseDto> handleAccessDeniedException(AccessDeniedException ade){
         log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + ade.getMessage());
-        ResponseDto responseDto = new ResponseDto(HttpStatus.NOT_FOUND.value(), ade.getMessage());
-        return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
+        ResponseDto responseDto = new ResponseDto(HttpStatus.FORBIDDEN.value(), ade.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.FORBIDDEN);
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(CAuthenticationEntryPointException.class)
     public ResponseEntity<ResponseDto> handleAuthenticationException(CAuthenticationEntryPointException ae){
         log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + ae.getMessage());
-        ResponseDto responseDto = new ResponseDto(HttpStatus.NOT_FOUND.value(), ae.getMessage());
-        return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
+        ResponseDto responseDto = new ResponseDto(HttpStatus.UNAUTHORIZED.value(), ae.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.UNAUTHORIZED);
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
@@ -85,5 +85,38 @@ public class ExceptionControllerAdvice {
         ResponseDto responseDto = new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), sufe.getMessage());
         return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NotEnoughStockException.class)
+    public ResponseEntity<ResponseDto> handleNotEnoughStockException(NotEnoughStockException nee){
+        log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + nee.getMessage());
+        ResponseDto responseDto = new ResponseDto(HttpStatus.BAD_REQUEST.value(), nee.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(SoldOutException.class)
+    public ResponseEntity<ResponseDto> handleSoldOutException(SoldOutException soe){
+        log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + soe.getMessage());
+        ResponseDto responseDto = new ResponseDto(HttpStatus.BAD_REQUEST.value(), soe.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ProductStatusException.class)
+    public ResponseEntity<ResponseDto> handleProductStatusException(ProductStatusException pse){
+        log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + pse.getMessage());
+        ResponseDto responseDto = new ResponseDto(HttpStatus.BAD_REQUEST.value(), pse.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NoMoneyException.class)
+    public ResponseEntity<ResponseDto> handleNoMoneyException(NoMoneyException nme){
+        log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + nme.getMessage());
+        ResponseDto responseDto = new ResponseDto(HttpStatus.BAD_REQUEST.value(), nme.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+    }
+
 
 }
