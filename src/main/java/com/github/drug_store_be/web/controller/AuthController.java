@@ -5,9 +5,11 @@ import com.github.drug_store_be.web.DTO.Auth.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import io.swagger.models.Response;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @RestController
@@ -16,8 +18,10 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping(value = "/sign-up")
-    public ResponseDto signUp(@RequestBody SignUp signUpRequest){
-        return authService.signUpResult(signUpRequest);
+    public ResponseDto signUp(@RequestPart("sign") @Valid SignUp signUpRequest
+            ,@RequestPart("uploadFiles") MultipartFile multipartFiles){
+
+        return authService.signUpResult(signUpRequest,multipartFiles);
     }
     @PostMapping(value = "/nickname-check")
     public ResponseDto nickNameCheck(@RequestBody NicknameCheck nicknameCheck){

@@ -22,5 +22,5 @@ public class SignUp {
     private LocalDate birthday;
     private String phoneNumber;
     private String address;
-    private String profilePic;
+
 }

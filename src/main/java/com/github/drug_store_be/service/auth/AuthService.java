@@ -1,5 +1,8 @@
 package com.github.drug_store_be.service.auth;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.github.drug_store_be.config.security.JwtTokenProvider;
 import com.github.drug_store_be.repository.role.Role;
 import com.github.drug_store_be.repository.role.RoleJpa;
@@ -9,10 +12,13 @@ import com.github.drug_store_be.repository.userRole.UserRole;
 import com.github.drug_store_be.repository.userRole.UserRoleJpa;
 import com.github.drug_store_be.service.exceptions.NotAcceptException;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
+import com.github.drug_store_be.service.exceptions.StorageUpdateFailedException;
 import com.github.drug_store_be.web.DTO.Auth.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
+import com.github.drug_store_be.web.DTO.awsS3.SaveFileType;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.control.MappingControl;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,8 +27,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,9 +44,12 @@ public class AuthService {
     private final RoleJpa roleJpa;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final AmazonS3 amazonS3Client;
+    @Value("${cloud.aws.s3.bucket-name}")
+    private String bucketName;
 
-
-    public ResponseDto signUpResult(SignUp signUpRequest) {
+    @Transactional
+    public ResponseDto signUpResult(SignUp signUpRequest, MultipartFile multipartFiles) {
         if (userJpa.existsByEmail(signUpRequest.getEmail())){
             CheckResponse checkResponse = new CheckResponse(signUpRequest.getEmail()+"(는)은 이미 존재하는 이메일입니다. 다른 이메일을 이용헤주세요.",true);
             return new ResponseDto(HttpStatus.CONFLICT.value(), "중복 여부 확인",checkResponse);
@@ -49,6 +62,7 @@ public class AuthService {
             CheckResponse checkResponse = new CheckResponse(signUpRequest.getNickname() + "(는)은 이미 존재하는 닉네임입니다. 다른 닉네임을 이용해주세요.",true);
             return new ResponseDto(HttpStatus.CONFLICT.value(), "중복 여부 확인",checkResponse);
         }
+        SaveFileType type =SaveFileType.small;
 
         Role role =roleJpa.findByRoleName("ROLE_USER")
                 .orElseThrow(()-> new NotFoundException("code : "+HttpStatus.NOT_FOUND.value()+" USER라는 역할이 없습니다."));
@@ -60,9 +74,19 @@ public class AuthService {
                 .birthday(signUpRequest.getBirthday())
                 .phoneNumber(signUpRequest.getPhoneNumber())
                 .address(signUpRequest.getAddress())
-                .profilePic(signUpRequest.getProfilePic())
                 .money(0)
                 .build();
+        switch(type){
+            case small:
+                PutObjectRequest putObjectRequest= makePutObjectRequest(multipartFiles);
+                amazonS3Client.putObject(putObjectRequest);
+                String url= amazonS3Client.getUrl(bucketName, putObjectRequest.getKey()).toString();
+                signUpUser.setProfilePic(url);
+                break;
+            case large:
+                break;
+        }
+
         userJpa.save(signUpUser);
         UserRole signUpUserRole = UserRole.builder()
                 .role(role).user(signUpUser)
@@ -135,5 +159,24 @@ public class AuthService {
         }
         user.setPassword(passwordEncoder.encode(changePassword.getNewPassword()));
         return new ResponseDto(HttpStatus.OK.value(), "변경된 비밀번호로 다시 로그인해주세요");
+    }
+
+
+    //메소드
+    private PutObjectRequest makePutObjectRequest(MultipartFile file) {
+        String storageFileName= makeStorageFileName(Objects.requireNonNull(file.getOriginalFilename()));
+        ObjectMetadata objectMetadata= new ObjectMetadata();
+        objectMetadata.setContentType(file.getContentType());
+        objectMetadata.setContentLength(file.getSize());
+        try{
+            return new PutObjectRequest(bucketName, storageFileName, file.getInputStream(), objectMetadata);
+        } catch (IOException e) {
+            throw new StorageUpdateFailedException("파일 업로드 실패", file.getOriginalFilename());
+        }
+    }
+
+    private String makeStorageFileName(String orignialFileName) {
+        String extension= orignialFileName.substring(orignialFileName.lastIndexOf(".")+1);
+        return UUID.randomUUID() + "." + extension;
     }
 }
