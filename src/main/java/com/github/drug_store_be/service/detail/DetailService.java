@@ -84,7 +84,7 @@ public class DetailService {
         productDetailResponse.setIsLike(false);
         return new ResponseDto(HttpStatus.OK.value(), "조회 성공",productDetailResponse);
     }
-    @Cacheable(value = "productReview",key = "#productId")
+    @Cacheable(value = "productReview",key = "#criteria")
     public ResponseDto productReviewResult(Integer productId, Integer pageNum, String criteria) {
         Product product = productJpa.findById(productId)
                 .orElseThrow(()-> new NotFoundException("해당 상품을 찾을 수 없습니다."));
