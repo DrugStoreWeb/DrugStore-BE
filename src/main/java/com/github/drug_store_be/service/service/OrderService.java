@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,10 +53,9 @@ public class OrderService {
         if(!cartList.isEmpty()) {
             //save order JPA
             LocalDate orderAt = LocalDate.now();
-            Random random = new Random();
-            Integer randomNumber = random.nextInt(10000);
 
-            String ordersNumber = user.getUserId().toString() + orderAt.getYear() + ":" + randomNumber.toString();
+            //UUID사용해서 짧고 고유한 주문번호 만들기
+            String ordersNumber = UUID.randomUUID().toString().replace("-", "").substring(0, 16);
 
             for (Cart c : cartList) {
                 saveOrder(user, c, ordersNumber, orderAt);
