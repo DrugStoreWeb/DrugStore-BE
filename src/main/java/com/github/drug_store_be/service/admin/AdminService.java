@@ -1,11 +1,11 @@
-package com.github.drug_store_be.service.service;
+package com.github.drug_store_be.service.admin;
 
 import com.github.drug_store_be.repository.category.Category;
 import com.github.drug_store_be.repository.category.CategoryJpa;
 import com.github.drug_store_be.repository.option.Options;
-import com.github.drug_store_be.repository.option.OptionsJpa;
+import com.github.drug_store_be.repository.option.OptionsRepository;
 import com.github.drug_store_be.repository.product.Product;
-import com.github.drug_store_be.repository.product.ProductJpa;
+import com.github.drug_store_be.repository.product.ProductRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import com.github.drug_store_be.repository.user.User;
@@ -29,9 +29,9 @@ import java.util.stream.Collectors;
 public class AdminService {
     private final UserJpa userJpa;
     private final CategoryJpa categoryJpa;
-    private final ProductJpa productJpa;
+    private final ProductRepository productRepository;
     private final ProductPhotoJpa productPhotoJpa;
-    private final OptionsJpa optionsJpa;
+    private final OptionsRepository optionsRepository;
 
     public ResponseDto registerProduct(CustomUserDetails customUserDetails, ProductRegisterDto productRegisterDto) {
         User user= userJpa.findById(customUserDetails.getUserId())
@@ -59,7 +59,7 @@ public class AdminService {
                     .productSales(0.0)
                     .reviewAvg(0.0)
                     .build();
-            productJpa.save(product);
+            productRepository.save(product);
 
             List<ProductPhoto> productPhotoList= productRegisterDto.getProductPhotoList()
                     .stream()
@@ -80,7 +80,7 @@ public class AdminService {
                             .stock(o.getStock())
                             .build())
                     .toList();
-            optionsJpa.saveAll(optionsList);
+            optionsRepository.saveAll(optionsList);
 
             //option추가할 때 상품 originalStock(0)바꾸기 기억하기!
 

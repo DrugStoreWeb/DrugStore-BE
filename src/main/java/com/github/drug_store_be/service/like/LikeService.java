@@ -3,7 +3,7 @@ package com.github.drug_store_be.service.like;
 import com.github.drug_store_be.repository.like.Likes;
 import com.github.drug_store_be.repository.like.LikesJpa;
 import com.github.drug_store_be.repository.product.Product;
-import com.github.drug_store_be.repository.product.ProductJpa;
+import com.github.drug_store_be.repository.product.ProductRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserJpa;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class LikeService {
     private final UserJpa userJpa;
-    private final ProductJpa productJpa;
+    private final ProductRepository productRepository;
     private final LikesJpa likesJpa;
 
     private User findUser(CustomUserDetails customUserDetails) {
@@ -33,7 +33,7 @@ public class LikeService {
     }
 
     private Product findProduct(Integer productId) {
-        return productJpa.findById(productId)
+        return productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("제품을 찾을 수 없습니다."));
     }
 

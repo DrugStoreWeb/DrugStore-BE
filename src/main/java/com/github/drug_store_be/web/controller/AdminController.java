@@ -1,7 +1,7 @@
 package com.github.drug_store_be.web.controller;
 
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
-import com.github.drug_store_be.service.service.AdminService;
+import com.github.drug_store_be.service.admin.AdminService;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import com.github.drug_store_be.web.DTO.order.ProductRegisterDto;
 import io.swagger.v3.oas.annotations.Operation;

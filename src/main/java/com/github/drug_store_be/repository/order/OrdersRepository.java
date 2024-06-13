@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface OrdersJpa extends JpaRepository<Orders,Integer> {
+public interface OrdersRepository extends JpaRepository<Orders,Integer> {
 
     @Query("SELECT r FROM Orders r WHERE r.user.userId = :userId")
     Page<Orders> findAllByUserId(int userId, Pageable pageable);

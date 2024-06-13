@@ -3,9 +3,9 @@ package com.github.drug_store_be.service.cart;
 import com.github.drug_store_be.repository.cart.Cart;
 import com.github.drug_store_be.repository.cart.CartJpa;
 import com.github.drug_store_be.repository.option.Options;
-import com.github.drug_store_be.repository.option.OptionsJpa;
+import com.github.drug_store_be.repository.option.OptionsRepository;
 import com.github.drug_store_be.repository.product.Product;
-import com.github.drug_store_be.repository.product.ProductJpa;
+import com.github.drug_store_be.repository.product.ProductRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import com.github.drug_store_be.repository.user.User;
@@ -25,9 +25,9 @@ import java.util.stream.Collectors;
 @Service
 public class CartService {
     private final UserJpa userJpa;
-    private final ProductJpa productJpa;
+    private final ProductRepository productRepository;
     private final ProductPhotoJpa productPhotoJpa;
-    private final OptionsJpa optionsJpa;
+    private final OptionsRepository optionsRepository;
     private final CartJpa cartJpa;
 
     // 장바구니 조회
@@ -74,14 +74,14 @@ public class CartService {
         User user = userJpa.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        Product product = productJpa.findById(cartRequest.getProductId())
+        Product product = productRepository.findById(cartRequest.getProductId())
                 .orElseThrow(() -> new NotFoundException("Product not found"));
 
         if (!product.isProductStatus()){
             throw new IllegalArgumentException("Product is not available for sale");
         }
 
-        Options options = optionsJpa.findById(cartRequest.getOptionsId())
+        Options options = optionsRepository.findById(cartRequest.getOptionsId())
                 .orElseThrow(() -> new NotFoundException("Options not found"));
 
         if (!options.getProduct().getProductId().equals(product.getProductId())) {
@@ -130,7 +130,7 @@ public class CartService {
 
         Integer optionId = cartRequest.getOptionsId();
         if (optionId != null) {
-            Options options = optionsJpa.findById(optionId)
+            Options options = optionsRepository.findById(optionId)
                     .orElseThrow(() -> new NotFoundException("Options not found"));
             cart.setOptions(options);
         }

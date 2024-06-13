@@ -4,9 +4,9 @@ import com.github.drug_store_be.repository.cart.Cart;
 import com.github.drug_store_be.repository.cart.CartJpa;
 import com.github.drug_store_be.repository.coupon.Coupon;
 import com.github.drug_store_be.repository.option.Options;
-import com.github.drug_store_be.repository.option.OptionsJpa;
+import com.github.drug_store_be.repository.option.OptionsRepository;
 import com.github.drug_store_be.repository.order.Orders;
-import com.github.drug_store_be.repository.order.OrdersJpa;
+import com.github.drug_store_be.repository.order.OrdersRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserJpa;
@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -33,8 +32,8 @@ import java.util.stream.Collectors;
 public class OrderService {
     private final UserJpa userJpa;
     private final CartJpa cartJpa;
-    private final OrdersJpa ordersJpa;
-    private final OptionsJpa optionsJpa;
+    private final OrdersRepository ordersRepository;
+    private final OptionsRepository optionsRepository;
 
     @Transactional
     public ResponseDto cartToOrder(CustomUserDetails customUserDetails) {
@@ -85,12 +84,12 @@ public class OrderService {
 
     private void optionStockChange(List<Cart> cartList) {
         for(Cart c: cartList){
-            Options options= optionsJpa.findById(c.getOptions().getOptionsId())
+            Options options= optionsRepository.findById(c.getOptions().getOptionsId())
                     .orElseThrow(()-> new NotFoundException("Cannot find option with ID"));
             int orignialOptionStock= options.getStock();
             int orderedStock= c.getQuantity();
             options.setStock(orignialOptionStock - orderedStock);
-            optionsJpa.save(options);
+            optionsRepository.save(options);
 
         }
     }
@@ -121,7 +120,7 @@ public class OrderService {
                 .ordersNumber(ordersNumber)
                 .ordersAt(orderAt)
                 .build();
-        ordersJpa.save(orders);
+        ordersRepository.save(orders);
         return "order saved successfully";
     }
 

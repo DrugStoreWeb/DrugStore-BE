@@ -3,11 +3,11 @@ package com.github.drug_store_be.service.MyPage;
 import com.github.drug_store_be.repository.cart.Cart;
 import com.github.drug_store_be.repository.cart.CartJpa;
 import com.github.drug_store_be.repository.option.Options;
-import com.github.drug_store_be.repository.option.OptionsJpa;
+import com.github.drug_store_be.repository.option.OptionsRepository;
 import com.github.drug_store_be.repository.order.Orders;
-import com.github.drug_store_be.repository.order.OrdersJpa;
+import com.github.drug_store_be.repository.order.OrdersRepository;
 import com.github.drug_store_be.repository.product.Product;
-import com.github.drug_store_be.repository.product.ProductJpa;
+import com.github.drug_store_be.repository.product.ProductRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.questionAnswer.QuestionAnswer;
 import com.github.drug_store_be.repository.review.Review;
@@ -36,11 +36,11 @@ import java.util.stream.Collectors;
 @Service
 public class MypageService {
     private final ReviewJpa reviewJpa;
-    private final OrdersJpa ordersJpa;
+    private final OrdersRepository ordersRepository;
     private final CartJpa cartJpa;
-    private final OptionsJpa optionsJpa;
+    private final OptionsRepository optionsRepository;
     private final UserJpa userJpa;
-    private final ProductJpa productJpa;
+    private final ProductRepository productRepository;
 
     public ResponseDto addReview(CustomUserDetails customUserDetails, ReviewRequest reviewRequest, int ordersId) throws ReviewException {
         Integer userId = customUserDetails.getUserId();
@@ -49,16 +49,16 @@ public class MypageService {
             throw new ReviewException("이미 리뷰를 작성하였습니다.");
         }
 
-        Orders orders = ordersJpa.findById(ordersId).orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
+        Orders orders = ordersRepository.findById(ordersId).orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
         Integer cartId = orders.getCart().getCartId();
 
         Cart cart = cartJpa.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
         Integer optionId = cart.getOptions().getOptionsId();
 
-        Options options = optionsJpa.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
+        Options options = optionsRepository.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
         Integer productId = options.getProduct().getProductId();
 
-        Product product = productJpa.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
+        Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
 
         Integer reviewScore = reviewRequest.getReviewScore();
         String reviewContent = reviewRequest.getReviewContent();
@@ -100,16 +100,16 @@ public class MypageService {
         Integer reviewScore = reviewRequest.getReviewScore();
         String reviewContent = reviewRequest.getReviewContent();
 
-        Orders orders = ordersJpa.findById(ordersId).orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
+        Orders orders = ordersRepository.findById(ordersId).orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
         Integer cartId = orders.getCart().getCartId();
 
         Cart cart = cartJpa.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
         Integer optionId = cart.getOptions().getOptionsId();
 
-        Options options = optionsJpa.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
+        Options options = optionsRepository.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
         Integer productId = options.getProduct().getProductId();
 
-        Product product = productJpa.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
+        Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
 
         String photoUrl = getTruePhotoUrl(product.getProductPhotoList());
 
@@ -184,7 +184,7 @@ public class MypageService {
                 .map(User::getUserId)
                 .orElseThrow(() -> new NotFoundException("아이디를 찾을 수 없습니다."));
 
-        Page<Orders> ordersPage = ordersJpa.findAllByUserId(userId, pageable);
+        Page<Orders> ordersPage = ordersRepository.findAllByUserId(userId, pageable);
 
         if (ordersPage.isEmpty()) {
             throw new NotFoundException("구매 정보를 찾을 수 없습니다.");
@@ -194,9 +194,9 @@ public class MypageService {
             Integer cartId = orders.getCart().getCartId();
             Cart cart = cartJpa.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
             Integer optionId = cart.getOptions().getOptionsId();
-            Options options = optionsJpa.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
+            Options options = optionsRepository.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
             Integer productId = options.getProduct().getProductId();
-            Product product = productJpa.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
+            Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
             String photoUrl = getTruePhotoUrl(product.getProductPhotoList());
 
             return OrdersResponse.builder()
@@ -230,16 +230,16 @@ public class MypageService {
         if (reviews.isEmpty()) {
             throw new NotFoundException("등록된 리뷰가 존재하지 않습니다.");
         }
-        Orders orders = ordersJpa.findById(ordersId).orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
+        Orders orders = ordersRepository.findById(ordersId).orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
         Integer cartId = orders.getCart().getCartId();
 
         Cart cart = cartJpa.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
         Integer optionId = cart.getOptions().getOptionsId();
 
-        Options options = optionsJpa.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
+        Options options = optionsRepository.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
         Integer productId = options.getProduct().getProductId();
 
-        Product product = productJpa.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
+        Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
         String photoUrl = getTruePhotoUrl(product.getProductPhotoList());
 
         List<ReviewResponse> reviewResponses = reviews.stream()

@@ -3,7 +3,7 @@ package com.github.drug_store_be.service.main;
 import com.github.drug_store_be.repository.like.Likes;
 import com.github.drug_store_be.repository.like.LikesJpa;
 import com.github.drug_store_be.repository.product.Product;
-import com.github.drug_store_be.repository.product.ProductJpa;
+import com.github.drug_store_be.repository.product.ProductRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.user.UserJpa;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageAdImg;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class MainService{
-    private final ProductJpa productJpa;
+    private final ProductRepository productRepository;
     private final LikesJpa likesJpa;
     private final UserJpa userJpa;
 
@@ -34,7 +34,7 @@ public class MainService{
     //정렬+광고
     public MainPageResponse mainpage(String sortBy,Pageable pageable) {
         //모든 상품 찾기
-        List<Product> productList=productJpa.findAll();
+        List<Product> productList= productRepository.findAll();
 
         //product+productPhoto+sorting기준 필드=productListQueryDto 생성
         List<productListQueryDto> productListQueryDtoList=getProductListQueryDto(productList);
@@ -56,12 +56,12 @@ public class MainService{
             paginatedResult = new PageImpl<>(paginatedList, pageable, sortedMainPageProductResponseList.size());
         }
         //광고 이미지
-        productJpa.updateReviewAvg();
-        Product topProductByReview = productJpa.findTopByOrderByReviewAvgDesc();
-        productJpa.updateProductSales();
-        Product topProductBySales = productJpa.findTopByOrderByProductSalesDesc();
+        productRepository.updateReviewAvg();
+        Product topProductByReview = productRepository.findTopByOrderByReviewAvgDesc();
+        productRepository.updateProductSales();
+        Product topProductBySales = productRepository.findTopByOrderByProductSalesDesc();
         Integer productId= likesJpa.findProductWithMostLikes().getProductId();
-        Optional<Product> topProductByLikes = productJpa.findById(productId);
+        Optional<Product> topProductByLikes = productRepository.findById(productId);
 
         MainPageAdImg mpai = MainPageAdImg.builder()
                 .likes_top_image_url(topProductByLikes.map(this::getMainImgUrls).orElse(null))
@@ -85,7 +85,7 @@ public class MainService{
     //페이징+정렬
     public Page<MainPageProductResponse> CategoryPage(int category, String sortBy, Pageable pageable) {
         //카테고리별 상품 찾기
-        List<Product> productList=productJpa.findByCategory(category);
+        List<Product> productList= productRepository.findByCategory(category);
 
         //product+productPhoto+sorting기준 필드=productListQueryDto 생성
         List<productListQueryDto> productListQueryDtoList=getProductListQueryDto(productList);
@@ -109,7 +109,7 @@ public class MainService{
     //페이징+정렬+검색
     public Page<MainPageProductResponse> findPage(String keyword, String sortBy, Pageable pageable) {
         //브랜드와 상품 이름으로 검색
-        List<Product> productList=productJpa.findByBrandOrProductNameContaining(keyword);
+        List<Product> productList= productRepository.findByBrandOrProductNameContaining(keyword);
 
         //product+productPhoto+sorting기준 필드=productListQueryDto 생성
         List<productListQueryDto> productListQueryDtoList=getProductListQueryDto(productList);
@@ -162,8 +162,8 @@ public class MainService{
             if(userId.isPresent()) {
                 userLike= likesJpa.findByUserIdAndProductId(userId, product.getProductId());
             }else {userLike =null;}
-            productJpa.updateProductSales();
-            productJpa.updateReviewAvg();
+            productRepository.updateProductSales();
+            productRepository.updateReviewAvg();
             int productLike=likesJpa.findByProductId(product.getProductId());
             productListQueryDto plqd = productListQueryDto.builder()
                     .product_id(product.getProductId())

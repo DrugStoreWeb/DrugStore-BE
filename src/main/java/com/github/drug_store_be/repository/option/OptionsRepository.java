@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface OptionsJpa extends JpaRepository<Options,Integer> {
+public interface OptionsRepository extends JpaRepository<Options,Integer> {
     List<Options> findAllByProduct(Product product);
     @Query(value = "SELECT SUM(stock) FROM Options")
     Integer getTotalOptionsStock();
