@@ -5,11 +5,13 @@ import com.github.drug_store_be.repository.like.LikesJpa;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductJpa;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
+import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserJpa;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageAdImg;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageProductResponse;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageResponse;
 import com.github.drug_store_be.web.DTO.MainPage.productListQueryDto;
+import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -43,31 +45,10 @@ public class MainService{
         List<MainPageProductResponse> sortedMainPageProductResponseList=pageSorting(sortBy,productListQueryDtoList);
 
         // Pageable로 페이징 처리
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), sortedMainPageProductResponseList.size());
+        Page<MainPageProductResponse> paginatedResult =getPaging(sortedMainPageProductResponseList, pageable);
 
-        Page<MainPageProductResponse> paginatedResult;
-        if (start > end) {
-            // start 인덱스가 end 인덱스보다 큰 경우 빈 페이지를 반환
-            paginatedResult =new PageImpl<>(Collections.emptyList(), pageable, sortedMainPageProductResponseList.size());
-        }else {
-
-            List<MainPageProductResponse> paginatedList = sortedMainPageProductResponseList.subList(start, end);
-            paginatedResult = new PageImpl<>(paginatedList, pageable, sortedMainPageProductResponseList.size());
-        }
         //광고 이미지
-        productJpa.updateReviewAvg();
-        Product topProductByReview = productJpa.findTopByOrderByReviewAvgDesc();
-        productJpa.updateProductSales();
-        Product topProductBySales = productJpa.findTopByOrderByProductSalesDesc();
-        Integer productId= likesJpa.findProductWithMostLikes().getProductId();
-        Optional<Product> topProductByLikes = productJpa.findById(productId);
-
-        MainPageAdImg mpai = MainPageAdImg.builder()
-                .likes_top_image_url(topProductByLikes.map(this::getMainImgUrls).orElse(null))
-                .sales_top_image_url(getMainImgUrls(topProductBySales))
-                .review_top_image_url(getMainImgUrls(topProductByReview))
-                .build();
+        MainPageAdImg mpai=getAdImg();
 
         // MainPageResponse 생성
         MainPageResponse mainPageResponse = MainPageResponse.builder()
@@ -85,7 +66,7 @@ public class MainService{
     //페이징+정렬
     public Page<MainPageProductResponse> CategoryPage(int category, String sortBy, Pageable pageable) {
         //카테고리별 상품 찾기
-        List<Product> productList=productJpa.findByCategory(category);
+        List<Product> productList=productJpa.findByCategoryCategoryId(category);
 
         //product+productPhoto+sorting기준 필드=productListQueryDto 생성
         List<productListQueryDto> productListQueryDtoList=getProductListQueryDto(productList);
@@ -93,41 +74,27 @@ public class MainService{
         //sorting
         List<MainPageProductResponse> sortedMainPageProductResponseList=pageSorting(sortBy,productListQueryDtoList);
 
-        // List -> Page
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), sortedMainPageProductResponseList.size());
+        // Pageing
+        Page<MainPageProductResponse> paginatedResult =getPaging(sortedMainPageProductResponseList, pageable);
 
-        if (start > end) {
-            // start 인덱스가 end 인덱스보다 큰 경우 빈 페이지를 반환
-            return new PageImpl<>(Collections.emptyList(), pageable, sortedMainPageProductResponseList.size());
-        }
-
-        List<MainPageProductResponse> pageContent = sortedMainPageProductResponseList.subList(start, end);
-        return new PageImpl<>(pageContent, pageable, sortedMainPageProductResponseList.size());
+        return paginatedResult;
     }
 
     //페이징+정렬+검색
     public Page<MainPageProductResponse> findPage(String keyword, String sortBy, Pageable pageable) {
         //브랜드와 상품 이름으로 검색
-        List<Product> productList=productJpa.findByBrandOrProductNameContaining(keyword);
+        List<Product> productList=productJpa.findByKeyword(keyword);
 
         //product+productPhoto+sorting기준 필드=productListQueryDto 생성
         List<productListQueryDto> productListQueryDtoList=getProductListQueryDto(productList);
 
         //sorting
-        List<MainPageProductResponse> sortedMainPageProductResponseList=pageSorting(sortBy.toString(),productListQueryDtoList);
+        List<MainPageProductResponse> sortedMainPageProductResponseList=pageSorting(sortBy,productListQueryDtoList);
 
-        // List -> Page
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), sortedMainPageProductResponseList.size());
+        // Pageing
+        Page<MainPageProductResponse> paginatedResult =getPaging(sortedMainPageProductResponseList, pageable);
 
-        if (start > end) {
-            // start 인덱스가 end 인덱스보다 큰 경우 빈 페이지를 반환
-            return new PageImpl<>(Collections.emptyList(), pageable, sortedMainPageProductResponseList.size());
-        }
-
-        List<MainPageProductResponse> pageContent = sortedMainPageProductResponseList.subList(start, end);
-        return new PageImpl<>(pageContent, pageable, sortedMainPageProductResponseList.size());
+        return paginatedResult;
     }
 
 
@@ -144,27 +111,62 @@ public class MainService{
     }
 
 
+    //광고이미지
+    public MainPageAdImg getAdImg() {
+
+        productJpa.updateReviewAvg();
+        productJpa.updateProductSales();
+
+        Product topProductByReview = productJpa.findTopByOrderByReviewAvgDesc();
+        Product topProductBySales = productJpa.findTopByOrderByProductSalesDesc();
+        Product topProductByLikes = productJpa.findTopByOrderByLikesDesc();
+
+
+        MainPageAdImg mpai = MainPageAdImg.builder()
+                .likes_top_image_url(getMainImgUrls(topProductByLikes))
+                .sales_top_image_url(getMainImgUrls(topProductBySales))
+                .review_top_image_url(getMainImgUrls(topProductByReview))
+                .build();
+        return mpai;
+    }
+
+
+    //페이징
+    public Page<MainPageProductResponse> getPaging(List<MainPageProductResponse> p, Pageable pageable){
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), p.size());
+
+        Page<MainPageProductResponse> paginatedResult;
+        if (start > end) {
+            // start 인덱스가 end 인덱스보다 큰 경우 빈 페이지를 반환
+            paginatedResult =new PageImpl<>(Collections.emptyList(), pageable, p.size());
+        }else {
+            List<MainPageProductResponse> paginatedList = p.subList(start, end);
+            paginatedResult = new PageImpl<>(paginatedList, pageable, p.size());
+        }
+        return paginatedResult;
+    }
+
+
     //user가 product를 like했는가 여부를 알기 위한 userId 찾기
-    private Optional<Integer> getUserId() {
+    private Boolean getUserLike(Product product) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String Email = authentication.getName();
-            Optional<Integer> userId = userJpa.findByEmail(Email);
-            return userId;
+        User userId = userJpa.findByEmailFetchJoin(Email).orElse(null);
+        if(userId!=null) {
+            return productJpa.existsByUserIdAndProductId(product.getProductId(),userId);
+        }else {return null;}
     }
 
     //MainResponse에 필요한 값과 정렬에 필요한 값을 합쳐 놓은 dto
     public List<productListQueryDto> getProductListQueryDto(List<Product> productList) {
-        Optional<Integer> userId = getUserId();
         List<productListQueryDto> plqdList = new ArrayList<>();
 
         for (Product product : productList) {
-            Likes userLike;
-            if(userId.isPresent()) {
-                userLike= likesJpa.findByUserIdAndProductId(userId, product.getProductId());
-            }else {userLike =null;}
+
             productJpa.updateProductSales();
             productJpa.updateReviewAvg();
-            int productLike=likesJpa.findByProductId(product.getProductId());
+            int productLike=productJpa.countLikesByProductId(product.getProductId());
             productListQueryDto plqd = productListQueryDto.builder()
                     .product_id(product.getProductId())
                     .product_name(product.getProductName())
@@ -173,7 +175,7 @@ public class MainService{
                     .final_price(product.getFinalPrice())
                     .product_img(getMainImgUrls(product))
                     .best(product.isBest())
-                    .likes(userLike != null && userLike.getLikesId() != null)
+                    .likes(getUserLike(product)!=null)
                     .sales(product.getProductDiscount()>0)
                     .product_sales(product.getProductSales())
                     .product_like(productLike)
@@ -185,7 +187,19 @@ public class MainService{
         return plqdList;
     }
 
-
+    public static MainPageProductResponse toMainpageResponseDto(productListQueryDto pld) {
+        return MainPageProductResponse.builder()
+                .product_id(pld.getProduct_id())
+                .product_name(pld.getProduct_name())
+                .brand_name(pld.getBrand_name())
+                .price(pld.getPrice())
+                .final_price(pld.getFinal_price())
+                .product_img(pld.getProduct_img())
+                .likes(pld.isLikes())
+                .best(pld.isBest())
+                .sales(pld.isSales())
+                .build();
+    }
 
     //정렬
     List<MainPageProductResponse> pageSorting(String sortBy, List<productListQueryDto> productList) {
@@ -213,7 +227,7 @@ public class MainService{
 
         return productList.stream()
                 .sorted(comparator)
-                .map(productListQueryDto::toMainpageResponseDto)
+                .map(MainService::toMainpageResponseDto)
                 .collect(Collectors.toList());
     }
 
