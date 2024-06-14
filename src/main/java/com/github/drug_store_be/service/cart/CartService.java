@@ -1,7 +1,7 @@
 package com.github.drug_store_be.service.cart;
 
 import com.github.drug_store_be.repository.cart.Cart;
-import com.github.drug_store_be.repository.cart.CartJpa;
+import com.github.drug_store_be.repository.cart.CartRepository;
 import com.github.drug_store_be.repository.option.Options;
 import com.github.drug_store_be.repository.option.OptionsRepository;
 import com.github.drug_store_be.repository.product.Product;
@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -26,9 +27,8 @@ import java.util.stream.Collectors;
 public class CartService {
     private final UserJpa userJpa;
     private final ProductRepository productRepository;
-    private final ProductPhotoJpa productPhotoJpa;
     private final OptionsRepository optionsRepository;
-    private final CartJpa cartJpa;
+    private final CartRepository cartRepository;
 
     // 장바구니 조회
     public List<CartResponse> findAllCarts(CustomUserDetails customUserDetails) {
@@ -36,7 +36,7 @@ public class CartService {
         User user = userJpa.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        List<Cart> carts = cartJpa.findAllByUserOrderByCartIdDesc(user);
+        List<Cart> carts = cartRepository.findAllByUserOrderByCartIdDesc(user);
         if (carts.isEmpty()) {
             throw new NotFoundException("No cart items found");
         }
@@ -93,15 +93,15 @@ public class CartService {
             throw new IllegalArgumentException("Quantity must be positive");
         }
 
-        List<Cart> existingCarts = cartJpa.findByUserAndOptions(user, options);
+        Optional<Cart> existingCarts = cartRepository.findByUserAndOptions(user, options);
         if (!existingCarts.isEmpty()) {
-            Cart existingCart = existingCarts.get(0);
+            Cart existingCart = existingCarts.get();
             int totalQuantity = existingCart.getQuantity() + requestedQuantity;
             if (totalQuantity > options.getStock()) {
                 throw new IllegalArgumentException("No stock available for the selected option");
             }
             existingCart.setQuantity(totalQuantity);
-            cartJpa.save(existingCart);
+            cartRepository.save(existingCart);
             return new ResponseDto(HttpStatus.OK.value(), "Cart item quantity updated successfully");
         }
 
@@ -114,7 +114,7 @@ public class CartService {
                 .options(options)
                 .quantity(cartRequest.getQuantity())
                 .build();
-        cartJpa.save(cart);
+        cartRepository.save(cart);
         return new ResponseDto(HttpStatus.OK.value(), "Cart item added successfully");
     }
 
@@ -125,7 +125,7 @@ public class CartService {
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
         Integer cartId = cartRequest.getCartId();
-        Cart cart = cartJpa.findById(cartId)
+        Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new NotFoundException("Cart item not found"));
 
         Integer optionId = cartRequest.getOptionsId();
@@ -152,7 +152,7 @@ public class CartService {
         }
 
         cart.setQuantity(quantity);
-        cartJpa.save(cart);
+        cartRepository.save(cart);
 
         return new ResponseDto(HttpStatus.OK.value(), "Cart item updated successfully");
     }
@@ -163,21 +163,21 @@ public class CartService {
         User user = userJpa.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        Cart cartToDelete = cartJpa.findByIdAndUserId(cartId, userId)
+        Cart cartToDelete = cartRepository.findByIdAndUserId(cartId, userId)
                 .orElseThrow(() -> new NotFoundException("Product not found in user's cart"));
 
-        cartJpa.delete(cartToDelete);
+        cartRepository.delete(cartToDelete);
         return new ResponseDto(HttpStatus.OK.value(), "Product deleted from cart successfully");
     }
 
     //장바구니 비우기
     public ResponseDto clearCart(CustomUserDetails customUserDetails) {
-        int userId = customUserDetails.getUserId();
+        Integer userId = customUserDetails.getUserId();
 
-        List<Cart> userCarts = cartJpa.findAllByUser_UserId(userId);
+        List<Cart> userCarts = cartRepository.findByUserId(userId);
 
         if (!userCarts.isEmpty()) {
-            cartJpa.deleteAll(userCarts);
+            cartRepository.deleteAll(userCarts);
             return new ResponseDto(HttpStatus.OK.value(), "Cart cleared successfully");
         } else {
             throw new NotFoundException("Cart is already empty");

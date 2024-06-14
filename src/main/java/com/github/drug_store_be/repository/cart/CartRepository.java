@@ -10,15 +10,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CartJpa extends JpaRepository<Cart,Integer> {
-    List<Cart> findAllByUser(User user);
+public interface CartRepository extends JpaRepository<Cart,Integer> {
 
     List<Cart> findAllByUserOrderByCartIdDesc(User user);
 
-    List<Cart> findByUserAndOptions(User user, Options options);
+    @Query(
+            "SELECT c " +
+                    "FROM Cart c " +
+                    "WHERE c.user = :user AND c.options = :options "
+    )
 
-    @Query("SELECT c FROM Cart c WHERE c.user.userId = :userId")
-    List<Cart> findAllByUser_UserId(int userId);
+    Optional<Cart> findByUserAndOptions(User user, Options options);
+
 
     @Query("SELECT c FROM Cart c WHERE c.cartId = ?1 AND c.user.userId = ?2")
     Optional<Cart> findByIdAndUserId(Integer cartId, Integer userId);
@@ -30,4 +33,11 @@ public interface CartJpa extends JpaRepository<Cart,Integer> {
                     "WHERE c.user.userId =:userId "
     )
     List<Cart> findByUserId(Integer userId);
+
+    @Query(
+            "SELECT c " +
+                    "FROM Cart c " +
+                    "WHERE c.user.userId = :userId AND c.options.optionsId = :optionsId "
+    )
+    Optional<Cart> findByUserIdAndOptionId(Integer userId, Integer optionsId);
 }

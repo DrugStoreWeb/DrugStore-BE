@@ -4,6 +4,7 @@ import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.service.service.OrderService;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import com.github.drug_store_be.web.DTO.order.ProductRegisterDto;
+import com.github.drug_store_be.web.DTO.pay.PayRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,5 +19,12 @@ public class OrderController {
     @PostMapping("/cartToOrder")
     public ResponseDto cartToOrder(@AuthenticationPrincipal CustomUserDetails customUserDetails){
         return orderService.cartToOrder(customUserDetails);
+    }
+
+    @Operation(summary= "주문에서 결제로 넘어가기")
+    @PutMapping("/pay")
+    public ResponseDto orderToPay(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                  @RequestBody PayRequestDto payRequestDto){
+        return orderService.orderToPay(customUserDetails, payRequestDto);
     }
 }

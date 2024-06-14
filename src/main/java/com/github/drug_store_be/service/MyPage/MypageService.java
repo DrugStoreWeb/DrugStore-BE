@@ -1,7 +1,7 @@
 package com.github.drug_store_be.service.MyPage;
 
 import com.github.drug_store_be.repository.cart.Cart;
-import com.github.drug_store_be.repository.cart.CartJpa;
+import com.github.drug_store_be.repository.cart.CartRepository;
 import com.github.drug_store_be.repository.option.Options;
 import com.github.drug_store_be.repository.option.OptionsRepository;
 import com.github.drug_store_be.repository.order.Orders;
@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 public class MypageService {
     private final ReviewJpa reviewJpa;
     private final OrdersRepository ordersRepository;
-    private final CartJpa cartJpa;
+    private final CartRepository cartRepository;
     private final OptionsRepository optionsRepository;
     private final UserJpa userJpa;
     private final ProductRepository productRepository;
@@ -52,7 +52,7 @@ public class MypageService {
         Orders orders = ordersRepository.findById(ordersId).orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
         Integer cartId = orders.getCart().getCartId();
 
-        Cart cart = cartJpa.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
         Integer optionId = cart.getOptions().getOptionsId();
 
         Options options = optionsRepository.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
@@ -103,7 +103,7 @@ public class MypageService {
         Orders orders = ordersRepository.findById(ordersId).orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
         Integer cartId = orders.getCart().getCartId();
 
-        Cart cart = cartJpa.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
         Integer optionId = cart.getOptions().getOptionsId();
 
         Options options = optionsRepository.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
@@ -192,7 +192,7 @@ public class MypageService {
 
         List<OrdersResponse> ordersResponseList = ordersPage.stream().map(orders -> {
             Integer cartId = orders.getCart().getCartId();
-            Cart cart = cartJpa.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
+            Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
             Integer optionId = cart.getOptions().getOptionsId();
             Options options = optionsRepository.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
             Integer productId = options.getProduct().getProductId();
@@ -233,7 +233,7 @@ public class MypageService {
         Orders orders = ordersRepository.findById(ordersId).orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
         Integer cartId = orders.getCart().getCartId();
 
-        Cart cart = cartJpa.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
         Integer optionId = cart.getOptions().getOptionsId();
 
         Options options = optionsRepository.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));

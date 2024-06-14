@@ -1,7 +1,7 @@
 package com.github.drug_store_be.service.service;
 
 import com.github.drug_store_be.repository.cart.Cart;
-import com.github.drug_store_be.repository.cart.CartJpa;
+import com.github.drug_store_be.repository.cart.CartRepository;
 import com.github.drug_store_be.repository.coupon.Coupon;
 import com.github.drug_store_be.repository.option.Options;
 import com.github.drug_store_be.repository.option.OptionsRepository;
@@ -17,6 +17,8 @@ import com.github.drug_store_be.web.DTO.ResponseDto;
 import com.github.drug_store_be.web.DTO.order.OrderCouponResponseDto;
 import com.github.drug_store_be.web.DTO.order.OrderProductResponseDto;
 import com.github.drug_store_be.web.DTO.order.OrderResponseDto;
+import com.github.drug_store_be.web.DTO.pay.PayRequestDto;
+import com.github.drug_store_be.web.DTO.pay.OptionQuantityDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -31,7 +34,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderService {
     private final UserJpa userJpa;
-    private final CartJpa cartJpa;
+    private final CartRepository cartRepository;
     private final OrdersRepository ordersRepository;
     private final OptionsRepository optionsRepository;
 
@@ -39,15 +42,14 @@ public class OrderService {
     public ResponseDto cartToOrder(CustomUserDetails customUserDetails) {
         User user= userJpa.findById(customUserDetails.getUserId())
                 .orElseThrow(()-> new NotFoundException("아이디가  "+ customUserDetails.getUserId() +"인 유저를 찾을 수 없습니다."));
-        List<Cart> cartList= cartJpa.findByUserId(user.getUserId());
+        List<Cart> cartList= cartRepository.findByUserId(user.getUserId());
 
 
         //재고 예외처리 method
-        exceptionCheck(cartList);
+        List<OptionQuantityDto> optionQuantityList =  cartList.stream().map(c-> new OptionQuantityDto(c.getOptions().getOptionsId(), c.getQuantity()))
+                        .collect(Collectors.toList());
+        exceptionCheck(optionQuantityList);
 
-        //사용자가 가진 돈이 주문하려는 금액보다 적으면 예외처리
-        int totalPrice= caculateTotalPrice(cartList);
-        if(totalPrice > user.getMoney()) throw new NoMoneyException("You do not have enough money to proceed to order");
 
         if(!cartList.isEmpty()) {
             //save order JPA
@@ -59,11 +61,6 @@ public class OrderService {
             for (Cart c : cartList) {
                 saveOrder(user, c, ordersNumber, orderAt);
             }
-            //user money 차감
-            user.setMoney(user.getMoney()-totalPrice);
-            userJpa.save(user);
-            //option stock 차감
-            optionStockChange(cartList);
 
             //order response DTO
             OrderResponseDto orderResponseDto = OrderResponseDto.builder()
@@ -82,35 +79,84 @@ public class OrderService {
         }
     }
 
-    private void optionStockChange(List<Cart> cartList) {
-        for(Cart c: cartList){
-            Options options= optionsRepository.findById(c.getOptions().getOptionsId())
-                    .orElseThrow(()-> new NotFoundException("Cannot find option with ID"));
-            int orignialOptionStock= options.getStock();
-            int orderedStock= c.getQuantity();
-            options.setStock(orignialOptionStock - orderedStock);
-            optionsRepository.save(options);
+    //주문에서 결제로
+    public ResponseDto orderToPay(CustomUserDetails customUserDetails, PayRequestDto payRequestDto) {
+        List<OptionQuantityDto> optionQuantityList= payRequestDto.getOptionQuantityDto();
+        try {
+            //재고 예외처리
+            exceptionCheck(optionQuantityList);
+            //option stock 재고 차감
+            optionStockChange(optionQuantityList);
 
+
+            //사용자가 가진 돈이 주문하려는 금액보다 적으면 예외처리
+            User user = userJpa.findById(customUserDetails.getUserId())
+                    .orElseThrow(() -> new NotFoundException("아이디가  " + customUserDetails.getUserId() + "인 유저를 찾을 수 없습니다."));
+            Integer totalPrice = payRequestDto.getTotalPrice();
+            if (totalPrice > user.getMoney()) throw new NoMoneyException("You do not have enough money to order");
+
+            //user money 차감
+            user.setMoney(user.getMoney() - totalPrice);
+            userJpa.save(user);
+
+            //장바구니에서 주문한 상품은 삭제
+            deleteFromCart(user, optionQuantityList);
+
+
+            return new ResponseDto(HttpStatus.OK.value(), "주문 성공");
+        }catch(Exception e){
+            e.printStackTrace();
+            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "주문 실패");
         }
     }
 
-    //주문하려는 상품의 총 가격
-    private int caculateTotalPrice(List<Cart> cartList) {
-        return cartList.stream()
-                .mapToInt(c -> c.getOptions().getProduct().getFinalPrice() + c.getOptions().getOptionsPrice())
-                .sum();
-    }
+
+
 
     //재고처리
-    private static void exceptionCheck(List<Cart> cartList)  throws SoldOutException, NotEnoughStockException, ProductStatusException{
-        for(Cart c: cartList){
-            int cartQuantity=  c.getQuantity();
-            int productQuantity= c.getOptions().getStock();
-            if(productQuantity==0) throw new SoldOutException("This product is sold out");
-            else if(cartQuantity>productQuantity) throw new NotEnoughStockException("Not possible. Only "+ productQuantity +"products available.");
-            else if(!c.getOptions().getProduct().isProductStatus()) throw new ProductStatusException("This product is not available at the moment.");
+    private void exceptionCheck(List<OptionQuantityDto> optionQuantityDtoList)  throws SoldOutException, NotEnoughStockException, ProductStatusException{
+        for(OptionQuantityDto o: optionQuantityDtoList){
+            Options options= optionsRepository.findById(o.getOptionId())
+                    .orElseThrow(()-> new NotFoundException("Cannot find option with ID"));
+            int buyQuantity=  o.getQuantity();
+            int optionQuantity= options.getStock();
+            if(optionQuantity==0) throw new SoldOutException("This product is sold out");
+            else if(buyQuantity>optionQuantity) throw new NotEnoughStockException("Not possible. Product: "+ options.getProduct().getProductName() + " Option: "+ options.getOptionsName() + "Only "+ optionQuantity +"products available.");
+            else if(!options.getProduct().isProductStatus()) throw new ProductStatusException("This product is not available at the moment.");
         }
     }
+
+    private void optionStockChange(List<OptionQuantityDto> optionQuantityDtoList) {
+        for(OptionQuantityDto o: optionQuantityDtoList){
+            int optionId = o.getOptionId();
+            Options options= optionsRepository.findById(optionId)
+                    .orElseThrow(()-> new NotFoundException("Cannot find option with ID"));
+            int orignialOptionStock= options.getStock();
+            int orderedStock= o.getQuantity();
+            options.setStock(orignialOptionStock - orderedStock);
+            optionsRepository.save(options);
+        }
+    }
+
+    private void deleteFromCart(User user, List<OptionQuantityDto> optionQuantityDtoList) {
+        for(OptionQuantityDto o: optionQuantityDtoList){
+            Options options= optionsRepository.findById(o.getOptionId())
+                    .orElseThrow(()-> new NotFoundException("Cannot find option with ID"));
+
+
+            Cart cart= cartRepository.findByUserIdAndOptionId(user.getUserId(), options.getOptionsId())
+                    .orElseThrow(() -> new NotFoundException("There is no product in cart with matching user and option."));
+
+            //장바구니 삭제를 위해서 먼저 order부터 삭제
+            Orders order= ordersRepository.findByCart(cart);
+            ordersRepository.delete(order);
+            //finally delete cart
+            cartRepository.delete(cart);
+        }
+    }
+
+
+
 
     public String saveOrder(User user, Cart cart, String ordersNumber, LocalDate orderAt){
 
@@ -163,6 +209,8 @@ public class OrderService {
 
         return orderProductResponseDtoList;
     }
+
+
 }
 
 
