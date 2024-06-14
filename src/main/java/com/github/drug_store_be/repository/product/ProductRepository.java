@@ -47,5 +47,5 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     int countLikesByProductId(@Param("productId") Integer productId);
     @Query("SELECT CASE WHEN COUNT(l) > 0 THEN true ELSE false END " +
             "FROM Likes l WHERE l.user.userId = :userId AND l.product.productId = :productId")
-    Boolean existsByUserIdAndProductId(@Param("productId") Integer productId,@Param("userId") User userId);
+    Boolean existsByUserIdAndProductId(@Param("productId") Integer productId,@Param("userId") Integer userId);
 }

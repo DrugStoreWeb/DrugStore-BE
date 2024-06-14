@@ -148,12 +148,17 @@ public class MainService{
     //user가 product를 like했는가 여부를 알기 위한 userId 찾기
     private Boolean getUserLike(Product product) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String Email = authentication.getName();
-        User userId = userJpa.findByEmailFetchJoin(Email).orElse(null);
-        if(userId!=null) {
-            return productJpa.existsByUserIdAndProductId(product.getProductId(),userId);
-        }else {return null;}
+        String email = authentication.getName();
+        User user = userJpa.findByEmailFetchJoin(email).orElse(null);
+
+        if (user != null) {
+            Integer userId = user.getUserId();  // userId 필드를 직접 추출
+            return productJpa.existsByUserIdAndProductId(product.getProductId(), userId);
+        } else {
+            return false;
+        }
     }
+
 
     //MainResponse에 필요한 값과 정렬에 필요한 값을 합쳐 놓은 dto
     public List<productListQueryDto> getProductListQueryDto(List<Product> productList) {
@@ -172,7 +177,7 @@ public class MainService{
                     .final_price(product.getFinalPrice())
                     .product_img(getMainImgUrls(product))
                     .best(product.isBest())
-                    .likes(getUserLike(product)!=null)
+                    .likes(getUserLike(product))
                     .sales(product.getProductDiscount()>0)
                     .product_sales(product.getProductSales())
                     .product_like(productLike)
