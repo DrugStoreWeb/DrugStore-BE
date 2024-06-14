@@ -20,17 +20,4 @@ public class productListQueryDto {
     private Double review_avg; //상품별 리뷰평균
     private Integer product_like; //상품별 좋아요 개수
 
-    public static MainPageProductResponse toMainpageResponseDto(productListQueryDto pld) {
-        return MainPageProductResponse.builder()
-                .product_id(pld.getProduct_id())
-                .product_name(pld.getProduct_name())
-                .brand_name(pld.getBrand_name())
-                .price(pld.getPrice())
-                .final_price(pld.getFinal_price())
-                .product_img(pld.getProduct_img())
-                .likes(pld.isLikes())
-                .best(pld.isBest())
-                .sales(pld.isSales())
-                .build();
-    }
 }
