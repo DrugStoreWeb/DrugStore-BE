@@ -1,9 +1,7 @@
 package com.github.drug_store_be.service.main;
 
-import com.github.drug_store_be.repository.like.Likes;
-import com.github.drug_store_be.repository.like.LikesJpa;
 import com.github.drug_store_be.repository.product.Product;
-import com.github.drug_store_be.repository.product.ProductJpa;
+import com.github.drug_store_be.repository.product.ProductRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserJpa;
@@ -11,7 +9,7 @@ import com.github.drug_store_be.web.DTO.MainPage.MainPageAdImg;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageProductResponse;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageResponse;
 import com.github.drug_store_be.web.DTO.MainPage.productListQueryDto;
-import jakarta.annotation.Nullable;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,8 +25,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class MainService{
-    private final ProductJpa productJpa;
-    private final LikesJpa likesJpa;
+    private final ProductRepository productJpa;
     private final UserJpa userJpa;
 
 
