@@ -1,21 +1,17 @@
 package com.github.drug_store_be.service.detail;
 
-import com.github.drug_store_be.repository.like.LikesJpa;
-import com.github.drug_store_be.repository.option.Options;
+import com.github.drug_store_be.repository.like.LikesRepository;
 import com.github.drug_store_be.repository.option.OptionsRepository;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductRepository;
-import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import com.github.drug_store_be.repository.questionAnswer.QuestionAnswer;
 import com.github.drug_store_be.repository.questionAnswer.QuestionAnswerRepository;
 import com.github.drug_store_be.repository.review.Review;
 import com.github.drug_store_be.repository.review.ReviewRepository;
-import com.github.drug_store_be.repository.role.Role;
 import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserRepository;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
-import com.github.drug_store_be.repository.userRole.UserRole;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.Detail.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
@@ -44,7 +40,7 @@ public class DetailService {
     private final ProductPhotoJpa productPhotoRepository;
     private final OptionsRepository optionsRepository;
     private final UserRepository userRepository;
-    private final LikesJpa likesRepository;
+    private final LikesRepository likesRepository;
     private final QuestionAnswerRepository questionAnswerRepository;
 
 
@@ -131,9 +127,10 @@ public class DetailService {
         questionAnswer.setAnswer(answer.getMessage());
         questionAnswer.setQuestionStatus(true);
     }
+
     public List<ProductQAndAResponse> productQuestionAndAnswer(Integer productId) {
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new NotFoundException("해당 상품을 찾을 수 없습니다."));
+                .orElseThrow(() -> new NotFoundException("해당 상품에 찾을 수 없습니다."));
         List<QuestionAnswer> questionAnswerList = questionAnswerRepository.findByProduct(product);
         if (questionAnswerList.isEmpty()){
             throw new NotFoundException("등록된 Q&A가 없습니다.");
@@ -156,73 +153,58 @@ public class DetailService {
 
     public ResponseDto addQuestionResult(CustomUserDetails customUserDetails, Integer productId,
                                          QuestionRequest questionRequest) {
-        try{
-            User user = userRepository.findById(customUserDetails.getUserId())
-                    .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
-            Product product = productRepository.findById(productId)
-                    .orElseThrow(() -> new NotFoundException("해당 상품을 찾을 수 없습니다."));
 
-            if(questionRequest.getQuestion() == null || questionRequest.getQuestion().isEmpty()){
-                return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "문의 내용을 입력 바랍니다.");
-            }
+        User user = userRepository.findById(customUserDetails.getUserId())
+                .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new NotFoundException("해당 상품을 찾을 수 없습니다."));
 
-            QuestionAnswer questionAnswer = new QuestionAnswer();
-            questionAnswer.setUser(user);
-            questionAnswer.setProduct(product);
-            questionAnswer.setQuestion(questionRequest.getQuestion());
-            questionAnswer.setCreateAt(LocalDate.now());
-            questionAnswer.setQuestionStatus(false);
-            questionAnswerRepository.save(questionAnswer);
-            return new ResponseDto(HttpStatus.OK.value(), "문의글이 등록되었습니다.");
-        }catch(NotFoundException e){
-            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), e.getMessage());
-        }catch(DataAccessException e){
-            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "데이터 오류:" + e.getMessage());
-        }catch(Exception e){
-            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "문의글 등록 중 오류가 발생했습니다.");
+        if(questionRequest.getQuestion() == null || questionRequest.getQuestion().isEmpty()){
+            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "문의 내용을 입력 바랍니다.");
         }
+
+        QuestionAnswer questionAnswer = new QuestionAnswer();
+        questionAnswer.setUser(user);
+        questionAnswer.setProduct(product);
+        questionAnswer.setQuestion(questionRequest.getQuestion());
+        questionAnswer.setCreateAt(LocalDate.now());
+        questionAnswer.setQuestionStatus(false);
+        questionAnswerRepository.save(questionAnswer);
+
+        return new ResponseDto(HttpStatus.OK.value(), "문의글이 등록되었습니다.");
     }
 
     public ResponseDto updateQuestionResult(CustomUserDetails customUserDetails, Integer questionId,
                                             QuestionRequest questionRequest) {
-        try{
-            User user = userRepository.findById(customUserDetails.getUserId())
-                    .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
-            QuestionAnswer questionAnswer = questionAnswerRepository.findByQuestionAnswerIdAndUser(questionId, user)
-                    .orElseThrow(() -> new NotFoundException("해당 Q&A를 찾을 수 없습니다."));
-            if(questionRequest.getQuestion() == null || questionRequest.getQuestion().isEmpty()){
-                return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "문의 내용을 입력 바랍니다.");
-            }
-            if(questionAnswer.getQuestionStatus()){
-                return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "이미 답변이 완료되었습니다. 새로운 문의 글을 작성해 주시기 바랍니다.");
-            }
-            questionAnswer.setUser(user);
-            questionAnswer.setQuestion(questionRequest.getQuestion());
-            questionAnswerRepository.save(questionAnswer);
-            return new ResponseDto(HttpStatus.OK.value(),"해당 Q&A가 수정되었습니다.");
-        }catch(NotFoundException e){
-            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), e.getMessage());
-        }catch(DataAccessException e){
-            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "데이터 오류:" + e.getMessage());
-        }catch(Exception e){
-            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "문의글 수정 중 오류가 발생했습니다.");
+        User user = userRepository.findById(customUserDetails.getUserId())
+                .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
+
+        QuestionAnswer questionAnswer = questionAnswerRepository.findByQuestionAnswerIdAndUser(questionId, user)
+                .orElseThrow(() -> new NotFoundException("해당 문의글을 찾을 수 없거나 권한이 없습니다."));
+
+        if(questionRequest.getQuestion() == null || questionRequest.getQuestion().isEmpty()){
+            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "문의 내용을 입력 바랍니다.");
         }
+        if(questionAnswer.getQuestionStatus()){
+            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "이미 답변이 완료되었습니다. 새로운 문의 글을 작성해 주시기 바랍니다.");
+        }
+
+        questionAnswer.setUser(user);
+        questionAnswer.setQuestion(questionRequest.getQuestion());
+        questionAnswerRepository.save(questionAnswer);
+
+        return new ResponseDto(HttpStatus.OK.value(),"해당 Q&A가 수정되었습니다.");
     }
 
     public ResponseDto delQuestionResult(CustomUserDetails customUserDetails, Integer questionId) {
-        try{
-            User user = userRepository.findById(customUserDetails.getUserId())
-                    .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
-            QuestionAnswer questionAnswer = questionAnswerRepository.findByQuestionAnswerIdAndUser(questionId, user)
-                    .orElseThrow(() -> new NotFoundException("해당 Q&A를 찾을 수 없습니다."));
-            questionAnswerRepository.delete(questionAnswer);
-            return new ResponseDto(HttpStatus.OK.value(), "등록하신 문의글이 삭제되었습니다.");
-        }catch(NotFoundException e){
-            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), e.getMessage());
-        }catch(DataAccessException e){
-            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "데이터 오류:" + e.getMessage());
-        }catch(Exception e){
-            return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "문의글 삭제 중 오류가 발생했습니다.");
-        }
+        User user = userRepository.findById(customUserDetails.getUserId())
+                .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
+
+        QuestionAnswer questionAnswer = questionAnswerRepository.findByQuestionAnswerIdAndUser(questionId, user)
+                .orElseThrow(() -> new NotFoundException("해당 문의글을 찾을 수 없거나 권한이 없습니다."));
+
+        questionAnswerRepository.delete(questionAnswer);
+
+        return new ResponseDto(HttpStatus.OK.value(), "등록하신 문의글이 삭제되었습니다.");
     }
 }

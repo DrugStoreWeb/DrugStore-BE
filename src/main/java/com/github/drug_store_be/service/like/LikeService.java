@@ -1,7 +1,7 @@
 package com.github.drug_store_be.service.like;
 
 import com.github.drug_store_be.repository.like.Likes;
-import com.github.drug_store_be.repository.like.LikesJpa;
+import com.github.drug_store_be.repository.like.LikesRepository;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class LikeService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
-    private final LikesJpa likesJpa;
+    private final LikesRepository likesRepository;
 
     private User findUser(CustomUserDetails customUserDetails) {
         Integer userId = customUserDetails.getUserId();
@@ -40,7 +40,7 @@ public class LikeService {
 
         public List<MyLikesResponse> getMyLikes(CustomUserDetails customUserDetails) {
             User user = findUser(customUserDetails);
-            List<Likes> likes = likesJpa.findByUser(user);
+            List<Likes> likes = likesRepository.findByUser(user);
 
             return likes.stream()
                     .map(like -> {
@@ -71,11 +71,7 @@ public class LikeService {
                 .product(product)
                 .build();
 
-        try{
-            likesJpa.save(like);
-        }catch (DataAccessException e){
-            throw new RuntimeException("좋아요 추가 중 오류가 발생하였습니다.");
-        }
+            likesRepository.save(like);
 
         return new ResponseDto(HttpStatus.OK.value(),"좋아요 추가 성공");
     }
@@ -85,11 +81,7 @@ public class LikeService {
         User user = findUser(customUserDetails);
         Product product = findProduct(productId);
 
-        try{
-            likesJpa.deleteByUserAndProduct(user, product);
-        }catch (DataAccessException e){
-            throw new RuntimeException("좋아요 취소 중 오류가 발생하였습니다.");
-        }
+        likesRepository.deleteByUserAndProduct(user, product);
 
         return new ResponseDto(HttpStatus.OK.value(), "좋아요 취소 성공");
     }

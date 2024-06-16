@@ -2,7 +2,6 @@ package com.github.drug_store_be.web.DTO.Detail;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.github.drug_store_be.repository.like.LikesJpa;
 import com.github.drug_store_be.repository.product.Product;
 import lombok.*;
 
