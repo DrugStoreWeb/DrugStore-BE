@@ -44,10 +44,11 @@ public class EmailService {
             return new ResponseDto(HttpStatus.OK.value(),"인증에 성공하셨습니다.");
         }else return new ResponseDto(HttpStatus.UNAUTHORIZED.value(),"인증 번호가 동일하지 않습니다.");
     }
-
+//랜덤 숫자 생성 메소드
     public  static void getNumber(){
         number = (int)(Math.random() * (90000)) + 100000;// (int) Math.random() * (최댓값-최소값+1) + 최소값
     }
+    //메시지 생성 메소드
     public MimeMessage createMessage(String email)  {
         getNumber();
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();

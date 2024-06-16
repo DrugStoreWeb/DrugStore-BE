@@ -49,17 +49,10 @@ public class DetailService {
 
 
     public ResponseDto productDetailResult(Integer productId, CustomUserDetails customUserDetails) {
-        User user =userRepository.findById(customUserDetails.getUserId())
-                .orElseThrow(()-> new NotFoundException("토큰에 해당하는 유저를 찾을 수 없습니다."));
+       User user= User.findUser(customUserDetails,userRepository);
         Product product = productRepository.findById(productId)
                 .orElseThrow(()-> new NotFoundException(productId+"에 해당하는 상세 페이지를 찾을 수 없습니다."));
-        List<Review> reviewListByProduct =reviewRepository.findAllByProduct(product);
-        int reviewCount= reviewListByProduct.size();
-        List<ProductPhoto> productPhotosByProduct=productPhotoRepository.findAllByProduct(product);
-        List<Options> optionsByProduct = optionsRepository.findAllByProduct(product);
-        List<ProductImg> productImgs = productPhotosByProduct.stream().map(ProductImg::new).toList();
-        List<ProductOption> productOptions = optionsByProduct.stream().map(ProductOption::new).toList();
-        ProductDetailResponse productDetailResponse = new ProductDetailResponse(product,productImgs,reviewCount,productOptions);
+        ProductDetailResponse productDetailResponse=getProductDetailByProductId(productId);
         if (likesRepository.existsByUserAndProduct(user,product)) {
             productDetailResponse.setIsLike(true);
             return new ResponseDto(HttpStatus.OK.value(), "조회 성공",productDetailResponse);
@@ -71,24 +64,31 @@ public class DetailService {
     }
     @Cacheable(value = "productDetails",key = "#productId")
     public ResponseDto productDetailResultByNotLogin(Integer productId) {
+        ProductDetailResponse productDetailResponse = getProductDetailByProductId(productId);
+        log.error("최종 가격: "+productDetailResponse.getFinalPrice());
+        productDetailResponse.setIsLike(false);
+        return new ResponseDto(HttpStatus.OK.value(), "조회 성공",productDetailResponse);
+    }
+//메소드
+    public ProductDetailResponse getProductDetailByProductId(Integer productId){
         Product product = productRepository.findById(productId)
                 .orElseThrow(()-> new NotFoundException(productId+"에 해당하는 상세 페이지를 찾을 수 없습니다."));
         List<Review> reviewListByProduct =reviewRepository.findAllByProduct(product);
-        Integer reviewCount= reviewListByProduct.size();
-
-        List<ProductPhoto> productPhotosByProduct=productPhotoRepository.findAllByProduct(product);
-        List<Options> optionsByProduct = optionsRepository.findAllByProduct(product);
-        List<ProductImg> productImgs = productPhotosByProduct.stream().map(ProductImg::new).toList();
-        List<ProductOption> productOptions = optionsByProduct.stream().map(ProductOption::new).toList();
-        ProductDetailResponse productDetailResponse = new ProductDetailResponse(product,productImgs,reviewCount,productOptions);
-        productDetailResponse.setIsLike(false);
-        return new ResponseDto(HttpStatus.OK.value(), "조회 성공",productDetailResponse);
+        int reviewCount= reviewListByProduct.size();
+        List<ProductImg> productImgs = ProductImg.ConvertEntityListToDtoList(product,productPhotoRepository);
+        List<ProductOption> productOptions = ProductOption.ConvertEntityListToDtoList(product,optionsRepository);
+        return ProductDetailResponse.createProductDetail(product,productImgs,reviewCount,productOptions);
     }
     @Cacheable(value = "productReview",key = "#criteria")
     public ResponseDto productReviewResult(Integer productId, Integer pageNum, String criteria) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(()-> new NotFoundException("해당 상품을 찾을 수 없습니다."));
         Pageable pageable = PageRequest.of(pageNum,10);
+        return pageSorting(criteria,product,pageable);
+
+    }
+    //페이지 정렬 메소드
+    public ResponseDto pageSorting(String criteria,Product product, Pageable pageable){
         if (criteria.equals("createAt")){
             Page<Review> reviewPage =reviewRepository.findByProductOrderByCreateAtDesc(product,pageable);
             Page<ReviewRetrieval> reviewRetrievalPage=reviewPage.map(ReviewRetrieval::new);
@@ -111,28 +111,26 @@ public class DetailService {
     @Transactional
     @CacheEvict(value = "answerByAdmin",allEntries = true)
     public ResponseDto answerByAdminResult(Integer questionId, CustomUserDetails customUserDetails, Answer answer) {
-        String userEmail = customUserDetails.getEmail();
-        User user = userRepository.findByEmailFetchJoin(userEmail)
-                .orElseThrow(()-> new NotFoundException("유저를 찾을 수 없습니다."));
-        String roleName = user.getUserRole().stream()
-                .map(UserRole::getRole)
-                .map(Role::getRoleName)
-                .findFirst().orElseThrow(()->new NotFoundException("유저에게 역할이 없습니다."));
+       User user=User.findUser(customUserDetails,userRepository);
+        String roleName = user.getRoleName();
         if (!roleName.equals("ROLE_ADMIN")){
             throw new NotFoundException("관리자 계정만 해당 기능을 이용할 수 있습니다.");
         }
         QuestionAnswer questionAnswer = questionAnswerRepository.findById(questionId)
                 .orElseThrow(()-> new NotFoundException("요청하신 Q&A는 찾을 수 없습니다."));
         try {
-            questionAnswer.setAnswer(answer.getMessage());
-            questionAnswer.setQuestionStatus(true);
+            adminAnswer(questionAnswer,answer);
             return new ResponseDto(HttpStatus.OK.value(), "답변 작성이 되었습니다.",answer);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "답변 작성에 실패했습니다.");
         }
     }
-
+    //메소드
+    public void adminAnswer(QuestionAnswer questionAnswer,Answer answer){
+        questionAnswer.setAnswer(answer.getMessage());
+        questionAnswer.setQuestionStatus(true);
+    }
     public List<ProductQAndAResponse> productQuestionAndAnswer(Integer productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("해당 상품을 찾을 수 없습니다."));

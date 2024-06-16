@@ -66,16 +66,15 @@ public class AuthService {
 
         Role role =roleRepository.findByRoleName("ROLE_USER")
                 .orElseThrow(()-> new NotFoundException("code : "+HttpStatus.NOT_FOUND.value()+" USER라는 역할이 없습니다."));
-        User signUpUser = User.builder()
-                .name(signUpRequest.getName())
-                .nickname(signUpRequest.getNickname())
-                .email(signUpRequest.getEmail())
-                .password(passwordEncoder.encode(signUpRequest.getPassword()))
-                .birthday(signUpRequest.getBirthday())
-                .phoneNumber(signUpRequest.getPhoneNumber())
-                .address(signUpRequest.getAddress())
-                .money(0)
-                .build();
+        User signUpUser = User.createUser(signUpRequest,passwordEncoder);
+        userProfileSave(type,multipartFiles,signUpUser);
+        userRepository.save(signUpUser);
+        UserRole signUpUserRole = UserRole.signUpUserRole(role,signUpUser);
+        userRoleRepository.save(signUpUserRole);
+        return new ResponseDto(HttpStatus.OK.value(),signUpRequest.getName()+ "님 회원 가입에 성공하셨습니다.");
+    }
+    //프로필 이미지 저장 메소드
+    public void userProfileSave(SaveFileType type,MultipartFile multipartFiles,User signUpUser){
         switch(type){
             case small:
                 PutObjectRequest putObjectRequest= makePutObjectRequest(multipartFiles);
@@ -87,12 +86,6 @@ public class AuthService {
                 break;
         }
 
-        userRepository.save(signUpUser);
-        UserRole signUpUserRole = UserRole.builder()
-                .role(role).user(signUpUser)
-                .build();
-        userRoleRepository.save(signUpUserRole);
-        return new ResponseDto(HttpStatus.OK.value(),signUpRequest.getName()+ "님 회원 가입에 성공하셨습니다.");
     }
     //트러블 슈팅 정리하기 90번의 exception 없을 경우 예외처리가 정상 발동하지 않는다.
     //구글, 챗봇에서 확인 한 결과 notFoundException 예외처리가 catch에서 정의되어 해당 오류를 잡아야하는데
