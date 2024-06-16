@@ -7,9 +7,8 @@ import com.github.drug_store_be.repository.option.OptionsRepository;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
-import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import com.github.drug_store_be.repository.user.User;
-import com.github.drug_store_be.repository.user.UserJpa;
+import com.github.drug_store_be.repository.user.UserRepository;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.Cart.CartRequest;
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class CartService {
-    private final UserJpa userJpa;
+    private final UserRepository userRepository;
     private final ProductRepository productRepository;
     private final OptionsRepository optionsRepository;
     private final CartRepository cartRepository;
@@ -33,7 +32,7 @@ public class CartService {
     // 장바구니 조회
     public List<CartResponse> findAllCarts(CustomUserDetails customUserDetails) {
         int userId = customUserDetails.getUserId();
-        User user = userJpa.findById(userId)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
         List<Cart> carts = cartRepository.findAllByUserOrderByCartIdDesc(user);
@@ -71,7 +70,7 @@ public class CartService {
     //장바구니 추가
     public ResponseDto addCartItem(CustomUserDetails customUserDetails, CartRequest cartRequest) {
         int userId = customUserDetails.getUserId();
-        User user = userJpa.findById(userId)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
         Product product = productRepository.findById(cartRequest.getProductId())
@@ -121,7 +120,7 @@ public class CartService {
     //장바구니 업데이트
     public ResponseDto updateCartItem(CustomUserDetails customUserDetails, CartRequest cartRequest) {
         int userId = customUserDetails.getUserId();
-        User user = userJpa.findById(userId)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
         Integer cartId = cartRequest.getCartId();
@@ -160,7 +159,7 @@ public class CartService {
     //장바구니 삭제
     public ResponseDto removeCartItem(CustomUserDetails customUserDetails, int cartId) {
         int userId = customUserDetails.getUserId();
-        User user = userJpa.findById(userId)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
         Cart cartToDelete = cartRepository.findByIdAndUserId(cartId, userId)

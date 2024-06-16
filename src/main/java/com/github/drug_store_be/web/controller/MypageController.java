@@ -49,9 +49,9 @@ public class MypageController {
         return mypageService.findAllOrders(customUserDetails, pageable);
     }
 
-    @GetMapping("/review/{ordersId}")
-    public ResponseDto getReviews(@PathVariable("ordersId") int ordersId, Pageable pageable) {
-        return mypageService.findAllReviewsByOrdersId(ordersId, pageable);
+    @GetMapping("/reviews")
+    public ResponseDto getReviews(@AuthenticationPrincipal CustomUserDetails customUserDetails, Pageable pageable) {
+        return mypageService.findAllReviews(customUserDetails, pageable);
     }
 
     @GetMapping("/myCoupon")

@@ -22,4 +22,10 @@ public class UserRole{
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
+    public static UserRole signUpUserRole(Role role, User user){
+        return UserRole.builder()
+                .user(user)
+                .role(role).build();
+    }
+
 }

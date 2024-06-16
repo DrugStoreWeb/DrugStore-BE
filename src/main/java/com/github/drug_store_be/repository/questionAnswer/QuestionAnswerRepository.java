@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface QuestionAnswerJpa extends JpaRepository<QuestionAnswer,Integer> {
+public interface QuestionAnswerRepository extends JpaRepository<QuestionAnswer,Integer> {
     List<QuestionAnswer> findByProduct(Product product);
     Optional<QuestionAnswer> findByQuestionAnswerIdAndUser(Integer questionAnswerId, User user);
 }

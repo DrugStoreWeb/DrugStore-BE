@@ -1,6 +1,5 @@
 package com.github.drug_store_be.web.controller;
 
-import com.github.drug_store_be.repository.like.LikesJpa;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.service.detail.DetailService;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
@@ -20,7 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DetailController {
     private final DetailService detailService;
-    private final LikesJpa likesJpa;
 
     @GetMapping(value = "/detail")
     public ResponseDto productDetail(@RequestParam("product-id") Integer productId , @AuthenticationPrincipal CustomUserDetails customUserDetails){

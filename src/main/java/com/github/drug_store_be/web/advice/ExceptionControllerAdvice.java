@@ -1,10 +1,10 @@
 package com.github.drug_store_be.web.advice;
 
-import com.amazonaws.services.ec2.model.Storage;
 import com.github.drug_store_be.service.exceptions.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -82,6 +82,7 @@ public class ExceptionControllerAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(StorageUpdateFailedException.class)
     public ResponseEntity<ResponseDto> handleFileUploadFailedException(StorageUpdateFailedException sufe){
+        log.error("StorageUpdateFailedException: " + sufe.getMessage());
         ResponseDto responseDto = new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), sufe.getMessage());
         return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -118,5 +119,12 @@ public class ExceptionControllerAdvice {
         return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
     }
 
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(DataAccessException.class)
+    public ResponseEntity<ResponseDto> handleDataAccessException(DataAccessException dae){
+        log.error("DataAccessException : " + dae.getMessage());
+        ResponseDto responseDto = new ResponseDto(HttpStatus.BAD_REQUEST.value(), dae.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+    }
 
 }

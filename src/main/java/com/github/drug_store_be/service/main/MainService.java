@@ -4,7 +4,8 @@ import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.user.User;
-import com.github.drug_store_be.repository.user.UserJpa;
+import com.github.drug_store_be.repository.user.UserRepository;
+
 import com.github.drug_store_be.web.DTO.MainPage.MainPageAdImg;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageProductResponse;
 import com.github.drug_store_be.web.DTO.MainPage.MainPageResponse;
@@ -26,7 +27,7 @@ import java.util.stream.Collectors;
 @Service
 public class MainService{
     private final ProductRepository productJpa;
-    private final UserJpa userJpa;
+    private final UserRepository userRepository;
 
 
 
@@ -149,7 +150,7 @@ public class MainService{
     private Boolean getUserLike(Product product) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        User user = userJpa.findByEmailFetchJoin(email).orElse(null);
+        User user = userRepository.findByEmailFetchJoin(email).orElse(null);
 
         if (user != null) {
             Integer userId = user.getUserId();  // userId 필드를 직접 추출

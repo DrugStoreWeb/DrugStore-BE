@@ -6,7 +6,7 @@ spring:
     type: simple
   data:
     redis:
-      host: localhost
+      host: 52.78.248.75
       port: 6379
   mvc:
     pathmatch:

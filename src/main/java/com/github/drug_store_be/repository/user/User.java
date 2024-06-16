@@ -1,9 +1,14 @@
 package com.github.drug_store_be.repository.user;
 
+import com.github.drug_store_be.repository.role.Role;
 import com.github.drug_store_be.repository.userCoupon.UserCoupon;
+import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.repository.userRole.UserRole;
+import com.github.drug_store_be.service.exceptions.NotFoundException;
+import com.github.drug_store_be.web.DTO.Auth.SignUp;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -52,4 +57,27 @@ public class User{
 //    public void updateTid(String tid) {
 //        this.tid = tid;
 //    }
+    public String getRoleName(){
+        return  getUserRole().stream()
+                .map(UserRole::getRole)
+                .map(Role::getRoleName)
+                .findFirst().orElseThrow(()->new NotFoundException("유저에게 역할이 없습니다."));
+    }
+    public static User findUser(CustomUserDetails customUserDetails,UserRepository userRepository){
+        String userEmail = customUserDetails.getEmail();
+        return userRepository.findByEmailFetchJoin(userEmail)
+                .orElseThrow(()-> new NotFoundException("유저를 찾을 수 없습니다."));
+    }
+    public static User createUser(SignUp signUpRequest, PasswordEncoder passwordEncoder){
+       return User.builder()
+                .name(signUpRequest.getName())
+                .nickname(signUpRequest.getNickname())
+                .email(signUpRequest.getEmail())
+                .password(passwordEncoder.encode(signUpRequest.getPassword()))
+                .birthday(signUpRequest.getBirthday())
+                .phoneNumber(signUpRequest.getPhoneNumber())
+                .address(signUpRequest.getAddress())
+                .money(0)
+                .build();
+    }
 }

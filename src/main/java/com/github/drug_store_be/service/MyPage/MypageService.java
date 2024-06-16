@@ -11,15 +11,17 @@ import com.github.drug_store_be.repository.product.ProductRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.questionAnswer.QuestionAnswer;
 import com.github.drug_store_be.repository.review.Review;
-import com.github.drug_store_be.repository.review.ReviewJpa;
+import com.github.drug_store_be.repository.review.ReviewRepository;
 import com.github.drug_store_be.repository.user.User;
-import com.github.drug_store_be.repository.user.UserJpa;
+import com.github.drug_store_be.repository.user.UserRepository;
 import com.github.drug_store_be.repository.userCoupon.UserCoupon;
+import com.github.drug_store_be.repository.userCoupon.UserCouponRepository;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.service.exceptions.ReviewException;
 import com.github.drug_store_be.web.DTO.Mypage.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
+import com.github.drug_store_be.web.DTO.order.OrderCouponResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -35,12 +37,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class MypageService {
-    private final ReviewJpa reviewJpa;
+    private final ReviewRepository reviewRepository;
     private final OrdersRepository ordersRepository;
     private final CartRepository cartRepository;
     private final OptionsRepository optionsRepository;
-    private final UserJpa userJpa;
+    private final UserRepository userRepository;
     private final ProductRepository productRepository;
+    private final UserCouponRepository userCouponRepository;
 
     public ResponseDto addReview(CustomUserDetails customUserDetails, ReviewRequest reviewRequest, int ordersId) throws ReviewException {
         Integer userId = customUserDetails.getUserId();
@@ -49,19 +52,9 @@ public class MypageService {
             throw new ReviewException("이미 리뷰를 작성하였습니다.");
         }
 
-        Orders orders = ordersRepository.findById(ordersId).orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
-        Integer cartId = orders.getCart().getCartId();
-
-        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
-        Integer optionId = cart.getOptions().getOptionsId();
-
-        Options options = optionsRepository.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
-        Integer productId = options.getProduct().getProductId();
-
-        Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
-
         Integer reviewScore = reviewRequest.getReviewScore();
         String reviewContent = reviewRequest.getReviewContent();
+        Product product = getProductInfo(ordersId);
         String photoUrl = getTruePhotoUrl(product.getProductPhotoList());
 
         if (reviewScore < 0 || reviewScore > 5) {
@@ -70,18 +63,18 @@ public class MypageService {
 
         Review review = Review.builder()
                 .user(User.builder().userId(userId).build())
-                .orders(orders)
+                .orders(Orders.builder().build())
                 .reviewScore(reviewScore)
                 .product(product)
                 .reviewContent(reviewContent)
                 .createAt(LocalDate.now())
                 .build();
 
-        Review savedReview = reviewJpa.save(review);
+        Review savedReview = reviewRepository.save(review);
 
         ReviewResponse response = ReviewResponse.builder()
                 .reviewId(savedReview.getReviewId())
-                .optionName(options.getOptionsName())
+                .optionName(review.getOrders().getCart().getOptions().getOptionsName())
                 .reviewScore(reviewScore)
                 .reviewContent(reviewContent)
                 .price(review.getOrders().getCart().getOptions().getProduct().getPrice())
@@ -99,25 +92,14 @@ public class MypageService {
         Integer userId = customUserDetails.getUserId();
         Integer reviewScore = reviewRequest.getReviewScore();
         String reviewContent = reviewRequest.getReviewContent();
-
-        Orders orders = ordersRepository.findById(ordersId).orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
-        Integer cartId = orders.getCart().getCartId();
-
-        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
-        Integer optionId = cart.getOptions().getOptionsId();
-
-        Options options = optionsRepository.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
-        Integer productId = options.getProduct().getProductId();
-
-        Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
-
+        Product product = getProductInfo(ordersId);
         String photoUrl = getTruePhotoUrl(product.getProductPhotoList());
 
         if (reviewScore < 0 || reviewScore > 5) {
             throw new IllegalArgumentException("평점은 0부터 5까지 가능합니다.");
         }
 
-        Optional<Review> existingReview = reviewJpa.findByUserIdAndOrdersId(userId, ordersId);
+        Optional<Review> existingReview = reviewRepository.findByUserIdAndOrdersId(userId, ordersId);
         if (existingReview.isEmpty()) {
             throw new NotFoundException("리뷰를 찾을 수 없습니다.");
         }
@@ -127,11 +109,11 @@ public class MypageService {
         review.setReviewContent(reviewContent);
         review.setCreateAt(LocalDate.now());
 
-        Review updateReview = reviewJpa.save(review);
+        Review updateReview = reviewRepository.save(review);
 
         ReviewResponse response = ReviewResponse.builder()
                 .reviewId(updateReview.getReviewId())
-                .optionName(options.getOptionsName())
+                .optionName(review.getOrders().getCart().getOptions().getOptionsName())
                 .reviewScore(reviewScore)
                 .reviewContent(reviewContent)
                 .price(review.getOrders().getCart().getOptions().getProduct().getPrice())
@@ -146,7 +128,7 @@ public class MypageService {
 
     public ResponseDto deleteReview(CustomUserDetails customUserDetails, Integer ordersId) {
         Integer userId = customUserDetails.getUserId();
-        Optional<Review> existingReview = reviewJpa.findByUserIdAndOrdersId(userId, ordersId);
+        Optional<Review> existingReview = reviewRepository.findByUserIdAndOrdersId(userId, ordersId);
 
         if (existingReview.isPresent()) {
             Review review = existingReview.get();
@@ -155,7 +137,7 @@ public class MypageService {
                 throw new IllegalArgumentException("해당 리뷰를 삭제할 권한이 없습니다.");
             }
 
-            reviewJpa.delete(review);
+            reviewRepository.delete(review);
 
             return new ResponseDto(HttpStatus.OK.value(), "리뷰가 삭제되었습니다.");
         } else {
@@ -164,7 +146,7 @@ public class MypageService {
     }
 
     public ResponseDto findUserDetail(CustomUserDetails customUserDetails) {
-        User user = userJpa.findById(customUserDetails.getUserId()).orElseThrow(() -> new NotFoundException("회원가입 후 이용해 주시길 바랍니다."));
+        User user = userRepository.findById(customUserDetails.getUserId()).orElseThrow(() -> new NotFoundException("회원가입 후 이용해 주시길 바랍니다."));
 
         UserInfoResponse userInfoResponse = UserInfoResponse.builder()
                 .name(user.getName())
@@ -180,7 +162,7 @@ public class MypageService {
     }
 
     public ResponseDto findAllOrders(CustomUserDetails customUserDetails, Pageable pageable) {
-        int userId = userJpa.findById(customUserDetails.getUserId())
+        int userId = userRepository.findById(customUserDetails.getUserId())
                 .map(User::getUserId)
                 .orElseThrow(() -> new NotFoundException("아이디를 찾을 수 없습니다."));
 
@@ -220,44 +202,61 @@ public class MypageService {
     }
 
     public Boolean getReviewStatusForOrder(Integer userId, Integer orderId) {
-        Optional<Review> existingReview = reviewJpa.findByUserIdAndOrdersId(userId, orderId);
+        Optional<Review> existingReview = reviewRepository.findByUserIdAndOrdersId(userId, orderId);
 
         return existingReview.isPresent(); // 리뷰가 존재하면 true, 없으면 false 반환
     }
 
-    public ResponseDto findAllReviewsByOrdersId(int ordersId, Pageable pageable) {
-        Page<Review> reviews = reviewJpa.findAllReviewsByOrdersId(ordersId, pageable);
-        if (reviews.isEmpty()) {
+    public ResponseDto findAllReviews(CustomUserDetails customUserDetails, Pageable pageable) {
+        int userId = userRepository.findById(customUserDetails.getUserId()).map(User::getUserId)
+                .orElseThrow(() -> new NotFoundException("아이디를 찾을 수 없습니다."));
+
+
+        Page<Review> reviewsPage = reviewRepository.findAllReviews(userId,pageable);
+        if (reviewsPage.isEmpty()) {
             throw new NotFoundException("등록된 리뷰가 존재하지 않습니다.");
         }
-        Orders orders = ordersRepository.findById(ordersId).orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
-        Integer cartId = orders.getCart().getCartId();
 
-        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
-        Integer optionId = cart.getOptions().getOptionsId();
+        List<ReviewResponse> reviewResponseList = reviewsPage.stream().map(reviews -> {
+            Integer cartId = reviews.getOrders().getCart().getCartId();
+            Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
+            Integer optionId = cart.getOptions().getOptionsId();
+            Options options = optionsRepository.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
+            Integer productId = options.getProduct().getProductId();
+            Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
+            String photoUrl = getTruePhotoUrl(product.getProductPhotoList());
 
-        Options options = optionsRepository.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
-        Integer productId = options.getProduct().getProductId();
+            return ReviewResponse.builder()
+                    .reviewId(reviews.getReviewId())
+                    .reviewScore(reviews.getReviewScore())
+                    .reviewContent(reviews.getReviewContent())
+                    .createAt(reviews.getCreateAt())
+                    .ordersId(reviews.getOrders().getOrdersId())
+                    .productImg(photoUrl)
+                    .price(product.getPrice())
+                    .productName(product.getProductName())
+                    .optionName(options.getOptionsName())
+                    .brand(product.getBrand())
+                    .build();
+        }).collect(Collectors.toList());
 
-        Product product = productRepository.findById(productId).orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
-        String photoUrl = getTruePhotoUrl(product.getProductPhotoList());
+        Page<ReviewResponse> responsePage = new PageImpl<>(reviewResponseList, pageable, reviewsPage.getTotalElements());
 
-        List<ReviewResponse> reviewResponses = reviews.stream()
-                .map(review -> ReviewResponse.builder()
-                        .reviewId(review.getReviewId())
-                        .reviewScore(review.getReviewScore())
-                        .reviewContent(review.getReviewContent())
-                        .productImg(photoUrl)
-                        .ordersId(review.getOrders().getOrdersId())
-                        .productName(review.getOrders().getCart().getOptions().getProduct().getProductName())
-                        .price(review.getOrders().getCart().getOptions().getProduct().getPrice())
-                        .optionName(review.getOrders().getCart().getOptions().getOptionsName())
-                        .brand(review.getOrders().getCart().getOptions().getProduct().getBrand())
-                        .createAt(review.getCreateAt())
-                        .build())
-                .collect(Collectors.toList());
+        return new ResponseDto(HttpStatus.OK.value(), "구매 정보를 성공적으로 조회했습니다.", responsePage);
+    }
 
-        return new ResponseDto(HttpStatus.OK.value(), "", reviewResponses);
+    private Product getProductInfo(int ordersId) {
+        Orders orders = ordersRepository.findById(ordersId)
+                .orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
+
+        Cart cart = cartRepository.findById(orders.getCart().getCartId())
+                .orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
+
+        Options options = optionsRepository.findById(cart.getOptions().getOptionsId())
+                .orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
+
+        return productRepository.findById(options.getProduct().getProductId())
+                .orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
     }
 
     public String getTruePhotoUrl(List<ProductPhoto> productPhotoList) {
@@ -270,32 +269,33 @@ public class MypageService {
     }
 
     public ResponseDto findAllCoupon(CustomUserDetails customUserDetails) {
-        User user = userJpa.findById(customUserDetails.getUserId()).orElseThrow(() -> new NotFoundException("회원가입 후 이용해 주시길 바랍니다."));
-        int userId = userJpa.findById(customUserDetails.getUserId()).map(User::getUserId)
+        User user = userRepository.findById(customUserDetails.getUserId()).orElseThrow(() -> new NotFoundException("회원가입 후 이용해 주시길 바랍니다."));
+        int userId = userRepository.findById(customUserDetails.getUserId()).map(User::getUserId)
                 .orElseThrow(() -> new NotFoundException("아이디를 찾을 수 없습니다."));
 
-        List<UserCoupon> couponPage = reviewJpa.findAllByUserId(userId);
-        if (couponPage.isEmpty()) {
-            throw new NotFoundException("가지고 있는 쿠폰이 없습니다.");
-        }
-
-        List<CouponResponse> responsePage = couponPage.stream()
-                .map(userCoupon -> CouponResponse.builder()
-                        .couponName(userCoupon.getCoupon().getCouponName())
-                        .couponDiscount(userCoupon.getCoupon().getCouponDiscount())
-                        .money(userCoupon.getUser().getMoney())
-                        .build())
+        List<UserCoupon> userCoupons= userCouponRepository.findAllByUserId(userId);
+        List<OrderCouponResponseDto> couponResponseList= userCoupons
+                .stream()
+                .map(c-> new OrderCouponResponseDto(
+                        c.getCoupon().getCouponName(),
+                        c.getCoupon().getCouponDiscount()))
                 .collect(Collectors.toList());
 
-        return new ResponseDto(HttpStatus.OK.value(), "", responsePage);
+        CouponResponse couponResponse= CouponResponse
+                .builder()
+                .money(user.getMoney())
+                .couponResponseList(couponResponseList)
+                .build();
+
+        return new ResponseDto(HttpStatus.OK.value(), "", couponResponse);
     }
 
     public ResponseDto findAllQnA(CustomUserDetails customUserDetails, Pageable pageable) {
-        int userId = userJpa.findById(customUserDetails.getUserId()).map(User::getUserId)
+        int userId = userRepository.findById(customUserDetails.getUserId()).map(User::getUserId)
                 .orElseThrow(() -> new NotFoundException("아이디를 찾을 수 없습니다."));
 
 
-        List<QuestionAnswer> QnA = reviewJpa.findAllQnA(userId, pageable);
+        List<QuestionAnswer> QnA = reviewRepository.findAllQnA(userId, pageable);
         if (QnA.isEmpty()) {
             throw new NotFoundException("등록된 질문이 존재하지 않습니다.");
         }

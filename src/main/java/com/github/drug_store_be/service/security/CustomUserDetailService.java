@@ -2,7 +2,8 @@ package com.github.drug_store_be.service.security;
 
 import com.github.drug_store_be.repository.role.Role;
 import com.github.drug_store_be.repository.user.User;
-import com.github.drug_store_be.repository.user.UserJpa;
+
+import com.github.drug_store_be.repository.user.UserRepository;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.repository.userRole.UserRole;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
@@ -21,10 +22,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
 
-    private final UserJpa userJpa;
+    private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user =userJpa.findByEmailFetchJoin(email)
+        User user =userRepository.findByEmailFetchJoin(email)
                 .orElseThrow(()-> new NotFoundException("email:"+email+"에 해당하는 user가 없습니다."));
        return CustomUserDetails.builder()
                 .userId(user.getUserId())
