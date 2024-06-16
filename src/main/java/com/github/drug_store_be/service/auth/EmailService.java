@@ -1,5 +1,6 @@
 package com.github.drug_store_be.service.auth;
 
+import com.github.drug_store_be.service.auth.redis.RedisUtil;
 import com.github.drug_store_be.web.DTO.Auth.EmailAuthNumCheck;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import jakarta.mail.MessagingException;
@@ -24,23 +25,24 @@ public class EmailService {
     @Value("${spring.mail.username}")
     private String senderEmail;
     private static int number;
-    private static final Map<String,Integer> authNumStorage=new HashMap<>();
+    private final RedisUtil redisUtil;
+
     public ResponseDto emailSendResult(String email) {
         MimeMessage mimeMessage=createMessage(email);
         javaMailSender.send(mimeMessage);
-        authNumStorage.put(email,number);
+
+        redisUtil.setDataExpire(email,Integer.toString(number),60*5L);
 
         return new ResponseDto(HttpStatus.OK.value(),"code : " +number);
     }
     //대체로 Map으로 sotrage만들어서 진행 주말에 redis로 수정 예정
     public ResponseDto authNumCheckResult(EmailAuthNumCheck emailAuthNumCheck) {
-        if (authNumStorage.get(emailAuthNumCheck.getEmail())==null){
+        String authNum = Integer.toString(emailAuthNumCheck.getAuthNum());
+        if (redisUtil.getData(emailAuthNumCheck.getEmail())==null){
             return new ResponseDto(HttpStatus.NOT_FOUND.value(),"이메일에 대한 인증 번호를 발급 받은 적이 없습니다.");
-        }else if (authNumStorage.get(emailAuthNumCheck.getEmail()).equals(emailAuthNumCheck.getAuthNum())){
+        }else if (redisUtil.getData(emailAuthNumCheck.getEmail()).equals(authNum)) {
             return new ResponseDto(HttpStatus.OK.value(),"인증에 성공하셨습니다.");
-        }else {
-            return new ResponseDto(HttpStatus.UNAUTHORIZED.value(),"인증 번호가 동일하지 않습니다.");
-        }
+        }else return new ResponseDto(HttpStatus.UNAUTHORIZED.value(),"인증 번호가 동일하지 않습니다.");
     }
 
     public  static void getNumber(){

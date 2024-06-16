@@ -6,7 +6,8 @@ import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.user.User;
-import com.github.drug_store_be.repository.user.UserJpa;
+
+import com.github.drug_store_be.repository.user.UserRepository;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.Like.MyLikesResponse;
@@ -22,13 +23,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class LikeService {
-    private final UserJpa userJpa;
+    private final UserRepository userRepository;
     private final ProductRepository productRepository;
     private final LikesJpa likesJpa;
 
     private User findUser(CustomUserDetails customUserDetails) {
         Integer userId = customUserDetails.getUserId();
-        return userJpa.findByUserId(userId)
+        return userRepository.findByUserId(userId)
                 .orElseThrow(() -> new NotFoundException("아이디를 찾을 수 없습니다."));
     }
 

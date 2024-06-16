@@ -9,7 +9,8 @@ import com.github.drug_store_be.repository.product.ProductRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import com.github.drug_store_be.repository.user.User;
-import com.github.drug_store_be.repository.user.UserJpa;
+
+import com.github.drug_store_be.repository.user.UserRepository;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.service.exceptions.NotAuthorizedException;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
@@ -27,14 +28,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 
 public class AdminService {
-    private final UserJpa userJpa;
+    private final UserRepository userRepository;
     private final CategoryJpa categoryJpa;
     private final ProductRepository productRepository;
     private final ProductPhotoJpa productPhotoJpa;
     private final OptionsRepository optionsRepository;
 
     public ResponseDto registerProduct(CustomUserDetails customUserDetails, ProductRegisterDto productRegisterDto) {
-        User user= userJpa.findById(customUserDetails.getUserId())
+        User user= userRepository.findById(customUserDetails.getUserId())
                 .orElseThrow(()-> new NotFoundException("아이디가  "+ customUserDetails.getUserId() +"인 유저를 찾을 수 없습니다."));
         List<String> role= user.getUserRole().stream().map(ur-> ur.getRole().getRoleName()).collect(Collectors.toList());
         if(role.stream().findFirst().get().equals("ROLE_ADMIN")){

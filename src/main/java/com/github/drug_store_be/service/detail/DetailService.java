@@ -8,12 +8,12 @@ import com.github.drug_store_be.repository.product.ProductRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import com.github.drug_store_be.repository.questionAnswer.QuestionAnswer;
-import com.github.drug_store_be.repository.questionAnswer.QuestionAnswerJpa;
+import com.github.drug_store_be.repository.questionAnswer.QuestionAnswerRepository;
 import com.github.drug_store_be.repository.review.Review;
 import com.github.drug_store_be.repository.review.ReviewJpa;
 import com.github.drug_store_be.repository.role.Role;
 import com.github.drug_store_be.repository.user.User;
-import com.github.drug_store_be.repository.user.UserJpa;
+import com.github.drug_store_be.repository.user.UserRepository;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.repository.userRole.UserRole;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
@@ -40,27 +40,27 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DetailService {
     private final ProductRepository productRepository;
-    private final ReviewJpa reviewJpa;
-    private final ProductPhotoJpa productPhotoJpa;
+    private final ReviewJpa reviewRepository;
+    private final ProductPhotoJpa productPhotoRepository;
     private final OptionsRepository optionsRepository;
-    private final UserJpa userJpa;
-    private final LikesJpa likesJpa;
-    private final QuestionAnswerJpa questionAnswerJpa;
+    private final UserRepository userRepository;
+    private final LikesJpa likesRepository;
+    private final QuestionAnswerRepository questionAnswerRepository;
 
 
     public ResponseDto productDetailResult(Integer productId, CustomUserDetails customUserDetails) {
-        User user =userJpa.findById(customUserDetails.getUserId())
+        User user =userRepository.findById(customUserDetails.getUserId())
                 .orElseThrow(()-> new NotFoundException("토큰에 해당하는 유저를 찾을 수 없습니다."));
         Product product = productRepository.findById(productId)
                 .orElseThrow(()-> new NotFoundException(productId+"에 해당하는 상세 페이지를 찾을 수 없습니다."));
-        List<Review> reviewListByProduct =reviewJpa.findAllByProduct(product);
+        List<Review> reviewListByProduct =reviewRepository.findAllByProduct(product);
         int reviewCount= reviewListByProduct.size();
-        List<ProductPhoto> productPhotosByProduct=productPhotoJpa.findAllByProduct(product);
+        List<ProductPhoto> productPhotosByProduct=productPhotoRepository.findAllByProduct(product);
         List<Options> optionsByProduct = optionsRepository.findAllByProduct(product);
         List<ProductImg> productImgs = productPhotosByProduct.stream().map(ProductImg::new).toList();
         List<ProductOption> productOptions = optionsByProduct.stream().map(ProductOption::new).toList();
         ProductDetailResponse productDetailResponse = new ProductDetailResponse(product,productImgs,reviewCount,productOptions);
-        if (likesJpa.existsByUserAndProduct(user,product)) {
+        if (likesRepository.existsByUserAndProduct(user,product)) {
             productDetailResponse.setIsLike(true);
             return new ResponseDto(HttpStatus.OK.value(), "조회 성공",productDetailResponse);
         }else {
@@ -73,10 +73,10 @@ public class DetailService {
     public ResponseDto productDetailResultByNotLogin(Integer productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(()-> new NotFoundException(productId+"에 해당하는 상세 페이지를 찾을 수 없습니다."));
-        List<Review> reviewListByProduct =reviewJpa.findAllByProduct(product);
+        List<Review> reviewListByProduct =reviewRepository.findAllByProduct(product);
         Integer reviewCount= reviewListByProduct.size();
 
-        List<ProductPhoto> productPhotosByProduct=productPhotoJpa.findAllByProduct(product);
+        List<ProductPhoto> productPhotosByProduct=productPhotoRepository.findAllByProduct(product);
         List<Options> optionsByProduct = optionsRepository.findAllByProduct(product);
         List<ProductImg> productImgs = productPhotosByProduct.stream().map(ProductImg::new).toList();
         List<ProductOption> productOptions = optionsByProduct.stream().map(ProductOption::new).toList();
@@ -90,19 +90,19 @@ public class DetailService {
                 .orElseThrow(()-> new NotFoundException("해당 상품을 찾을 수 없습니다."));
         Pageable pageable = PageRequest.of(pageNum,10);
         if (criteria.equals("createAt")){
-            Page<Review> reviewPage =reviewJpa.findByProductOrderByCreateAtDesc(product,pageable);
+            Page<Review> reviewPage =reviewRepository.findByProductOrderByCreateAtDesc(product,pageable);
             Page<ReviewRetrieval> reviewRetrievalPage=reviewPage.map(ReviewRetrieval::new);
             return new ResponseDto(HttpStatus.OK.value(),"조회성공",reviewRetrievalPage);
         }else if (criteria.equals("reviewScoreDesc")){
-            Page<Review> reviewPage =reviewJpa.findByProductOrderByReviewScoreDesc(product,pageable);
+            Page<Review> reviewPage =reviewRepository.findByProductOrderByReviewScoreDesc(product,pageable);
             Page<ReviewRetrieval> reviewRetrievalPage=reviewPage.map(ReviewRetrieval::new);
             return new ResponseDto(HttpStatus.OK.value(),"조회성공",reviewRetrievalPage);
         }else if (criteria.equals("reviewScoreAsc")){
-            Page<Review> reviewPage =reviewJpa.findByProductOrderByReviewScoreAsc(product,pageable);
+            Page<Review> reviewPage =reviewRepository.findByProductOrderByReviewScoreAsc(product,pageable);
             Page<ReviewRetrieval> reviewRetrievalPage=reviewPage.map(ReviewRetrieval::new);
             return new ResponseDto(HttpStatus.OK.value(),"조회성공",reviewRetrievalPage);
         }else {
-            Page<Review> reviewPage =reviewJpa.findByProductOrderByCreateAtDesc(product,pageable);
+            Page<Review> reviewPage =reviewRepository.findByProductOrderByCreateAtDesc(product,pageable);
             Page<ReviewRetrieval> reviewRetrievalPage=reviewPage.map(ReviewRetrieval::new);
             return new ResponseDto(HttpStatus.OK.value(),"조회성공",reviewRetrievalPage);
         }
@@ -112,7 +112,7 @@ public class DetailService {
     @CacheEvict(value = "answerByAdmin",allEntries = true)
     public ResponseDto answerByAdminResult(Integer questionId, CustomUserDetails customUserDetails, Answer answer) {
         String userEmail = customUserDetails.getEmail();
-        User user = userJpa.findByEmailFetchJoin(userEmail)
+        User user = userRepository.findByEmailFetchJoin(userEmail)
                 .orElseThrow(()-> new NotFoundException("유저를 찾을 수 없습니다."));
         String roleName = user.getUserRole().stream()
                 .map(UserRole::getRole)
@@ -121,7 +121,7 @@ public class DetailService {
         if (!roleName.equals("ROLE_ADMIN")){
             throw new NotFoundException("관리자 계정만 해당 기능을 이용할 수 있습니다.");
         }
-        QuestionAnswer questionAnswer = questionAnswerJpa.findById(questionId)
+        QuestionAnswer questionAnswer = questionAnswerRepository.findById(questionId)
                 .orElseThrow(()-> new NotFoundException("요청하신 Q&A는 찾을 수 없습니다."));
         try {
             questionAnswer.setAnswer(answer.getMessage());
@@ -136,7 +136,7 @@ public class DetailService {
     public List<ProductQAndAResponse> productQuestionAndAnswer(Integer productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("해당 상품을 찾을 수 없습니다."));
-        List<QuestionAnswer> questionAnswerList = questionAnswerJpa.findByProduct(product);
+        List<QuestionAnswer> questionAnswerList = questionAnswerRepository.findByProduct(product);
         if (questionAnswerList.isEmpty()){
             throw new NotFoundException("등록된 Q&A가 없습니다.");
         }
@@ -159,7 +159,7 @@ public class DetailService {
     public ResponseDto addQuestionResult(CustomUserDetails customUserDetails, Integer productId,
                                          QuestionRequest questionRequest) {
         try{
-            User user = userJpa.findById(customUserDetails.getUserId())
+            User user = userRepository.findById(customUserDetails.getUserId())
                     .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
             Product product = productRepository.findById(productId)
                     .orElseThrow(() -> new NotFoundException("해당 상품을 찾을 수 없습니다."));
@@ -174,7 +174,7 @@ public class DetailService {
             questionAnswer.setQuestion(questionRequest.getQuestion());
             questionAnswer.setCreateAt(LocalDate.now());
             questionAnswer.setQuestionStatus(false);
-            questionAnswerJpa.save(questionAnswer);
+            questionAnswerRepository.save(questionAnswer);
             return new ResponseDto(HttpStatus.OK.value(), "문의글이 등록되었습니다.");
         }catch(NotFoundException e){
             return new ResponseDto(HttpStatus.BAD_REQUEST.value(), e.getMessage());
@@ -188,9 +188,9 @@ public class DetailService {
     public ResponseDto updateQuestionResult(CustomUserDetails customUserDetails, Integer questionId,
                                             QuestionRequest questionRequest) {
         try{
-            User user = userJpa.findById(customUserDetails.getUserId())
+            User user = userRepository.findById(customUserDetails.getUserId())
                     .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
-            QuestionAnswer questionAnswer = questionAnswerJpa.findByQuestionAnswerIdAndUser(questionId, user)
+            QuestionAnswer questionAnswer = questionAnswerRepository.findByQuestionAnswerIdAndUser(questionId, user)
                     .orElseThrow(() -> new NotFoundException("해당 Q&A를 찾을 수 없습니다."));
             if(questionRequest.getQuestion() == null || questionRequest.getQuestion().isEmpty()){
                 return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "문의 내용을 입력 바랍니다.");
@@ -200,7 +200,7 @@ public class DetailService {
             }
             questionAnswer.setUser(user);
             questionAnswer.setQuestion(questionRequest.getQuestion());
-            questionAnswerJpa.save(questionAnswer);
+            questionAnswerRepository.save(questionAnswer);
             return new ResponseDto(HttpStatus.OK.value(),"해당 Q&A가 수정되었습니다.");
         }catch(NotFoundException e){
             return new ResponseDto(HttpStatus.BAD_REQUEST.value(), e.getMessage());
@@ -213,11 +213,11 @@ public class DetailService {
 
     public ResponseDto delQuestionResult(CustomUserDetails customUserDetails, Integer questionId) {
         try{
-            User user = userJpa.findById(customUserDetails.getUserId())
+            User user = userRepository.findById(customUserDetails.getUserId())
                     .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
-            QuestionAnswer questionAnswer = questionAnswerJpa.findByQuestionAnswerIdAndUser(questionId, user)
+            QuestionAnswer questionAnswer = questionAnswerRepository.findByQuestionAnswerIdAndUser(questionId, user)
                     .orElseThrow(() -> new NotFoundException("해당 Q&A를 찾을 수 없습니다."));
-            questionAnswerJpa.delete(questionAnswer);
+            questionAnswerRepository.delete(questionAnswer);
             return new ResponseDto(HttpStatus.OK.value(), "등록하신 문의글이 삭제되었습니다.");
         }catch(NotFoundException e){
             return new ResponseDto(HttpStatus.BAD_REQUEST.value(), e.getMessage());

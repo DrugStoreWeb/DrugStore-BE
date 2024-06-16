@@ -5,11 +5,11 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.github.drug_store_be.config.security.JwtTokenProvider;
 import com.github.drug_store_be.repository.role.Role;
-import com.github.drug_store_be.repository.role.RoleJpa;
+import com.github.drug_store_be.repository.role.RoleRepository;
 import com.github.drug_store_be.repository.user.User;
-import com.github.drug_store_be.repository.user.UserJpa;
+import com.github.drug_store_be.repository.user.UserRepository;
 import com.github.drug_store_be.repository.userRole.UserRole;
-import com.github.drug_store_be.repository.userRole.UserRoleJpa;
+import com.github.drug_store_be.repository.userRole.UserRoleRepository;
 import com.github.drug_store_be.service.exceptions.NotAcceptException;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.service.exceptions.StorageUpdateFailedException;
@@ -39,9 +39,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
-    private final UserJpa userJpa;
-    private final UserRoleJpa userRoleJpa;
-    private final RoleJpa roleJpa;
+    private final UserRepository userRepository;
+    private final UserRoleRepository userRoleRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final AmazonS3 amazonS3Client;
@@ -50,7 +50,7 @@ public class AuthService {
 
     @Transactional
     public ResponseDto signUpResult(SignUp signUpRequest, MultipartFile multipartFiles) {
-        if (userJpa.existsByEmail(signUpRequest.getEmail())){
+        if (userRepository.existsByEmail(signUpRequest.getEmail())){
             CheckResponse checkResponse = new CheckResponse(signUpRequest.getEmail()+"(는)은 이미 존재하는 이메일입니다. 다른 이메일을 이용헤주세요.",true);
             return new ResponseDto(HttpStatus.CONFLICT.value(), "중복 여부 확인",checkResponse);
         }
@@ -58,13 +58,13 @@ public class AuthService {
             return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "비밀번호 체크란이 비밀번호와 동일하지 않습니다.");
         }
 
-        if (userJpa.existsByNickname(signUpRequest.getNickname())){
+        if (userRepository.existsByNickname(signUpRequest.getNickname())){
             CheckResponse checkResponse = new CheckResponse(signUpRequest.getNickname() + "(는)은 이미 존재하는 닉네임입니다. 다른 닉네임을 이용해주세요.",true);
             return new ResponseDto(HttpStatus.CONFLICT.value(), "중복 여부 확인",checkResponse);
         }
         SaveFileType type =SaveFileType.small;
 
-        Role role =roleJpa.findByRoleName("ROLE_USER")
+        Role role =roleRepository.findByRoleName("ROLE_USER")
                 .orElseThrow(()-> new NotFoundException("code : "+HttpStatus.NOT_FOUND.value()+" USER라는 역할이 없습니다."));
         User signUpUser = User.builder()
                 .name(signUpRequest.getName())
@@ -87,11 +87,11 @@ public class AuthService {
                 break;
         }
 
-        userJpa.save(signUpUser);
+        userRepository.save(signUpUser);
         UserRole signUpUserRole = UserRole.builder()
                 .role(role).user(signUpUser)
                 .build();
-        userRoleJpa.save(signUpUserRole);
+        userRoleRepository.save(signUpUserRole);
         return new ResponseDto(HttpStatus.OK.value(),signUpRequest.getName()+ "님 회원 가입에 성공하셨습니다.");
     }
     //트러블 슈팅 정리하기 90번의 exception 없을 경우 예외처리가 정상 발동하지 않는다.
@@ -105,7 +105,7 @@ public class AuthService {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email,password));
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            User user =userJpa.findByEmailFetchJoin(email)
+            User user =userRepository.findByEmailFetchJoin(email)
                     .orElseThrow(() -> new NotFoundException("이메일 또는 비밀번호를 잘못 입력했습니다.\n" +
                             "입력하신 내용을 다시 확인해주세요."));
             List<String> roles = user.getUserRole()
@@ -123,7 +123,7 @@ public class AuthService {
     }
 
     public ResponseDto nicknameCheckResult(NicknameCheck nicknameCheck) {
-        if (userJpa.existsByNickname(nicknameCheck.getNickname())){
+        if (userRepository.existsByNickname(nicknameCheck.getNickname())){
 
             CheckResponse checkResponse = new CheckResponse(nicknameCheck.getNickname() + "(는)은 이미 존재하는 닉네임입니다. 다른 닉네임을 이용해주세요.",true);
             return new ResponseDto(HttpStatus.CONFLICT.value(), "중복 여부 확인",checkResponse);
@@ -135,7 +135,7 @@ public class AuthService {
 
     public ResponseDto emailCheckResult(EmailCheck emailCheck) {
         String email=emailCheck.getEmail().toLowerCase();
-            if (userJpa.existsByEmail(email)){
+            if (userRepository.existsByEmail(email)){
                 CheckResponse checkResponse = new CheckResponse(emailCheck.getEmail()+"(는)은 이미 존재하는 이메일입니다. 다른 이메일을 이용헤주세요.",true);
                 return new ResponseDto(HttpStatus.CONFLICT.value(), "중복 여부 확인",checkResponse);
             }else {
@@ -145,14 +145,14 @@ public class AuthService {
 
     }
     public ResponseDto findEmailResult(FindEmail findEmail) {
-        User user = userJpa.findByNicknameAndPhoneNumber(findEmail.getNickname(),findEmail.getPhoneNum())
+        User user = userRepository.findByNicknameAndPhoneNumber(findEmail.getNickname(),findEmail.getPhoneNum())
                 .orElseThrow(()->new NotFoundException("닉네임과 휴대폰에 해당하는 유저를 찾을 수 없습니다."));
         String userEmail = user.getEmail();
         return new ResponseDto(HttpStatus.OK.value(),"email : " + userEmail);
     }
 @Transactional
     public ResponseDto changePasswordResult(ChangePassword changePassword) {
-        User user =userJpa.findByEmailFetchJoin(changePassword.getEmail())
+        User user =userRepository.findByEmailFetchJoin(changePassword.getEmail())
                 .orElseThrow(()-> new NotFoundException("가입되지 않은 이메일입니다."));
         if (!changePassword.getNewPassword().equals(changePassword.getNewPasswordCheck())){
             return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "비밀번호 체크란이 비밀번호와 동일하지 않습니다.");

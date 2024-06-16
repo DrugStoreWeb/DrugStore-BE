@@ -13,7 +13,7 @@ import com.github.drug_store_be.repository.questionAnswer.QuestionAnswer;
 import com.github.drug_store_be.repository.review.Review;
 import com.github.drug_store_be.repository.review.ReviewJpa;
 import com.github.drug_store_be.repository.user.User;
-import com.github.drug_store_be.repository.user.UserJpa;
+import com.github.drug_store_be.repository.user.UserRepository;
 import com.github.drug_store_be.repository.userCoupon.UserCoupon;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
@@ -39,7 +39,7 @@ public class MypageService {
     private final OrdersRepository ordersRepository;
     private final CartRepository cartRepository;
     private final OptionsRepository optionsRepository;
-    private final UserJpa userJpa;
+    private final UserRepository userRepository;
     private final ProductRepository productRepository;
 
     public ResponseDto addReview(CustomUserDetails customUserDetails, ReviewRequest reviewRequest, int ordersId) throws ReviewException {
@@ -164,7 +164,7 @@ public class MypageService {
     }
 
     public ResponseDto findUserDetail(CustomUserDetails customUserDetails) {
-        User user = userJpa.findById(customUserDetails.getUserId()).orElseThrow(() -> new NotFoundException("회원가입 후 이용해 주시길 바랍니다."));
+        User user = userRepository.findById(customUserDetails.getUserId()).orElseThrow(() -> new NotFoundException("회원가입 후 이용해 주시길 바랍니다."));
 
         UserInfoResponse userInfoResponse = UserInfoResponse.builder()
                 .name(user.getName())
@@ -180,7 +180,7 @@ public class MypageService {
     }
 
     public ResponseDto findAllOrders(CustomUserDetails customUserDetails, Pageable pageable) {
-        int userId = userJpa.findById(customUserDetails.getUserId())
+        int userId = userRepository.findById(customUserDetails.getUserId())
                 .map(User::getUserId)
                 .orElseThrow(() -> new NotFoundException("아이디를 찾을 수 없습니다."));
 
@@ -270,8 +270,8 @@ public class MypageService {
     }
 
     public ResponseDto findAllCoupon(CustomUserDetails customUserDetails) {
-        User user = userJpa.findById(customUserDetails.getUserId()).orElseThrow(() -> new NotFoundException("회원가입 후 이용해 주시길 바랍니다."));
-        int userId = userJpa.findById(customUserDetails.getUserId()).map(User::getUserId)
+        User user = userRepository.findById(customUserDetails.getUserId()).orElseThrow(() -> new NotFoundException("회원가입 후 이용해 주시길 바랍니다."));
+        int userId = userRepository.findById(customUserDetails.getUserId()).map(User::getUserId)
                 .orElseThrow(() -> new NotFoundException("아이디를 찾을 수 없습니다."));
 
         List<UserCoupon> couponPage = reviewJpa.findAllByUserId(userId);
@@ -291,7 +291,7 @@ public class MypageService {
     }
 
     public ResponseDto findAllQnA(CustomUserDetails customUserDetails, Pageable pageable) {
-        int userId = userJpa.findById(customUserDetails.getUserId()).map(User::getUserId)
+        int userId = userRepository.findById(customUserDetails.getUserId()).map(User::getUserId)
                 .orElseThrow(() -> new NotFoundException("아이디를 찾을 수 없습니다."));
 
 

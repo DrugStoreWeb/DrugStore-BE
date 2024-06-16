@@ -9,7 +9,8 @@ import com.github.drug_store_be.repository.order.Orders;
 import com.github.drug_store_be.repository.order.OrdersRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
 import com.github.drug_store_be.repository.user.User;
-import com.github.drug_store_be.repository.user.UserJpa;
+
+import com.github.drug_store_be.repository.user.UserRepository;
 import com.github.drug_store_be.repository.userCoupon.UserCoupon;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.service.exceptions.*;
@@ -33,14 +34,14 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class OrderService {
-    private final UserJpa userJpa;
+    private final UserRepository userRepository;
     private final CartRepository cartRepository;
     private final OrdersRepository ordersRepository;
     private final OptionsRepository optionsRepository;
 
     @Transactional
     public ResponseDto cartToOrder(CustomUserDetails customUserDetails) {
-        User user= userJpa.findById(customUserDetails.getUserId())
+        User user= userRepository.findById(customUserDetails.getUserId())
                 .orElseThrow(()-> new NotFoundException("아이디가  "+ customUserDetails.getUserId() +"인 유저를 찾을 수 없습니다."));
         List<Cart> cartList= cartRepository.findByUserId(user.getUserId());
 
@@ -90,14 +91,14 @@ public class OrderService {
 
 
             //사용자가 가진 돈이 주문하려는 금액보다 적으면 예외처리
-            User user = userJpa.findById(customUserDetails.getUserId())
+            User user = userRepository.findById(customUserDetails.getUserId())
                     .orElseThrow(() -> new NotFoundException("아이디가  " + customUserDetails.getUserId() + "인 유저를 찾을 수 없습니다."));
             Integer totalPrice = payRequestDto.getTotalPrice();
             if (totalPrice > user.getMoney()) throw new NoMoneyException("You do not have enough money to order");
 
             //user money 차감
             user.setMoney(user.getMoney() - totalPrice);
-            userJpa.save(user);
+            userRepository.save(user);
 
             //장바구니에서 주문한 상품은 삭제
             deleteFromCart(user, optionQuantityList);
