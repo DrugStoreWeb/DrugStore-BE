@@ -59,7 +59,7 @@ public class OrderService {
             String ordersNumber = UUID.randomUUID().toString().replace("-", "").substring(0, 16);
 
             for (Cart c : cartList) {
-                saveOrder(user, c, ordersNumber, orderAt);
+                saveOrder(user, c.getOptions(), ordersNumber, orderAt);
             }
 
             //order response DTO
@@ -158,11 +158,11 @@ public class OrderService {
 
 
 
-    public String saveOrder(User user, Cart cart, String ordersNumber, LocalDate orderAt){
+    public String saveOrder(User user, Options options, String ordersNumber, LocalDate orderAt){
 
         Orders orders= Orders.builder()
                 .user(user)
-                .cart(cart)
+                .options(options)
                 .ordersNumber(ordersNumber)
                 .ordersAt(orderAt)
                 .build();
