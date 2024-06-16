@@ -51,7 +51,7 @@ public class AuthService {
     @Transactional
     public ResponseDto signUpResult(SignUp signUpRequest, MultipartFile multipartFiles) {
         if (userRepository.existsByEmail(signUpRequest.getEmail())){
-            CheckResponse checkResponse = new CheckResponse(signUpRequest.getEmail()+"(는)은 이미 존재하는 이메일입니다. 다른 이메일을 이용헤주세요.",true);
+            CheckResponse checkResponse = new CheckResponse(signUpRequest.getEmail()+"(는)은 이미 존재하는 이메일입니다. 다른 이메일을 이용해주세요.",true);
             return new ResponseDto(HttpStatus.CONFLICT.value(), "중복 여부 확인",checkResponse);
         }
         if (!signUpRequest.getPassword().equals(signUpRequest.getPasswordCheck())){
@@ -129,7 +129,7 @@ public class AuthService {
     public ResponseDto emailCheckResult(EmailCheck emailCheck) {
         String email=emailCheck.getEmail().toLowerCase();
             if (userRepository.existsByEmail(email)){
-                CheckResponse checkResponse = new CheckResponse(emailCheck.getEmail()+"(는)은 이미 존재하는 이메일입니다. 다른 이메일을 이용헤주세요.",true);
+                CheckResponse checkResponse = new CheckResponse(emailCheck.getEmail()+"(는)은 이미 존재하는 이메일입니다. 다른 이메일을 이용해주세요.",true);
                 return new ResponseDto(HttpStatus.CONFLICT.value(), "중복 여부 확인",checkResponse);
             }else {
                 CheckResponse checkResponse = new CheckResponse(emailCheck.getEmail()+"(는)은 사용하실 수 있는 이메일입니다.",false);
