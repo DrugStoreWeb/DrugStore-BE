@@ -10,7 +10,7 @@ import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import com.github.drug_store_be.repository.questionAnswer.QuestionAnswer;
 import com.github.drug_store_be.repository.questionAnswer.QuestionAnswerRepository;
 import com.github.drug_store_be.repository.review.Review;
-import com.github.drug_store_be.repository.review.ReviewJpa;
+import com.github.drug_store_be.repository.review.ReviewRepository;
 import com.github.drug_store_be.repository.role.Role;
 import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserRepository;
@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DetailService {
     private final ProductRepository productRepository;
-    private final ReviewJpa reviewRepository;
+    private final ReviewRepository reviewRepository;
     private final ProductPhotoJpa productPhotoRepository;
     private final OptionsRepository optionsRepository;
     private final UserRepository userRepository;
