@@ -73,6 +73,8 @@ public class AuthService {
         userRoleRepository.save(signUpUserRole);
         return new ResponseDto(HttpStatus.OK.value(),signUpRequest.getName()+ "님 회원 가입에 성공하셨습니다.");
     }
+
+
     //프로필 이미지 저장 메소드
     public void userProfileSave(SaveFileType type,MultipartFile multipartFiles,User signUpUser){
         switch(type){

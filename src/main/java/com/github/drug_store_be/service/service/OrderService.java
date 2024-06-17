@@ -148,9 +148,9 @@ public class OrderService {
             Cart cart= cartRepository.findByUserIdAndOptionId(user.getUserId(), options.getOptionsId())
                     .orElseThrow(() -> new NotFoundException("There is no product in cart with matching user and option."));
 
-            //장바구니 삭제를 위해서 먼저 order부터 삭제
-            Orders order= ordersRepository.findByCart(cart);
-            ordersRepository.delete(order);
+//            //장바구니 삭제를 위해서 먼저 order부터 삭제
+//            Orders order= ordersRepository.findByCart(cart);
+//            ordersRepository.delete(order);
             //finally delete cart
             cartRepository.delete(cart);
         }

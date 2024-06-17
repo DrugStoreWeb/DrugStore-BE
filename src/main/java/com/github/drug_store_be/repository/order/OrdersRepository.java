@@ -13,5 +13,5 @@ public interface OrdersRepository extends JpaRepository<Orders,Integer> {
     @Query("SELECT r FROM Orders r WHERE r.user.userId = :userId")
     Page<Orders> findAllByUserId(int userId, Pageable pageable);
 
-    Orders findByCart(Cart cart);
+
 }

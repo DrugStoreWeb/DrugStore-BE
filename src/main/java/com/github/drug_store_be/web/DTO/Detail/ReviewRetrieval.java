@@ -30,7 +30,7 @@ public class ReviewRetrieval {
         this.reviewScore = review.getReviewScore();
         this.reviewContent = review.getReviewContent();
         this.productName=review.getProduct().getProductName();
-        this.optionName=review.getOrders().getCart().getOptions().getOptionsName();
+        this.optionName=review.getOrders().getOptions().getOptionsName();
         this.createAt = review.getCreateAt();
     }
 }

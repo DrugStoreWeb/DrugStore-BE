@@ -23,6 +23,7 @@ public class AuthController {
 
         return authService.signUpResult(signUpRequest,multipartFiles);
     }
+
     @PostMapping(value = "/nickname-check")
     public ResponseDto nickNameCheck(@RequestBody NicknameCheck nicknameCheck){
         return authService.nicknameCheckResult(nicknameCheck);
