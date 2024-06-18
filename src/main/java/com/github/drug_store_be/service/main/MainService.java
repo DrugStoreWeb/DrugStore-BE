@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class MainService{
-    private final ProductRepository productJpa;
+    private final ProductRepository productRepository;
     private final UserRepository userRepository;
 
 
@@ -34,7 +34,7 @@ public class MainService{
     //정렬+광고
     public MainPageResponse mainpage(String sortBy,Pageable pageable) {
         //모든 상품 찾기
-        List<Product> productList=productJpa.findAll();
+        List<Product> productList= productRepository.findAll();
 
         //product+productPhoto+sorting기준 필드=productListQueryDto 생성
         List<productListQueryDto> productListQueryDtoList=getProductListQueryDto(productList);
@@ -64,7 +64,7 @@ public class MainService{
     //페이징+정렬
     public Page<MainPageProductResponse> CategoryPage(int category, String sortBy, Pageable pageable) {
         //카테고리별 상품 찾기
-        List<Product> productList=productJpa.findByCategoryCategoryId(category);
+        List<Product> productList=productRepository.findByCategoryCategoryId(category);
 
         //product+productPhoto+sorting기준 필드=productListQueryDto 생성
         List<productListQueryDto> productListQueryDtoList=getProductListQueryDto(productList);
@@ -81,7 +81,7 @@ public class MainService{
     //페이징+정렬+검색
     public Page<MainPageProductResponse> findPage(String keyword, String sortBy, Pageable pageable) {
         //브랜드와 상품 이름으로 검색
-        List<Product> productList=productJpa.findByKeyword(keyword);
+        List<Product> productList=productRepository.findByKeyword(keyword);
 
         //product+productPhoto+sorting기준 필드=productListQueryDto 생성
         List<productListQueryDto> productListQueryDtoList=getProductListQueryDto(productList);
@@ -101,6 +101,9 @@ public class MainService{
 
     //대표이미지 찾기
     public String getMainImgUrls(Product product) {
+        if (product == null || product.getProductPhotoList() == null) {
+            return ""; // Product가 null이거나 사진 목록이 없는 경우 빈 문자열 반환
+        }
         return product.getProductPhotoList().stream()
                 .filter(ProductPhoto::isPhotoType) // photoType이 true인 경우 필터링
                 .map(ProductPhoto::getPhotoUrl) // photoUrl로 매핑
@@ -112,12 +115,12 @@ public class MainService{
     //광고이미지
     public MainPageAdImg getAdImg() {
 
-        productJpa.updateReviewAvg();
-        productJpa.updateProductSales();
+        productRepository.updateReviewAvg();
+        productRepository.updateProductSales();
 
-        Product topProductByReview = productJpa.findTopByOrderByReviewAvgDesc();
-        Product topProductBySales = productJpa.findTopByOrderByProductSalesDesc();
-        Product topProductByLikes = productJpa.findTopByOrderByLikesDesc();
+        Product topProductByReview = productRepository.findTopByOrderByReviewAvgDesc();
+        Product topProductBySales = productRepository.findTopByOrderByProductSalesDesc();
+        Product topProductByLikes = productRepository.findTopByOrderByLikesDesc();
 
 
         MainPageAdImg mpai = MainPageAdImg.builder()
@@ -154,7 +157,7 @@ public class MainService{
 
         if (user != null) {
             Integer userId = user.getUserId();  // userId 필드를 직접 추출
-            return productJpa.existsByUserIdAndProductId(product.getProductId(), userId);
+            return productRepository.existsByUserIdAndProductId(product.getProductId(), userId);
         } else {
             return false;
         }
@@ -167,9 +170,9 @@ public class MainService{
 
         for (Product product : productList) {
 
-            productJpa.updateProductSales();
-            productJpa.updateReviewAvg();
-            int productLike=productJpa.countLikesByProductId(product.getProductId());
+            productRepository.updateProductSales();
+            productRepository.updateReviewAvg();
+            int productLike=productRepository.countLikesByProductId(product.getProductId());
             productListQueryDto plqd = productListQueryDto.builder()
                     .product_id(product.getProductId())
                     .product_name(product.getProductName())
