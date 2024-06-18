@@ -5,7 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
-import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
+
+import com.github.drug_store_be.repository.productPhoto.ProductPhotoRepository;
 import lombok.*;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class ProductImg {
         this.imgMain = productPhoto.isPhotoType();
         this.img = productPhoto.getPhotoUrl();
     }
-    public static List<ProductImg> ConvertEntityListToDtoList(Product product, ProductPhotoJpa productPhotoRepository){
+    public static List<ProductImg> ConvertEntityListToDtoList(Product product, ProductPhotoRepository productPhotoRepository){
         List<ProductPhoto> productPhotosByProduct=productPhotoRepository.findAllByProduct(product);
        return productPhotosByProduct.stream().map(ProductImg::new).toList();
 

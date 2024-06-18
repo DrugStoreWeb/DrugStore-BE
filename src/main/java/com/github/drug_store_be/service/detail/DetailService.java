@@ -4,7 +4,7 @@ import com.github.drug_store_be.repository.like.LikesRepository;
 import com.github.drug_store_be.repository.option.OptionsRepository;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductRepository;
-import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
+import com.github.drug_store_be.repository.productPhoto.ProductPhotoRepository;
 import com.github.drug_store_be.repository.questionAnswer.QuestionAnswer;
 import com.github.drug_store_be.repository.questionAnswer.QuestionAnswerRepository;
 import com.github.drug_store_be.repository.review.Review;
@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 public class DetailService {
     private final ProductRepository productRepository;
     private final ReviewRepository reviewRepository;
-    private final ProductPhotoJpa productPhotoRepository;
+    private final ProductPhotoRepository productPhotoRepository;
     private final OptionsRepository optionsRepository;
     private final UserRepository userRepository;
     private final LikesRepository likesRepository;

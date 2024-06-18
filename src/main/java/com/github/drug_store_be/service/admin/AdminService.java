@@ -1,13 +1,13 @@
 package com.github.drug_store_be.service.admin;
 
 import com.github.drug_store_be.repository.category.Category;
-import com.github.drug_store_be.repository.category.CategoryJpa;
+import com.github.drug_store_be.repository.category.CategoryRepository;
 import com.github.drug_store_be.repository.option.Options;
 import com.github.drug_store_be.repository.option.OptionsRepository;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.product.ProductRepository;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
-import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
+import com.github.drug_store_be.repository.productPhoto.ProductPhotoRepository;
 import com.github.drug_store_be.repository.user.User;
 
 import com.github.drug_store_be.repository.user.UserRepository;
@@ -29,9 +29,9 @@ import java.util.stream.Collectors;
 
 public class AdminService {
     private final UserRepository userRepository;
-    private final CategoryJpa categoryJpa;
+    private final CategoryRepository CategoryRepository;
     private final ProductRepository productRepository;
-    private final ProductPhotoJpa productPhotoJpa;
+    private final ProductPhotoRepository productPhotoRepository;
     private final OptionsRepository optionsRepository;
 
     public ResponseDto registerProduct(CustomUserDetails customUserDetails, ProductRegisterDto productRegisterDto) {
@@ -39,7 +39,7 @@ public class AdminService {
                 .orElseThrow(()-> new NotFoundException("아이디가  "+ customUserDetails.getUserId() +"인 유저를 찾을 수 없습니다."));
         List<String> role= user.getUserRole().stream().map(ur-> ur.getRole().getRoleName()).collect(Collectors.toList());
         if(role.stream().findFirst().get().equals("ROLE_ADMIN")){
-            Category category= categoryJpa.findById(productRegisterDto.getCategoryId())
+            Category category= CategoryRepository.findById(productRegisterDto.getCategoryId())
                     .orElseThrow(()-> new NotFoundException("아이디가  "+ productRegisterDto.getCategoryId() +"인 카테고리를 찾을 수 없습니다."));
 
             Integer caculatedFinalPrice= productRegisterDto.getPrice() * (100-productRegisterDto.getProductDiscount()) / 100;
@@ -70,7 +70,7 @@ public class AdminService {
                             .photoType(pp.isPhotoType())
                             .build())
                     .collect(Collectors.toList());
-            productPhotoJpa.saveAll(productPhotoList);
+            productPhotoRepository.saveAll(productPhotoList);
 
             List<Options> optionsList= productRegisterDto.getOptionsList()
                     .stream()

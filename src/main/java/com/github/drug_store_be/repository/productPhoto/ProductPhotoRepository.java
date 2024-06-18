@@ -8,6 +8,6 @@ import java.util.List;
 
 
 @Repository
-public interface ProductPhotoJpa extends JpaRepository<ProductPhoto,Integer> {
+public interface ProductPhotoRepository extends JpaRepository<ProductPhoto,Integer> {
     List<ProductPhoto> findAllByProduct(Product product);
 }
