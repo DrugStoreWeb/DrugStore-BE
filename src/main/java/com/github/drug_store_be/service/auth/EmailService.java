@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +27,7 @@ public class EmailService {
     private String senderEmail;
     private static int number;
     private final RedisUtil redisUtil;
-
+    @Transactional
     public ResponseDto emailSendResult(String email) {
         MimeMessage mimeMessage=createMessage(email);
         javaMailSender.send(mimeMessage);

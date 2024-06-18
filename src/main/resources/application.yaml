@@ -6,8 +6,9 @@ spring:
     type: simple
   data:
     redis:
-      host: 52.78.248.75
+      host: ENC(qp5pjAGkUB5jNtNP6kfGWPQOnp3W8BNM)
       port: 6379
+      password: ENC(HMxBVpIvWWJRvXy5WQGBOA/wLBGZ6cAy)
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
