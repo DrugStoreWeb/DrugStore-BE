@@ -6,7 +6,6 @@ import com.github.drug_store_be.repository.option.Options;
 import com.github.drug_store_be.repository.option.OptionsRepository;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.productPhoto.ProductPhoto;
-import com.github.drug_store_be.repository.productPhoto.ProductPhotoJpa;
 import lombok.*;
 
 import java.util.List;

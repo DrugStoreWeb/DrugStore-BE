@@ -2,6 +2,7 @@ package com.github.drug_store_be.repository.product;
 
 import com.github.drug_store_be.repository.user.User;
 import jakarta.transaction.Transactional;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +16,12 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Integer> {
     Optional<Product> findById(Integer productId);
+
+    @Override
+    @Cacheable(value = "products") // 오버라이딩된 메서드에 @Cacheable 어노테이션 추가
+    List<Product> findAll();
+
+    @Cacheable(value = "categoryProducts")
     List<Product> findByCategoryCategoryId(int category);
 
     @Transactional
@@ -42,6 +49,7 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
 
 
     //두 글자 이상 일치하는 검색어 찾기
+    @Cacheable(value = "findProducts")
     @Query("SELECT p FROM Product p WHERE LENGTH(:keyword) >= 2 AND (p.brand LIKE %:keyword% OR p.productName LIKE %:keyword%)")
     List<Product> findByKeyword(@Param("keyword") String keyword);
     int countLikesByProductId(@Param("productId") Integer productId);
