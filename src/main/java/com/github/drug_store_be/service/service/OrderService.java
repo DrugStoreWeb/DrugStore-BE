@@ -83,18 +83,19 @@ public class OrderService {
     //주문에서 결제로
     public ResponseDto orderToPay(CustomUserDetails customUserDetails, PayRequestDto payRequestDto) {
         List<OptionQuantityDto> optionQuantityList= payRequestDto.getOptionQuantityDto();
+        //재고 예외처리
+        exceptionCheck(optionQuantityList);
+
+        //사용자가 가진 돈이 주문하려는 금액보다 적으면 예외처리
+        User user = userRepository.findById(customUserDetails.getUserId())
+                .orElseThrow(() -> new NotFoundException("아이디가  " + customUserDetails.getUserId() + "인 유저를 찾을 수 없습니다."));
+        Integer totalPrice = payRequestDto.getTotalPrice();
+        if (totalPrice > user.getMoney()) throw new NoMoneyException("You do not have enough money to order");
+
         try {
-            //재고 예외처리
-            exceptionCheck(optionQuantityList);
+
             //option stock 재고 차감
             optionStockChange(optionQuantityList);
-
-
-            //사용자가 가진 돈이 주문하려는 금액보다 적으면 예외처리
-            User user = userRepository.findById(customUserDetails.getUserId())
-                    .orElseThrow(() -> new NotFoundException("아이디가  " + customUserDetails.getUserId() + "인 유저를 찾을 수 없습니다."));
-            Integer totalPrice = payRequestDto.getTotalPrice();
-            if (totalPrice > user.getMoney()) throw new NoMoneyException("You do not have enough money to order");
 
             //user money 차감
             user.setMoney(user.getMoney() - totalPrice);
