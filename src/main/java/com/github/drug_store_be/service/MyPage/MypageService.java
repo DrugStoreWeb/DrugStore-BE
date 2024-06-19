@@ -1,5 +1,6 @@
 package com.github.drug_store_be.service.MyPage;
 
+import com.github.drug_store_be.repository.cart.Cart;
 import com.github.drug_store_be.repository.option.Options;
 import com.github.drug_store_be.repository.option.OptionsRepository;
 import com.github.drug_store_be.repository.order.Orders;
@@ -47,6 +48,10 @@ public class MypageService {
 
         if (getReviewStatusForOrder(userId, ordersId)) {
             throw new ReviewException("이미 리뷰를 작성하였습니다.");
+        }
+
+        if (isCartExists(userId)) {
+            throw new ReviewException("결제를 완료해야 리뷰를 작성할 수 있습니다.");
         }
 
         Integer reviewScore = reviewRequest.getReviewScore();
@@ -187,8 +192,6 @@ public class MypageService {
         }
 
         List<OrdersResponse> ordersResponseList = ordersPage.stream().map(orders -> {
-//            Integer cartId = orders.getCart().getCartId();
-//            Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException("cart에서 주문을 찾을 수 없습니다."));
             Integer optionId = orders.getOptions().getOptionsId();
             Options options = optionsRepository.findById(optionId).orElseThrow(() -> new NotFoundException("주문한 옵션을 찾을 수 없습니다."));
             Integer productId = options.getProduct().getProductId();
@@ -215,10 +218,16 @@ public class MypageService {
         return orderAt.plusDays(30); // 구매일로부터 30일 후를 리뷰 마감일로 설정
     }
 
-    public Boolean getReviewStatusForOrder(Integer userId, Integer orderId) {
-        Optional<Review> existingReview = reviewRepository.findByUserIdAndOrdersId(userId, orderId);
+    public Boolean getReviewStatusForOrder(Integer userId, Integer ordersId) {
+        Optional<Review> existingReview = reviewRepository.findByUserIdAndOrdersId(userId, ordersId);
 
         return existingReview.isPresent(); // 리뷰가 존재하면 true, 없으면 false 반환
+    }
+
+    public Boolean isCartExists(Integer userId) {
+        Optional<Cart> isCartExists = reviewRepository.existsByUserId(userId);
+
+        return isCartExists.isPresent();
     }
 
     public ResponseDto findAllReviews(CustomUserDetails customUserDetails, Pageable pageable) {
@@ -258,17 +267,6 @@ public class MypageService {
 
         return new ResponseDto(HttpStatus.OK.value(), "구매 정보를 성공적으로 조회했습니다.", responsePage);
     }
-
-//    private Product getProductInfo(int ordersId) {
-//        Orders orders = ordersRepository.findById(ordersId)
-//                .orElseThrow(() -> new NotFoundException("order에서 주문을 찾을 수 없습니다."));
-//
-//        Options options = optionsRepository.findById(orders.getOptions().getOptionsId())
-//                .orElseThrow(() -> new NotFoundException("해당 options를 찾을 수 없습니다."));
-//
-//        return productRepository.findById(options.getProduct().getProductId())
-//                .orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
-//    }
 
     public String getTruePhotoUrl(List<ProductPhoto> productPhotoList) {
         Optional<String> optionalPhotoUrl = productPhotoList.stream()

@@ -1,5 +1,6 @@
 package com.github.drug_store_be.repository.review;
 
+import com.github.drug_store_be.repository.cart.Cart;
 import com.github.drug_store_be.repository.product.Product;
 import com.github.drug_store_be.repository.questionAnswer.QuestionAnswer;
 import org.springframework.data.domain.Page;
@@ -32,4 +33,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
     @Query("SELECT q FROM QuestionAnswer q WHERE q.user.userId = :userId")
     List<QuestionAnswer> findAllQnA(Integer userId, Pageable pageable);
+
+    @Query("SELECT c FROM Cart c WHERE c.user.userId = :userId")
+    Optional<Cart> existsByUserId(Integer userId);
 }
