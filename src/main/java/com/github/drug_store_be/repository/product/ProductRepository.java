@@ -52,6 +52,7 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     @Cacheable(value = "findProducts")
     @Query("SELECT p FROM Product p WHERE LENGTH(:keyword) >= 2 AND (p.brand LIKE %:keyword% OR p.productName LIKE %:keyword%)")
     List<Product> findByKeyword(@Param("keyword") String keyword);
+    @Query("SELECT COUNT(l) FROM Likes l JOIN l.product p WHERE p.productId = :productId")
     int countLikesByProductId(@Param("productId") Integer productId);
     @Query("SELECT CASE WHEN COUNT(l) > 0 THEN true ELSE false END " +
             "FROM Likes l WHERE l.user.userId = :userId AND l.product.productId = :productId")
