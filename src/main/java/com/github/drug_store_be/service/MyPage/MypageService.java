@@ -22,6 +22,7 @@ import com.github.drug_store_be.web.DTO.Mypage.*;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import com.github.drug_store_be.web.DTO.order.OrderCouponResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -42,7 +43,7 @@ public class MypageService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
     private final UserCouponRepository userCouponRepository;
-
+    @CacheEvict(value = "productReview",allEntries = true)
     public ResponseDto addReview(CustomUserDetails customUserDetails, ReviewRequest reviewRequest, int ordersId) throws ReviewException {
         Integer userId = customUserDetails.getUserId();
 
@@ -98,7 +99,7 @@ public class MypageService {
 
         return new ResponseDto(HttpStatus.OK.value(), "리뷰가 저장되었습니다.", response);
     }
-
+    @CacheEvict(value = "productReview",allEntries = true)
     public ResponseDto updateReview(CustomUserDetails customUserDetails, ReviewRequest reviewRequest, Integer ordersId) {
         Integer userId = customUserDetails.getUserId();
         Integer reviewScore = reviewRequest.getReviewScore();
@@ -144,7 +145,7 @@ public class MypageService {
                 .build();
         return new ResponseDto(HttpStatus.OK.value(), "리뷰가 수정되었습니다.", response);
     }
-
+    @CacheEvict(value = "productReview",allEntries = true)
     public ResponseDto deleteReview(CustomUserDetails customUserDetails, Integer ordersId) {
         Integer userId = customUserDetails.getUserId();
         Optional<Review> existingReview = reviewRepository.findByUserIdAndOrdersId(userId, ordersId);
