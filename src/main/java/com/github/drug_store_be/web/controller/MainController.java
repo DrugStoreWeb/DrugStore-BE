@@ -27,13 +27,13 @@ public class MainController {
 
 
     @GetMapping(path = "/category/{category}")
-    public ResponseDto mainPageCategory(@PathVariable(value = "category") int category,@RequestParam(defaultValue = "sales")  String sortBy, @PageableDefault(page = 0, size = 24) Pageable pageable) {
+    public ResponseDto mainPageCategory(@PathVariable(value = "category") int category,@RequestParam(name = "sortby", defaultValue = "sales")  String sortBy, @PageableDefault(page = 0, size = 24) Pageable pageable) {
         Page<MainPageProductResponse> mainPageProductResponse=mainservice.CategoryPage(category, sortBy,pageable);
         return new ResponseDto(HttpStatus.OK.value(),"카테고리 페이지 조회에 성공했습니다.",mainPageProductResponse);
     }
 
     @GetMapping(path = "/find")
-    public ResponseDto mainPageSearch(@RequestParam(value = "keyword", defaultValue = "", required = true) String keyword,@RequestParam(defaultValue = "sales") String sortBy, @PageableDefault(page = 0, size = 24) Pageable pageable ) {
+    public ResponseDto mainPageSearch(@RequestParam(value = "keyword", defaultValue = "", required = true) String keyword,@RequestParam(name = "sortby", defaultValue = "sales") String sortBy, @PageableDefault(page = 0, size = 24) Pageable pageable ) {
         Page<MainPageProductResponse> mainPageProductResponse=mainservice.findPage(keyword,sortBy,pageable);
         return new ResponseDto(HttpStatus.OK.value(),"검색에 성공했습니다.",mainPageProductResponse);
     }
