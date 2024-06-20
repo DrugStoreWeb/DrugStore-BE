@@ -75,7 +75,7 @@ public class DetailService {
         List<ProductOption> productOptions = ProductOption.ConvertEntityListToDtoList(product,optionsRepository);
         return ProductDetailResponse.createProductDetail(product,productImgs,reviewCount,productOptions);
     }
-    @Cacheable(value = "productReview",key = "#criteria")
+    @Cacheable(value = "productReview",key = "#productId + '_' + #criteria + '_' + #pageNum")
     public ResponseDto productReviewResult(Integer productId, Integer pageNum, String criteria) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(()-> new NotFoundException("해당 상품을 찾을 수 없습니다."));
