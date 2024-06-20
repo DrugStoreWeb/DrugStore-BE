@@ -40,4 +40,6 @@ public interface CartRepository extends JpaRepository<Cart,Integer> {
                     "WHERE c.user.userId = :userId AND c.options.optionsId = :optionsId "
     )
     Optional<Cart> findByUserIdAndOptionId(Integer userId, Integer optionsId);
+
+    List<Cart> findAllByUserAndOptions(User user, Options options);
 }

@@ -20,9 +20,11 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping
-    public ResponseDto getCartItems(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
-        int userId = customUserDetails.getUserId();
-        List<CartResponse> cartItems = cartService.findAllCarts(customUserDetails);
+    public ResponseDto getCartItems(
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
+            @RequestParam(required = false) Integer optionId) {
+        Integer userId = customUserDetails.getUserId();
+        List<CartResponse> cartItems = cartService.findAllCarts(customUserDetails, optionId);
         return new ResponseDto(HttpStatus.OK.value(), "Cart items retrieved successfully", cartItems);
     }
 

@@ -32,20 +32,22 @@ public class CartService {
     private final CartRepository cartRepository;
 
     // 장바구니 조회
-    public List<CartResponse> findAllCarts(CustomUserDetails customUserDetails) {
-        int userId = customUserDetails.getUserId();
+    public List<CartResponse> findAllCarts(CustomUserDetails customUserDetails, Integer optionId) {
+        Integer userId = customUserDetails.getUserId();
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        List<Cart> carts = cartRepository.findAllByUserOrderByCartIdDesc(user);
+        Options options = optionsRepository.findById(optionId)
+                .orElseThrow(() -> new NotFoundException("Option not found"));
+
+        List<Cart> carts = cartRepository.findAllByUserAndOptions(user, options);
         if (carts.isEmpty()) {
-            throw new NotFoundException("No cart items found");
+            throw new NotFoundException("No cart items found for the specified option");
         }
 
         return carts.stream()
                 .map(cart -> {
-                    Options options = cart.getOptions();
-                    Product product = options.getProduct();
+                    Product product = cart.getOptions().getProduct();
 
                     String productPhotoUrl = product.getProductPhotoList().stream()
                             .filter(ProductPhoto::isPhotoType)
@@ -76,7 +78,7 @@ public class CartService {
     })
     //장바구니 추가
     public ResponseDto addCartItem(CustomUserDetails customUserDetails, CartRequest cartRequest) {
-        int userId = customUserDetails.getUserId();
+        Integer userId = customUserDetails.getUserId();
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
@@ -94,7 +96,7 @@ public class CartService {
             throw new NotFoundException("Options do not belong to the specified product");
         }
 
-        int requestedQuantity = cartRequest.getQuantity();
+        Integer requestedQuantity = cartRequest.getQuantity();
         if (requestedQuantity <= 0) {
             throw new IllegalArgumentException("Quantity must be positive");
         }
@@ -102,7 +104,7 @@ public class CartService {
         Optional<Cart> existingCarts = cartRepository.findByUserAndOptions(user, options);
         if (!existingCarts.isEmpty()) {
             Cart existingCart = existingCarts.get();
-            int totalQuantity = existingCart.getQuantity() + requestedQuantity;
+            Integer totalQuantity = existingCart.getQuantity() + requestedQuantity;
             if (totalQuantity > options.getStock()) {
                 throw new IllegalArgumentException("No stock available for the selected option");
             }
@@ -132,7 +134,7 @@ public class CartService {
     })
     //장바구니 업데이트
     public ResponseDto updateCartItem(CustomUserDetails customUserDetails, CartRequest cartRequest) {
-        int userId = customUserDetails.getUserId();
+        Integer userId = customUserDetails.getUserId();
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
@@ -147,7 +149,7 @@ public class CartService {
             cart.setOptions(options);
         }
 
-        int quantity = cartRequest.getQuantity();
+        Integer quantity = cartRequest.getQuantity();
         if (quantity <= 0) {
             throw new IllegalArgumentException("Quantity must be positive"); // 예외를 발생시켜 0 이하의 수량이 입력되지 않도록 합니다.
         }
@@ -176,8 +178,8 @@ public class CartService {
             @CacheEvict(value = "findPageInfo",allEntries = true)
     })
     //장바구니 삭제
-    public ResponseDto removeCartItem(CustomUserDetails customUserDetails, int cartId) {
-        int userId = customUserDetails.getUserId();
+    public ResponseDto removeCartItem(CustomUserDetails customUserDetails, Integer cartId) {
+        Integer userId = customUserDetails.getUserId();
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
