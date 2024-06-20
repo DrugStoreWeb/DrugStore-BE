@@ -47,10 +47,7 @@ public class MypageService {
 
     @Caching(evict = {
             @CacheEvict(value = "productReview",allEntries = true),
-            @CacheEvict(value = "productDetails",allEntries = true),
-            @CacheEvict(value = "mainPageInfo",allEntries = true),
-            @CacheEvict(value = "productDetails",allEntries = true),
-            @CacheEvict(value = "findPageInfo",allEntries = true)
+            @CacheEvict(value = "productDetails",allEntries = true)
     })
 
     public ResponseDto addReview(CustomUserDetails customUserDetails, ReviewRequest reviewRequest, int ordersId) throws ReviewException {
@@ -110,10 +107,7 @@ public class MypageService {
     }
     @Caching(evict = {
             @CacheEvict(value = "productReview",allEntries = true),
-            @CacheEvict(value = "productDetails",allEntries = true),
-            @CacheEvict(value = "mainPageInfo",allEntries = true),
-            @CacheEvict(value = "productDetails",allEntries = true),
-            @CacheEvict(value = "findPageInfo",allEntries = true)
+            @CacheEvict(value = "productDetails",allEntries = true)
     })
     public ResponseDto updateReview(CustomUserDetails customUserDetails, ReviewRequest reviewRequest, Integer ordersId) {
         Integer userId = customUserDetails.getUserId();
@@ -162,10 +156,7 @@ public class MypageService {
     }
     @Caching(evict = {
             @CacheEvict(value = "productReview",allEntries = true),
-            @CacheEvict(value = "productDetails",allEntries = true),
-            @CacheEvict(value = "mainPageInfo",allEntries = true),
-            @CacheEvict(value = "productDetails",allEntries = true),
-            @CacheEvict(value = "findPageInfo",allEntries = true)
+            @CacheEvict(value = "productDetails",allEntries = true)
     })
     public ResponseDto deleteReview(CustomUserDetails customUserDetails, Integer ordersId) {
         Integer userId = customUserDetails.getUserId();

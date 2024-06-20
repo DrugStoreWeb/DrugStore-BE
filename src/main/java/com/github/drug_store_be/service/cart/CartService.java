@@ -14,8 +14,6 @@ import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.Cart.CartRequest;
 import com.github.drug_store_be.web.DTO.Cart.CartResponse;
 import com.github.drug_store_be.web.DTO.ResponseDto;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.http.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -71,11 +69,7 @@ public class CartService {
                 .collect(Collectors.toList());
     }
 
-    @Caching(evict = {
-            @CacheEvict(value = "mainPageInfo",allEntries = true),
-            @CacheEvict(value = "productDetails",allEntries = true),
-            @CacheEvict(value = "findPageInfo",allEntries = true)
-    })
+
     //장바구니 추가
     public ResponseDto addCartItem(CustomUserDetails customUserDetails, CartRequest cartRequest) {
         Integer userId = customUserDetails.getUserId();
@@ -127,11 +121,7 @@ public class CartService {
     }
 
 
-    @Caching(evict = {
-            @CacheEvict(value = "mainPageInfo",allEntries = true),
-            @CacheEvict(value = "productDetails",allEntries = true),
-            @CacheEvict(value = "findPageInfo",allEntries = true)
-    })
+
     //장바구니 업데이트
     public ResponseDto updateCartItem(CustomUserDetails customUserDetails, CartRequest cartRequest) {
         Integer userId = customUserDetails.getUserId();
@@ -172,11 +162,7 @@ public class CartService {
     }
 
 
-    @Caching(evict = {
-            @CacheEvict(value = "mainPageInfo",allEntries = true),
-            @CacheEvict(value = "productDetails",allEntries = true),
-            @CacheEvict(value = "findPageInfo",allEntries = true)
-    })
+
     //장바구니 삭제
     public ResponseDto removeCartItem(CustomUserDetails customUserDetails, Integer cartId) {
         Integer userId = customUserDetails.getUserId();
@@ -191,11 +177,7 @@ public class CartService {
     }
 
 
-    @Caching(evict = {
-            @CacheEvict(value = "mainPageInfo",allEntries = true),
-            @CacheEvict(value = "productDetails",allEntries = true),
-            @CacheEvict(value = "findPageInfo",allEntries = true)
-    })
+
     //장바구니 비우기
     public ResponseDto clearCart(CustomUserDetails customUserDetails) {
         Integer userId = customUserDetails.getUserId();

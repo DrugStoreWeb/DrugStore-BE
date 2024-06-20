@@ -14,9 +14,6 @@ import com.github.drug_store_be.web.DTO.Like.MyLikesResponse;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Caching;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -63,11 +60,7 @@ public class LikeService {
                     })
                     .collect(Collectors.toList());
         }
-    @Caching(evict = {
-            @CacheEvict(value = "mainPageInfo",allEntries = true),
-            @CacheEvict(value = "productDetails",allEntries = true),
-            @CacheEvict(value = "findPageInfo",allEntries = true)
-    })
+
     public ResponseDto addMyLike(CustomUserDetails customUserDetails, Integer productId) {
         User user = findUser(customUserDetails);
         Product product = findProduct(productId);
@@ -81,11 +74,7 @@ public class LikeService {
 
         return new ResponseDto(HttpStatus.OK.value(),"좋아요 추가 성공");
     }
-    @Caching(evict = {
-            @CacheEvict(value = "mainPageInfo",allEntries = true),
-            @CacheEvict(value = "productDetails",allEntries = true),
-            @CacheEvict(value = "findPageInfo",allEntries = true)
-    })
+
     @Transactional
     public ResponseDto deleteMyLike(CustomUserDetails customUserDetails, Integer productId) {
         User user = findUser(customUserDetails);

@@ -12,7 +12,6 @@ import com.github.drug_store_be.web.DTO.MainPage.MainPageResponse;
 import com.github.drug_store_be.web.DTO.MainPage.productListQueryDto;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +31,6 @@ public class MainService{
 
 
     //정렬+광고
-    @Cacheable(value = "mainPageInfo", key = "#sortBy")
     public MainPageResponse mainpage(String sortBy,Pageable pageable) {
         //모든 상품 찾기
         List<Product> productList= productRepository.findAll();
@@ -63,7 +61,6 @@ public class MainService{
     }
 
     //페이징+정렬
-    @Cacheable(value = "categoryPageInfo", key = "#sortBy")
     public Page<MainPageProductResponse> CategoryPage(int category, String sortBy, Pageable pageable) {
         //카테고리별 상품 찾기
         List<Product> productList=productRepository.findByCategoryCategoryId(category);
@@ -81,7 +78,6 @@ public class MainService{
     }
 
     //페이징+정렬+검색
-    @Cacheable(value = "findPageInfo", key = "#sortBy")
     public Page<MainPageProductResponse> findPage(String keyword, String sortBy, Pageable pageable) {
         //브랜드와 상품 이름으로 검색
         List<Product> productList=productRepository.findByKeyword(keyword);
