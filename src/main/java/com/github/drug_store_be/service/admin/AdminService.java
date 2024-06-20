@@ -18,6 +18,7 @@ import com.github.drug_store_be.web.DTO.ResponseDto;
 import com.github.drug_store_be.web.DTO.order.ProductRegisterDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,10 @@ public class AdminService {
     private final ProductRepository productRepository;
     private final ProductPhotoRepository productPhotoRepository;
     private final OptionsRepository optionsRepository;
-    @CacheEvict(value = "productDetails",allEntries = true)
+    @Caching(evict = {
+            @CacheEvict(value = "productReview",allEntries = true),
+            @CacheEvict(value = "productDetails",allEntries = true)
+    })
     public ResponseDto registerProduct(CustomUserDetails customUserDetails, ProductRegisterDto productRegisterDto) {
         User user= userRepository.findById(customUserDetails.getUserId())
                 .orElseThrow(()-> new NotFoundException("아이디가  "+ customUserDetails.getUserId() +"인 유저를 찾을 수 없습니다."));
