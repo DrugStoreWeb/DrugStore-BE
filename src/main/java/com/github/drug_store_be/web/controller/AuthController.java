@@ -24,11 +24,11 @@ public class AuthController {
         return authService.signUpResult(signUpRequest,multipartFiles);
     }
 
-    @PostMapping(value = "/nickname-check")
+    @PostMapping(value = "/nickname") //노션에는 get?
     public ResponseDto nickNameCheck(@RequestBody NicknameCheck nicknameCheck){
         return authService.nicknameCheckResult(nicknameCheck);
     }
-    @PostMapping(value = "/email-check")
+    @PostMapping(value = "/email") //노션에는 get?
     public ResponseDto emailCheck(@RequestBody EmailCheck emailCheck){
         return authService.emailCheckResult(emailCheck);
     }
@@ -39,12 +39,12 @@ public class AuthController {
         httpServletResponse.setHeader("token", token);
         return new ResponseDto(HttpStatus.OK.value(),"Login Success");
     }
-    @PostMapping(value = "/find-email")
+    @PostMapping(value = "/find-email") //노션에는 get?
     public ResponseDto findEmail(@RequestBody FindEmail findEmail){
 
         return  authService.findEmailResult(findEmail);
     }
-    @PutMapping(value = "/change-password")
+    @PutMapping(value = "/password")
     public ResponseDto changePassword(@RequestBody ChangePassword changePassword){
         return authService.changePasswordResult(changePassword);
     }

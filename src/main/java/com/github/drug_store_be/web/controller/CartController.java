@@ -19,26 +19,26 @@ import java.util.Map;
 public class CartController {
     private final CartService cartService;
 
-    @GetMapping("/myCart")
+    @GetMapping
     public ResponseDto getCartItems(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         int userId = customUserDetails.getUserId();
         List<CartResponse> cartItems = cartService.findAllCarts(customUserDetails);
         return new ResponseDto(HttpStatus.OK.value(), "Cart items retrieved successfully", cartItems);
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseDto addCartItem(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                    @RequestBody CartRequest cartRequest) {
         return cartService.addCartItem(customUserDetails, cartRequest);
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public ResponseDto updateCartItem(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                       @RequestBody CartRequest cartRequest){
         return cartService.updateCartItem(customUserDetails, cartRequest);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping
     public ResponseDto removeCartItem(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                       @RequestBody Map<String, Integer> requestBody) {
         Integer cartId = requestBody.get("cartId");

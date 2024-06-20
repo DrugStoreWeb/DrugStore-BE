@@ -21,7 +21,7 @@ public class AdminController {
 
 
     @Operation(summary= "상품 등록")
-    @PostMapping("/addProduct")
+    @PostMapping("/product")
     public ResponseDto registerProduct(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                        @RequestBody ProductRegisterDto productRegisterDto){
         return adminService.registerProduct(customUserDetails, productRegisterDto );

@@ -19,7 +19,7 @@ public class EmailController {
     public ResponseDto emailSend(@RequestBody EmailCheck emailCheck){
         return emailService.emailSendResult(emailCheck.getEmail());
     }
-    @PostMapping("/auth-num-check")
+    @PostMapping("/auth-num")
     public ResponseDto authNumCheck(@RequestBody EmailAuthNumCheck emailAuthNumCheck){
         return emailService.authNumCheckResult(emailAuthNumCheck);
     }

@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
     private final OrderService orderService;
     @Operation(summary= "장바구니에서 주문할 상품들 가져오기")
-    @PostMapping("/cartToOrder")
+    @PostMapping("/cart-to-order")
     public ResponseDto cartToOrder(@AuthenticationPrincipal CustomUserDetails customUserDetails){
         return orderService.cartToOrder(customUserDetails);
     }
 
     @Operation(summary= "주문에서 결제로 넘어가기")
-    @PutMapping("/pay")
+    @PutMapping("/order-to-pay")
     public ResponseDto orderToPay(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                   @RequestBody PayRequestDto payRequestDto){
         return orderService.orderToPay(customUserDetails, payRequestDto);

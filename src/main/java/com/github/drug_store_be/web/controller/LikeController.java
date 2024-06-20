@@ -19,7 +19,7 @@ public class LikeController {
 
     private final LikeService likeService;
 
-    @GetMapping("/myList")
+    @GetMapping
     public ResponseDto getLike(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         List<MyLikesResponse> myLikesResponseList = likeService.getMyLikes(customUserDetails);
         return new ResponseDto(HttpStatus.OK.value(),"조회 성공", myLikesResponseList );
@@ -31,7 +31,7 @@ public class LikeController {
         return likeService.addMyLike(customUserDetails, likeRequest.getProductId());
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping
     public ResponseDto deleteLike(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                   @RequestBody LikeRequest likeRequest) {
         return likeService.deleteMyLike(customUserDetails, likeRequest.getProductId());

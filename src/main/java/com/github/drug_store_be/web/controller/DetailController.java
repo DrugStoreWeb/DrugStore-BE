@@ -20,7 +20,7 @@ import java.util.List;
 public class DetailController {
     private final DetailService detailService;
 
-    @GetMapping(value = "/detail")
+    @GetMapping
     public ResponseDto productDetail(@RequestParam("product-id") Integer productId , @AuthenticationPrincipal CustomUserDetails customUserDetails){
 
         if (customUserDetails!=null){
@@ -43,7 +43,7 @@ public class DetailController {
 
     }
 
-    @GetMapping("/question/list")
+    @GetMapping("/question")
     public ResponseDto getProductQAndA(@RequestParam("product-id")Integer productId){
         try {
             List<ProductQAndAResponse> productQAndAResponseList = detailService.productQuestionAndAnswer(productId);
@@ -60,14 +60,14 @@ public class DetailController {
         return detailService.addQuestionResult(customUserDetails,productId, questionRequest);
     }
 
-    @PutMapping("/question/update")
+    @PutMapping("/question")
     public ResponseDto updateQuestion(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                       @RequestParam("question-id")Integer questionId,
                                       @RequestBody QuestionRequest questionRequest){
         return detailService.updateQuestionResult(customUserDetails, questionId,questionRequest);
     }
 
-    @DeleteMapping("/question/del")
+    @DeleteMapping("/question")
     public ResponseDto delQuestion(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                    @RequestParam("question-id")Integer questionId){
         return detailService.delQuestionResult(customUserDetails,questionId);

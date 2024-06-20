@@ -54,12 +54,12 @@ public class MypageController {
         return mypageService.findAllReviews(customUserDetails, pageable);
     }
 
-    @GetMapping("/myCoupon")
+    @GetMapping("/coupon")
     public ResponseDto myCoupon(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         return mypageService.findAllCoupon(customUserDetails);
     }
 
-    @GetMapping("/questionAnswer")
+    @GetMapping("/question")
     public ResponseDto ReviewList(@AuthenticationPrincipal CustomUserDetails customUserDetails,Pageable pageable) {
         return mypageService.findAllQnA(customUserDetails,pageable);
     }

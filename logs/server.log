@@ -8168,3 +8168,682 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2024-06-18 12:13:22.579 [http-nio-8080-exec-4] [1;31mERROR[0;39m [36mc.g.d.w.a.ExceptionControllerAdvice[0;39m - Client 요청에 문제가 있어 다음처럼 출력합니다. This product is not available at the moment.
 2024-06-18 12:14:15.410 [http-nio-8080-exec-6] [1;31mERROR[0;39m [36mc.g.d.w.a.ExceptionControllerAdvice[0;39m - Client 요청에 문제가 있어 다음처럼 출력합니다. This product is sold out
 2024-06-18 12:14:33.537 [http-nio-8080-exec-7] [1;31mERROR[0;39m [36mc.g.d.w.a.ExceptionControllerAdvice[0;39m - Client 요청에 문제가 있어 다음처럼 출력합니다. Not possible. Product: 레드 블레미쉬 클리어 수딩 크림 Option: 단품 70mlOnly 1products available.
+2024-06-18 12:47:22.011 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=58s621ms).
+2024-06-18 12:50:08.980 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m47s9ms).
+2024-06-18 13:08:48.713 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=18m9s727ms).
+2024-06-18 13:25:30.152 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m41s439ms).
+2024-06-18 13:38:42.317 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10m42s99ms).
+2024-06-18 13:58:18.317 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:58:19.257 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:58:20.278 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:58:21.306 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:58:22.381 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:58:23.625 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:58:25.210 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:58:27.453 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:58:31.018 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:58:37.019 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:58:42.977 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:58:48.935 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:58:54.911 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:59:00.862 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:59:06.825 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:59:12.843 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:59:18.846 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:59:24.747 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:59:30.704 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:59:36.649 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:59:42.613 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:59:48.591 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 13:59:54.555 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:00:00.676 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:00:06.588 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:00:12.539 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:00:18.518 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:00:24.557 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:00:30.500 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:00:36.433 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:00:42.333 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:00:48.259 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:00:54.189 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:01:00.208 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:01:06.186 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:01:12.150 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:01:18.052 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:01:24.001 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:01:29.987 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:01:36.007 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:01:41.982 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:01:47.912 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:01:53.849 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:01:59.840 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:02:05.784 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:02:11.738 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:02:17.714 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:02:23.668 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:02:29.627 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:02:35.573 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:02:41.841 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:02:47.806 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:02:53.859 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:02:59.791 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:03:05.906 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:03:11.819 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:03:17.802 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:03:23.795 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:03:29.748 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:03:35.708 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:03:41.752 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:03:47.672 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:03:53.604 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:03:59.531 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:04:05.485 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:04:11.456 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:04:17.403 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:04:23.340 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:04:29.266 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:04:35.200 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:04:41.174 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-18 14:18:49.339 [http-nio-8080-exec-2] [1;31mERROR[0;39m [36mc.g.d.w.a.ExceptionControllerAdvice[0;39m - Client 요청에 문제가 있어 다음처럼 출력합니다. You do not have enough money to order
+2024-06-18 14:20:33.401 [http-nio-8080-exec-4] [1;31mERROR[0;39m [36mc.g.d.w.a.ExceptionControllerAdvice[0;39m - Client 요청에 문제가 있어 다음처럼 출력합니다. Not possible. Product: 레드 블레미쉬 클리어 수딩 크림 Option: 단품 70mlOnly 7products available.
+2024-06-18 15:23:42.036 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=58s685ms).
+2024-06-18 15:40:32.117 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m20s44ms).
+2024-06-18 15:58:15.043 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m12s919ms).
+2024-06-18 16:15:45.689 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m624ms).
+2024-06-18 16:33:30.312 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m44s593ms).
+2024-06-18 16:50:31.249 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m937ms).
+2024-06-18 17:08:42.746 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m11s463ms).
+2024-06-18 17:19:07.411 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m54s622ms).
+2024-06-18 17:36:58.970 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m21s554ms).
+2024-06-18 17:54:03.190 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m34s219ms).
+2024-06-18 18:10:47.702 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m14s497ms).
+2024-06-18 18:20:27.917 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9m10s203ms).
+2024-06-18 18:32:54.624 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10m56s682ms).
+2024-06-18 18:52:34.547 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m39s685ms).
+2024-06-18 20:10:58.054 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=52s705ms).
+2024-06-18 20:28:18.307 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m50s215ms).
+2024-06-18 20:48:15.982 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m27s629ms).
+2024-06-18 21:06:26.561 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m40s543ms).
+2024-06-18 21:16:04.552 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8m7s970ms).
+2024-06-18 21:33:44.376 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m39s800ms).
+2024-06-18 21:40:43.069 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m58s648ms).
+2024-06-18 21:58:23.475 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m10s376ms).
+2024-06-18 22:11:31.964 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=12m38s473ms).
+2024-06-18 22:24:18.660 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9m16s633ms).
+2024-06-18 22:29:43.185 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m24s498ms).
+2024-06-18 22:48:04.376 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m21s158ms).
+2024-06-18 23:05:06.023 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m31s620ms).
+2024-06-18 23:12:45.712 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m39s679ms).
+2024-06-18 23:20:00.944 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m45s195ms).
+2024-06-18 23:29:10.262 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m9s284ms).
+2024-06-19 01:10:23.270 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m12s141ms).
+2024-06-19 01:13:15.419 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m22s101ms).
+2024-06-19 01:21:56.338 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m38s448ms).
+2024-06-19 01:29:34.515 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m38s149ms).
+2024-06-19 01:39:52.041 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6m47s476ms).
+2024-06-19 01:46:08.522 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m16s427ms).
+2024-06-19 01:51:09.977 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m1s407ms).
+2024-06-19 01:57:36.682 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m26s669ms).
+2024-06-19 02:13:20.662 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m43s984ms).
+2024-06-19 02:27:10.538 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9m19s819ms).
+2024-06-19 02:41:24.613 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=12m44s51ms).
+2024-06-19 02:51:07.017 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m42s377ms).
+2024-06-19 03:10:14.041 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m36s989ms).
+2024-06-19 03:27:58.887 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m44s826ms).
+2024-06-19 03:45:16.232 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m47s323ms).
+2024-06-19 04:02:57.108 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m40s831ms).
+2024-06-19 04:19:37.661 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m40s553ms).
+2024-06-19 04:36:37.085 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m29s425ms).
+2024-06-19 04:54:27.051 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m49s925ms).
+2024-06-19 05:12:40.056 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m42s977ms).
+2024-06-19 05:30:30.261 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m50s190ms).
+2024-06-19 05:48:13.774 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m13s503ms).
+2024-06-19 06:05:04.049 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m50s276ms).
+2024-06-19 06:22:22.602 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m48s520ms).
+2024-06-19 06:40:03.612 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m11s3ms).
+2024-06-19 06:46:48.167 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m44s511ms).
+2024-06-19 07:02:48.370 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m203ms).
+2024-06-19 07:25:17.766 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m59s284ms).
+2024-06-19 07:55:03.287 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m45s318ms).
+2024-06-19 08:13:53.267 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m49s955ms).
+2024-06-19 08:31:31.032 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m37s729ms).
+2024-06-19 08:47:29.511 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m58s480ms).
+2024-06-19 09:08:19.592 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m20s19ms).
+2024-06-19 09:26:21.682 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m32s73ms).
+2024-06-19 09:45:13.523 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m51s811ms).
+2024-06-19 09:48:48.542 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m34s987ms).
+2024-06-19 10:06:08.171 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m49s608ms).
+2024-06-19 10:22:11.884 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m33s697ms).
+2024-06-19 10:40:21.503 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m39s596ms).
+2024-06-19 10:49:41.169 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m49s655ms).
+2024-06-19 11:02:59.349 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9m18s110ms).
+2024-06-19 12:25:49.211 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=49s169ms).
+2024-06-19 12:39:14.570 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=13m25s368ms).
+2024-06-19 12:43:00.952 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m16s374ms).
+2024-06-19 13:04:03.214 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m2s196ms).
+2024-06-19 13:21:52.168 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m48s953ms).
+2024-06-19 13:39:21.100 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m28s910ms).
+2024-06-19 13:57:29.256 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m8s104ms).
+2024-06-19 14:01:34.789 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m35s522ms).
+2024-06-19 14:07:25.710 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m20s907ms).
+2024-06-19 14:16:47.934 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:16:48.874 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:16:49.904 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:16:50.924 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:16:52.091 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:16:53.367 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:16:54.936 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:16:57.186 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:17:00.729 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:17:06.661 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:17:12.616 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:17:18.607 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:17:24.548 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:17:30.559 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:17:36.478 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:17:42.443 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:17:48.420 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:17:54.401 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:18:00.388 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:18:06.301 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:18:12.204 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:18:18.142 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:18:24.046 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:18:29.987 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:18:35.935 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:18:41.948 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:18:47.885 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:18:53.853 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:18:59.830 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:05.766 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:11.700 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:17.633 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:23.572 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:30.402 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:31.408 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:32.372 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:33.422 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:34.547 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:35.847 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:38.375 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:39.367 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:40.332 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:41.338 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:42.438 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:43.690 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:45.299 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:47.551 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:51.100 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:19:57.060 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:20:02.972 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:20:08.914 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:20:14.855 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:20:20.807 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:20:26.787 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:20:32.747 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:20:38.672 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:20:44.708 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:20:51.626 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:20:52.655 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:20:53.662 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:20:54.679 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:20:55.749 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:20:57.043 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:20:58.617 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:21:00.854 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:21:04.379 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:21:10.338 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:21:16.309 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:21:22.261 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:21:28.284 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:21:34.236 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:21:40.156 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:21:46.090 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:21:52.077 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:21:57.994 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:22:03.937 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:22:09.919 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:22:15.881 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:22:21.858 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:22:27.819 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:22:33.727 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:22:39.706 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:22:45.703 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:22:51.613 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:22:57.590 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:23:03.584 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:23:09.525 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:23:15.474 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:23:21.437 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:23:27.409 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:23:33.347 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:23:39.332 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:23:45.290 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:23:51.187 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:23:57.202 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:24:03.146 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:24:09.099 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:24:15.167 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:24:21.096 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:24:27.049 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:24:33.011 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:24:38.986 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:24:44.907 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:24:50.896 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:24:56.856 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:25:02.791 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:25:08.734 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:25:14.734 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:25:20.671 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:25:26.685 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:25:32.651 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:25:38.584 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:25:44.505 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:25:50.443 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:25:56.359 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:26:02.329 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:26:08.279 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:26:14.223 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:26:20.201 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:26:26.190 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:26:32.173 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:26:38.188 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:26:44.124 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:26:50.100 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:26:56.043 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:27:01.983 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:27:07.918 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:27:13.880 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:27:19.860 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:27:25.810 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:27:31.783 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:27:37.698 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:27:43.660 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:27:49.623 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:27:55.667 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:28:01.616 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:28:07.571 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:28:13.512 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:28:19.441 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:28:25.441 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:23.425 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:24.407 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:25.369 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:26.403 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:27.509 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:28.760 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:30.350 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:33.459 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:34.406 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:35.361 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:36.393 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:37.490 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:38.743 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:40.348 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:42.706 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 14:58:46.205 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 15:47:51.750 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m54s973ms).
+2024-06-19 16:04:00.208 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m38s414ms).
+2024-06-19 16:20:21.294 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m51s86ms).
+2024-06-19 16:36:00.738 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:36:01.863 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:36:02.890 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:36:04.012 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:36:05.346 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:36:06.778 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:36:08.519 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:36:10.894 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:36:14.464 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:36:20.582 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:36:26.644 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:36:32.787 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:36:39.242 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:36:45.282 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:36:51.424 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:36:57.635 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:37:03.614 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:37:09.649 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:40:14.265 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:40:15.304 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:40:16.356 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:40:17.404 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:40:18.532 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:40:19.915 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:40:20.791 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m27s135ms).
+2024-06-19 16:40:21.528 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:40:24.012 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:40:27.637 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:40:33.658 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:40:40.113 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:40:46.079 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:40:52.175 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:40:58.322 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-19 16:56:39.391 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m48s589ms).
+2024-06-19 17:02:44.621 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m5s203ms).
+2024-06-19 17:12:33.398 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9m18s763ms).
+2024-06-19 17:29:29.539 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m56s141ms).
+2024-06-19 17:49:00.307 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m767ms).
+2024-06-19 18:04:58.296 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m57s988ms).
+2024-06-19 18:21:57.296 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m28s978ms).
+2024-06-19 18:28:30.550 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m3s225ms).
+2024-06-19 18:46:57.997 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m27s422ms).
+2024-06-19 19:03:39.874 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=14m41s829ms).
+2024-06-19 19:23:09.682 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m59s778ms).
+2024-06-19 19:37:06.306 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=12m26s604ms).
+2024-06-19 19:54:11.976 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m35s658ms).
+2024-06-19 20:12:15.529 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m3s528ms).
+2024-06-19 20:25:56.323 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=11m40s743ms).
+2024-06-19 20:43:07.113 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m10s791ms).
+2024-06-19 21:00:58.101 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m20s981ms).
+2024-06-19 21:16:44.047 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m45s946ms).
+2024-06-19 21:34:38.209 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m24s123ms).
+2024-06-19 21:43:44.378 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m6s106ms).
+2024-06-19 22:04:28.900 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m14s478ms).
+2024-06-19 22:17:16.267 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10m17s340ms).
+2024-06-19 23:14:17.847 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m31s185ms).
+2024-06-19 23:33:10.905 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m16s444ms).
+2024-06-19 23:52:54.580 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m43s643ms).
+2024-06-20 00:01:40.115 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6m45s500ms).
+2024-06-20 00:19:59.180 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m49s27ms).
+2024-06-20 00:38:22.274 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m23s56ms).
+2024-06-20 00:55:35.032 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m42s734ms).
+2024-06-20 01:13:16.197 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m11s124ms).
+2024-06-20 01:31:12.385 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m26s160ms).
+2024-06-20 01:48:42.011 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m29s591ms).
+2024-06-20 02:08:19.243 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m37s229ms).
+2024-06-20 02:27:24.274 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m34s997ms).
+2024-06-20 02:45:20.835 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m26s533ms).
+2024-06-20 03:02:37.008 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m46s143ms).
+2024-06-20 03:21:06.467 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m29s452ms).
+2024-06-20 03:39:32.431 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m55s932ms).
+2024-06-20 03:57:26.076 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m53s597ms).
+2024-06-20 04:12:58.054 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m31s979ms).
+2024-06-20 04:31:55.022 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m56s930ms).
+2024-06-20 04:49:12.313 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m47s272ms).
+2024-06-20 05:08:19.603 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m7s242ms).
+2024-06-20 05:26:34.643 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m45s21ms).
+2024-06-20 05:45:39.074 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m4s422ms).
+2024-06-20 06:02:03.051 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m53s964ms).
+2024-06-20 06:20:09.141 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m6s53ms).
+2024-06-20 06:37:47.546 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m38s376ms).
+2024-06-20 06:54:56.597 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m39s27ms).
+2024-06-20 07:00:40.495 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m13s878ms).
+2024-06-20 07:09:16.741 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m6s227ms).
+2024-06-20 07:29:12.351 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m55s568ms).
+2024-06-20 07:48:23.475 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m41s81ms).
+2024-06-20 08:08:23.310 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m59s824ms).
+2024-06-20 08:28:03.897 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m40s548ms).
+2024-06-20 08:46:23.768 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m49s842ms).
+2024-06-20 09:03:52.031 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m58s231ms).
+2024-06-20 09:10:16.098 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m54s46ms).
+2024-06-20 09:30:05.784 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m49s650ms).
+2024-06-20 09:36:56.741 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m46s273ms).
+2024-06-20 09:57:41.747 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m44s953ms).
+2024-06-20 10:11:11.689 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=13m29s942ms).
+2024-06-20 11:34:41.292 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=58s804ms).
+2024-06-20 11:38:16.448 [HikariPool-1 housekeeper] [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m35s159ms).
+2024-06-20 11:52:51.077 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:52:52.005 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:52:53.123 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:52:54.193 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:52:55.271 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:52:56.599 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:52:58.344 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:53:00.675 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:53:04.283 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:53:10.530 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:53:16.646 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:53:22.818 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:53:28.758 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:53:34.902 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:53:41.148 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:53:47.088 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:53:53.335 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:53:59.256 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:54:05.315 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:54:11.357 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:54:17.502 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:54:23.440 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:54:29.364 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:54:35.338 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:54:41.566 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:54:47.505 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:54:53.401 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:54:59.395 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:55:05.426 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:55:11.878 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:55:18.020 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:55:24.059 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:55:31.435 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:55:32.665 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:55:33.735 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:55:34.917 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:55:36.041 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:55:37.293 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:55:39.428 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:55:41.777 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:55:45.280 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:55:51.298 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:55:57.440 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:56:06.353 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:56:07.480 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:56:08.504 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:56:09.600 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:56:10.693 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:56:12.191 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:56:13.839 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:56:16.184 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:56:19.768 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:56:25.754 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:56:31.767 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:56:37.814 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:56:43.833 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:56:49.754 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:56:55.726 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:57:01.720 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:57:07.795 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:57:13.837 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:57:19.981 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:57:25.920 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:57:32.163 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:57:38.106 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:57:44.063 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:57:50.167 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:57:56.124 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:58:02.890 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:58:08.929 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:58:14.971 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:58:21.013 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:58:27.054 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:58:33.048 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:58:38.991 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:58:45.180 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:58:51.329 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:58:57.364 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:59:03.285 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:59:09.245 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:59:15.491 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:59:21.635 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:59:27.778 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:59:33.824 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:59:39.862 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:59:46.110 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:59:52.150 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 11:59:58.142 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:00:04.131 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:00:10.173 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:00:16.208 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:00:22.374 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:00:28.287 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:00:34.221 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:00:40.175 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:00:46.114 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:00:52.125 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:00:58.197 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:01:04.267 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:01:10.383 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:01:16.322 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:01:22.568 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:01:28.604 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:01:34.757 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:01:40.797 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:01:46.735 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:01:52.682 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:01:58.921 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:02:04.962 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:02:10.902 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:02:16.842 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:02:22.985 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:02:28.914 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:02:34.865 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:02:40.898 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:02:46.951 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:02:53.093 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:02:59.217 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:03:05.277 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:03:11.421 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:03:17.565 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:03:23.633 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:03:29.654 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:03:35.545 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:03:41.528 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:03:47.570 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:03:53.713 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:03:59.779 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:04:05.912 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:04:12.152 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:04:18.392 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:04:24.301 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:04:30.476 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:04:36.519 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:04:42.662 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:04:48.583 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:04:54.530 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:05:00.582 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:05:06.521 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:05:12.563 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:05:18.713 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:05:24.635 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:05:30.791 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:05:36.731 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:05:42.977 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:05:48.915 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:05:54.818 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:06:00.896 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:06:07.446 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:06:13.491 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:06:19.653 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:06:25.674 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:06:31.712 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:06:37.660 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:06:43.688 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:06:49.683 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:06:55.637 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:07:01.621 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:07:07.765 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:07:13.813 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:07:19.958 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:07:25.931 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:07:32.034 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:07:38.180 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:07:44.220 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:07:50.262 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:07:56.358 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:08:02.345 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:08:08.403 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:08:14.634 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:08:20.573 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:08:26.516 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:08:32.581 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:08:38.800 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:08:45.047 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:08:50.972 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:08:56.928 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:09:02.860 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:09:08.906 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:09:15.153 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:09:21.399 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:09:27.338 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:09:33.255 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:09:39.217 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:09:45.464 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:09:51.622 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:09:57.856 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:10:03.884 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:10:09.835 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:10:15.775 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:10:21.819 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:10:27.757 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:10:33.697 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:10:39.635 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:10:45.882 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:10:51.925 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:10:58.075 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:11:04.020 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:11:10.121 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:11:16.396 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:11:22.438 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:11:28.472 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:11:34.624 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:11:40.583 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:11:46.605 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:11:52.547 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:11:58.579 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:12:04.628 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:12:10.772 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:12:16.916 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:12:23.060 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:12:29.204 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:12:35.350 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:12:41.378 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:12:47.434 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:12:53.388 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:12:59.515 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:13:05.454 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:13:12.112 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:13:18.051 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:13:24.092 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:13:30.143 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:13:36.344 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:13:43.370 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:13:44.367 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:13:45.391 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:13:46.621 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:13:47.822 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:13:49.188 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:13:51.024 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:13:53.193 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:13:56.757 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:02.845 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:09.148 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:15.087 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:21.130 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:27.069 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:33.009 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:38.941 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:46.116 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:47.251 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:48.224 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:49.289 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:50.420 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:51.837 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:53.488 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:55.660 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:14:59.124 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:15:05.367 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:15:11.518 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:15:18.790 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:15:20.715 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:15:21.752 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:15:22.743 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:15:23.804 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:15:24.963 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:15:26.310 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:15:27.883 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:15:30.354 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:15:34.803 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:15:35.782 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:15:36.757 [HikariPool-1 connection adder] [31mWARN [0;39m [36mo.m.jdbc.message.server.ErrorPacket[0;39m - Error: 1040-08004: Too many connections
+2024-06-20 12:28:15.549 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-06-20 12:28:15.660 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - HikariPool-1 - Shutdown initiated...
+2024-06-20 12:28:15.700 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - HikariPool-1 - Shutdown completed.

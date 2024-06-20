@@ -18,7 +18,7 @@ public class MainController {
 
     private final MainService mainservice;
 
-    @GetMapping(path = "/")
+    @GetMapping
     public ResponseDto mainPage(@RequestParam(defaultValue = "sales") String sortBy,@PageableDefault(page = 0, size = 24) Pageable pageable) {
         MainPageResponse mainPageResponse= mainservice.mainpage(sortBy,pageable);
         return new ResponseDto(HttpStatus.OK.value(), "메인 페이지 조회에 성공했습니다.",mainPageResponse);

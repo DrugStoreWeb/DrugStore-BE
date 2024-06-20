@@ -81,6 +81,7 @@ public class OrderService {
     }
 
     //주문에서 결제로
+    @Transactional
     public ResponseDto orderToPay(CustomUserDetails customUserDetails, PayRequestDto payRequestDto) {
         List<OptionQuantityDto> optionQuantityList= payRequestDto.getOptionQuantityDto();
         //재고 예외처리
