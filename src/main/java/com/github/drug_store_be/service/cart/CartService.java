@@ -11,8 +11,9 @@ import com.github.drug_store_be.repository.user.User;
 import com.github.drug_store_be.repository.user.UserRepository;
 import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
-import com.github.drug_store_be.web.DTO.Cart.CartRequest;
+import com.github.drug_store_be.web.DTO.Cart.AddCartRequest;
 import com.github.drug_store_be.web.DTO.Cart.CartResponse;
+import com.github.drug_store_be.web.DTO.Cart.UpdateCartRequest;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import org.springframework.http.HttpStatus;
 import lombok.RequiredArgsConstructor;
@@ -71,7 +72,7 @@ public class CartService {
 
 
     //장바구니 추가
-    public ResponseDto addCartItem(CustomUserDetails customUserDetails, CartRequest cartRequest) {
+    public ResponseDto addCartItem(CustomUserDetails customUserDetails, AddCartRequest cartRequest) {
         Integer userId = customUserDetails.getUserId();
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
@@ -123,7 +124,7 @@ public class CartService {
 
 
     //장바구니 업데이트
-    public ResponseDto updateCartItem(CustomUserDetails customUserDetails, CartRequest cartRequest) {
+    public ResponseDto updateCartItem(CustomUserDetails customUserDetails, UpdateCartRequest cartRequest) {
         Integer userId = customUserDetails.getUserId();
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
