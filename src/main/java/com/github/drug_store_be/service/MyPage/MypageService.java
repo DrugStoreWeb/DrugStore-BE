@@ -52,13 +52,19 @@ public class MypageService {
 
     public ResponseDto addReview(CustomUserDetails customUserDetails, ReviewRequest reviewRequest, int ordersId) throws ReviewException {
         Integer userId = customUserDetails.getUserId();
+        User user = userRepository.findByUserId(userId)
+                .orElseThrow(() -> new ReviewException("사용자를 찾을 수 없습니다."));
+
+        if (!hasPermission(userId, ordersId)) {
+            throw new ReviewException("해당 주문에 대한 리뷰를 작성할 수 있는 권한이 없습니다.");
+        }
 
         if (getReviewStatusForOrder(userId, ordersId)) {
             throw new ReviewException("이미 리뷰를 작성하였습니다.");
         }
 
         if (isCartExists(userId)) {
-            throw new ReviewException("결제를 완료해야 리뷰를 작성할 수 있습니다.");
+            throw new ReviewException("결제를 해야 리뷰를 작성할 수 있습니다.");
         }
 
         Integer reviewScore = reviewRequest.getReviewScore();
@@ -243,6 +249,17 @@ public class MypageService {
         return isCartExists.isPresent();
     }
 
+//    public Boolean existsByUserIdAndOrdersId(Integer userId, Integer ordersId) {
+//        Optional<Review> existsByUserIdAndOrdersId = ordersRepository.existsByUserIdAndOrdersId(userId, ordersId);
+//
+//        return existsByUserIdAndOrdersId.isPresent();
+//    }
+private boolean hasPermission(int userId, int ordersId) throws ReviewException {
+    Orders orders = ordersRepository.findById(ordersId)
+            .orElseThrow(() -> new ReviewException("주문을 찾을 수 없습니다."));
+
+    return orders.getUser().getUserId() == userId;
+}
     public ResponseDto findAllReviews(CustomUserDetails customUserDetails, Pageable pageable) {
         int userId = userRepository.findById(customUserDetails.getUserId()).map(User::getUserId)
                 .orElseThrow(() -> new NotFoundException("아이디를 찾을 수 없습니다."));
