@@ -14,6 +14,8 @@ import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.Cart.CartRequest;
 import com.github.drug_store_be.web.DTO.Cart.CartResponse;
 import com.github.drug_store_be.web.DTO.ResponseDto;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.http.HttpStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -67,6 +69,11 @@ public class CartService {
                 .collect(Collectors.toList());
     }
 
+    @Caching(evict = {
+            @CacheEvict(value = "mainPageInfo",allEntries = true),
+            @CacheEvict(value = "productDetails",allEntries = true),
+            @CacheEvict(value = "findPageInfo",allEntries = true)
+    })
     //장바구니 추가
     public ResponseDto addCartItem(CustomUserDetails customUserDetails, CartRequest cartRequest) {
         int userId = customUserDetails.getUserId();
@@ -117,6 +124,12 @@ public class CartService {
         return new ResponseDto(HttpStatus.OK.value(), "Cart item added successfully");
     }
 
+
+    @Caching(evict = {
+            @CacheEvict(value = "mainPageInfo",allEntries = true),
+            @CacheEvict(value = "productDetails",allEntries = true),
+            @CacheEvict(value = "findPageInfo",allEntries = true)
+    })
     //장바구니 업데이트
     public ResponseDto updateCartItem(CustomUserDetails customUserDetails, CartRequest cartRequest) {
         int userId = customUserDetails.getUserId();
@@ -156,6 +169,12 @@ public class CartService {
         return new ResponseDto(HttpStatus.OK.value(), "Cart item updated successfully");
     }
 
+
+    @Caching(evict = {
+            @CacheEvict(value = "mainPageInfo",allEntries = true),
+            @CacheEvict(value = "productDetails",allEntries = true),
+            @CacheEvict(value = "findPageInfo",allEntries = true)
+    })
     //장바구니 삭제
     public ResponseDto removeCartItem(CustomUserDetails customUserDetails, int cartId) {
         int userId = customUserDetails.getUserId();
@@ -169,6 +188,12 @@ public class CartService {
         return new ResponseDto(HttpStatus.OK.value(), "Product deleted from cart successfully");
     }
 
+
+    @Caching(evict = {
+            @CacheEvict(value = "mainPageInfo",allEntries = true),
+            @CacheEvict(value = "productDetails",allEntries = true),
+            @CacheEvict(value = "findPageInfo",allEntries = true)
+    })
     //장바구니 비우기
     public ResponseDto clearCart(CustomUserDetails customUserDetails) {
         Integer userId = customUserDetails.getUserId();
