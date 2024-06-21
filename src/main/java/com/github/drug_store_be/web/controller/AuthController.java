@@ -24,11 +24,11 @@ public class AuthController {
         return authService.signUpResult(signUpRequest,multipartFiles);
     }
 
-    @PostMapping(value = "/nickname") //노션에는 get?
+    @GetMapping(value = "/nickname") //노션에는 get?
     public ResponseDto nickNameCheck(@RequestBody NicknameCheck nicknameCheck){
         return authService.nicknameCheckResult(nicknameCheck);
     }
-    @PostMapping(value = "/email") //노션에는 get?
+    @GetMapping(value = "/email") //노션에는 get?
     public ResponseDto emailCheck(@RequestBody EmailCheck emailCheck){
         return authService.emailCheckResult(emailCheck);
     }
