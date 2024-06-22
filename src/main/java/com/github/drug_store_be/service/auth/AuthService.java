@@ -149,6 +149,9 @@ public class AuthService {
     public ResponseDto changePasswordResult(ChangePassword changePassword) {
         User user =userRepository.findByEmailFetchJoin(changePassword.getEmail())
                 .orElseThrow(()-> new NotFoundException("가입되지 않은 이메일입니다."));
+        if (user.getName().contains("kakao")){
+        return new ResponseDto(HttpStatus.FORBIDDEN.value(), "카카오 유저는 비밀번호 변경이 불가능합니다.");
+        }
         if (!changePassword.getNewPassword().equals(changePassword.getNewPasswordCheck())){
             return new ResponseDto(HttpStatus.BAD_REQUEST.value(), "비밀번호 체크란이 비밀번호와 동일하지 않습니다.");
         }

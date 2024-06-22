@@ -50,6 +50,20 @@ public class User{
     @OneToMany(mappedBy= "user", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<UserCoupon> userCouponList;
 
+    public User(String profileImg,String name,String email){
+        this.profilePic=profileImg;
+        this.name="kakao_"+name;
+        this.email=email;
+        this.phoneNumber="카카오 로그인";
+        this.address="카카오 로그인";
+        this.nickname="kakao_"+name;
+        this.money=0;
+        this.birthday=LocalDate.now();
+    }
+    public static User of(String profileImg,String name,String email){
+        return new User(profileImg,name,email);
+    }
+
     //kakaoPay
 //    @Column(name="tid",nullable = false)
 //    private String tid;

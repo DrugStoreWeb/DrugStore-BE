@@ -12,6 +12,29 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ENC(eAnE/Z3zgI6lpVRQgv06n4+F/pDPIJaNIJYgD6Asl9DhEmYpEDGHtH7dIsTnltKr)
+            client-secret: ENC(nY4jrovdpVdHeH0VfqHLjhLjqTPwF1RO3+cHyR4LJLownYxDTsVOvStRQtrlFIQ5)
+            client-authentication-method: POST
+            authorization-grant-type: authorization_code
+            scope:
+              - profile_nickname
+              - profile_image
+              - account_email
+            redirect-uri: https://drugstoreproject.shop/oauth2/kakao/callback
+            client-name: Kakao
+        provider:
+          kakao:
+            authorization-uri: ENC(Q8tboUYbQTzN6ZdkIsZPOY94EuuHm2BerIGxHQSuq2kVE3htnZolE2A7BKrcdr5R)
+            token-uri: ENC(GHMJCEsC8PzOeirF2puhIVaixTZEqSDuLHmFduDjPkpmDDDJN1xDZLNqZq/IJsy6)
+            user-info-uri: ENC(K1kG2ttVzPaTaHlPXWShtrSfEKfa9W1Or6RQtNltF585Y6iNOkdqfTc9D58SPNpo)
+            user-info-authentication-method: header
+            user-name-attribute: id
+
 
   #  autoconfigure:
   #    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
