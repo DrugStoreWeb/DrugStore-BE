@@ -12,7 +12,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,10 +20,8 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping
-    public ResponseDto getCartItems(
-            @AuthenticationPrincipal CustomUserDetails customUserDetails,
-            @RequestParam(required = false) Integer optionId) {
-        List<CartResponse> cartItems = cartService.findAllCarts(customUserDetails, optionId);
+    public ResponseDto getCartItems(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        List<CartResponse> cartItems = cartService.findAllCarts(customUserDetails);
         return new ResponseDto(HttpStatus.OK.value(), "Cart items retrieved successfully", cartItems);
     }
 

@@ -31,22 +31,21 @@ public class CartService {
     private final CartRepository cartRepository;
 
     // 장바구니 조회
-    public List<CartResponse> findAllCarts(CustomUserDetails customUserDetails, Integer optionId) {
+    public List<CartResponse> findAllCarts(CustomUserDetails customUserDetails) {
         Integer userId = customUserDetails.getUserId();
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        Options options = optionsRepository.findById(optionId)
-                .orElseThrow(() -> new NotFoundException("Option not found"));
-
-        List<Cart> carts = cartRepository.findAllByUserAndOptions(user, options);
+        List<Cart> carts = cartRepository.findAllByUserOrderByCartIdDesc(user);
         if (carts.isEmpty()) {
-            throw new NotFoundException("No cart items found for the specified option");
+            throw new NotFoundException("No cart items found");
         }
 
         return carts.stream()
                 .map(cart -> {
-                    Product product = cart.getOptions().getProduct();
+                    Options options = cart.getOptions();
+                    Product product = options.getProduct();
 
                     String productPhotoUrl = product.getProductPhotoList().stream()
                             .filter(ProductPhoto::isPhotoType)
