@@ -21,6 +21,7 @@ import com.github.drug_store_be.web.DTO.order.OrderResponseDto;
 import com.github.drug_store_be.web.DTO.pay.PayRequestDto;
 import com.github.drug_store_be.web.DTO.pay.OptionQuantityDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,6 +83,7 @@ public class OrderService {
 
     //주문에서 결제로
     @Transactional
+    @CacheEvict(value = "productDetails",allEntries = true)
     public ResponseDto orderToPay(CustomUserDetails customUserDetails, PayRequestDto payRequestDto) {
         List<OptionQuantityDto> optionQuantityList= payRequestDto.getOptionQuantityDto();
         //재고 예외처리
