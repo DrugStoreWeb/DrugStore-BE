@@ -218,7 +218,7 @@ public class MainService{
                 comparator = Comparator.comparing(productListQueryDto::getProduct_id, Comparator.reverseOrder());
                 break;
             case "price":
-                comparator = Comparator.comparing(productListQueryDto::getPrice, Comparator.naturalOrder());
+                comparator = Comparator.comparing(productListQueryDto::getFinal_price, Comparator.naturalOrder());
                 break;
             case "reviews":
                 comparator = Comparator.comparing(productListQueryDto::getReview_avg, Comparator.reverseOrder());
