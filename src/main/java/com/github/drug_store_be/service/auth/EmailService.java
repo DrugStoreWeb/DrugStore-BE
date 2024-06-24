@@ -56,7 +56,7 @@ public class EmailService {
         try {
             mimeMessage.setFrom(senderEmail);
             mimeMessage.setRecipients(MimeMessage.RecipientType.TO,email);
-            mimeMessage.setSubject("[drug-Store] 회원가입을 위한 이메일 인증");  // 제목 설정
+            mimeMessage.setSubject("[drug-Store] 이메일 인증");  // 제목 설정
             String body = "";
             body += "<h1>" + "안녕하세요." + "</h1>";
             body += "<h1>" + "drug-Store 입니다." + "</h1>";
