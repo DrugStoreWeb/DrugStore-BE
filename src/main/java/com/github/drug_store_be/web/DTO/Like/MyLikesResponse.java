@@ -14,8 +14,9 @@ import lombok.*;
 public class MyLikesResponse {
     private Integer productId;
     private String productName;
-    private String productImag;
+    private String productImg;
     private Integer price;
+    private Integer finalPrice;
     private String brandName;
-    private boolean isLike;
+    private boolean likes;
 }

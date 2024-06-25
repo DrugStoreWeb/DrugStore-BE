@@ -48,14 +48,15 @@ public class LikeService {
                         myLikesResponse.setProductName(like.getProduct().getProductName());
                         myLikesResponse.setPrice(like.getProduct().getPrice());
                         myLikesResponse.setBrandName(like.getProduct().getBrand());
+                        myLikesResponse.setFinalPrice(like.getProduct().getFinalPrice());
 
                         String productMainPhoto = like.getProduct().getProductPhotoList().stream()
                                 .filter(ProductPhoto::isPhotoType)
                                 .map(ProductPhoto::getPhotoUrl)
                                 .findFirst()
                                 .orElse("");
-                        myLikesResponse.setProductImag(productMainPhoto);
-                        myLikesResponse.setLike(true);
+                        myLikesResponse.setProductImg(productMainPhoto);
+                        myLikesResponse.setLikes(true);
                         return myLikesResponse;
                     })
                     .collect(Collectors.toList());
@@ -65,12 +66,12 @@ public class LikeService {
         User user = findUser(customUserDetails);
         Product product = findProduct(productId);
 
-        Likes like = Likes.builder()
+        Likes likes = Likes.builder()
                 .user(user)
                 .product(product)
                 .build();
 
-            likesRepository.save(like);
+            likesRepository.save(likes);
 
         return new ResponseDto(HttpStatus.OK.value(),"좋아요 추가 성공");
     }
