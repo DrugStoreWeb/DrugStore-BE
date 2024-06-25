@@ -27,8 +27,8 @@ public class CartController {
 
     @PostMapping
     public ResponseDto addCartItem(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-                                   @RequestBody AddCartRequest addcartRequest) {
-        return cartService.addCartItem(customUserDetails, addcartRequest);
+                                   @RequestBody List<AddCartRequest> cartRequests) {
+        return cartService.addCartItem(customUserDetails, cartRequests);
     }
 
     @PutMapping
@@ -37,13 +37,13 @@ public class CartController {
         return cartService.updateCartItem(customUserDetails, updateCartRequest);
     }
 
-    @DeleteMapping("/{cartId}")
+    @DeleteMapping
     public ResponseDto removeCartItem(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-                                      @PathVariable Integer cartId) {
-        if (cartId == null) {
-            throw new IllegalArgumentException("Cart ID must be provided as part of the URL path");
+                                      @RequestBody List<Integer> cartIds) {
+        if (cartIds.isEmpty()) {
+            throw new IllegalArgumentException("Cart IDs must be provided in the request body");
         }
-        return cartService.removeCartItem(customUserDetails, cartId);
+        return cartService.removeCartItem(customUserDetails, cartIds);
     }
 
     @DeleteMapping("/empty")

@@ -18,7 +18,7 @@ public interface CartRepository extends JpaRepository<Cart,Integer> {
             "SELECT c " +
                     "FROM Cart c " +
                     "WHERE c.user = :user AND c.options = :options "
-            )
+    )
 
     Optional<Cart> findByUserAndOptions(User user, Options options);
 
@@ -42,4 +42,6 @@ public interface CartRepository extends JpaRepository<Cart,Integer> {
     Optional<Cart> findByUserIdAndOptionId(Integer userId, Integer optionsId);
 
     List<Cart> findAllByUserAndOptions(User user, Options options);
+
+    List<Cart> findAllCartIdAndUser(List<Integer> cartIds, User user);
 }

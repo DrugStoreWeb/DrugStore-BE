@@ -70,53 +70,55 @@ public class CartService {
     }
 
     //장바구니 추가
-    public ResponseDto addCartItem(CustomUserDetails customUserDetails, AddCartRequest cartRequest) {
+    public ResponseDto addCartItem(CustomUserDetails customUserDetails, List<AddCartRequest> cartRequests) {
         Integer userId = customUserDetails.getUserId();
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        Product product = productRepository.findById(cartRequest.getProductId())
-                .orElseThrow(() -> new NotFoundException("Product not found"));
+        for (AddCartRequest cartRequest : cartRequests) {
+            Product product = productRepository.findById(cartRequest.getProductId())
+                    .orElseThrow(() -> new NotFoundException("Product not found"));
 
-        if (!product.isProductStatus()){
-            throw new IllegalArgumentException("Product is not available for sale");
-        }
-
-        Options options = optionsRepository.findById(cartRequest.getOptionsId())
-                .orElseThrow(() -> new NotFoundException("Options not found"));
-
-        if (!options.getProduct().getProductId().equals(product.getProductId())) {
-            throw new NotFoundException("Options do not belong to the specified product");
-        }
-
-        Integer requestedQuantity = cartRequest.getQuantity();
-        if (requestedQuantity <= 0) {
-            throw new IllegalArgumentException("Quantity must be positive");
-        }
-
-        Optional<Cart> existingCarts = cartRepository.findByUserAndOptions(user, options);
-        if (!existingCarts.isEmpty()) {
-            Cart existingCart = existingCarts.get();
-            Integer totalQuantity = existingCart.getQuantity() + requestedQuantity;
-            if (totalQuantity > options.getStock()) {
-                throw new IllegalArgumentException("No stock available for the selected option");
+            if (!product.isProductStatus()) {
+                throw new IllegalArgumentException("Product is not available for sale: " + product.getProductId());
             }
-            existingCart.setQuantity(totalQuantity);
-            cartRepository.save(existingCart);
-            return new ResponseDto(HttpStatus.OK.value(), "Cart item quantity updated successfully");
+
+            Options options = optionsRepository.findById(cartRequest.getOptionsId())
+                    .orElseThrow(() -> new NotFoundException("Options not found"));
+
+            if (!options.getProduct().getProductId().equals(product.getProductId())) {
+                throw new NotFoundException("Options do not belong to the specified product");
+            }
+
+            Integer requestedQuantity = cartRequest.getQuantity();
+            if (requestedQuantity <= 0) {
+                throw new IllegalArgumentException("Quantity must be positive");
+            }
+
+            Optional<Cart> existingCart = cartRepository.findByUserAndOptions(user, options);
+            if (existingCart.isPresent()) {
+                Cart cart = existingCart.get();
+                Integer totalQuantity = cart.getQuantity() + requestedQuantity;
+                if (totalQuantity > options.getStock()) {
+                    throw new IllegalArgumentException("No stock available for the selected option: " + options.getOptionsId());
+                }
+                cart.setQuantity(totalQuantity);
+                cartRepository.save(cart);
+            } else {
+                if (requestedQuantity > options.getStock()) {
+                    throw new IllegalArgumentException("No stock available for the selected option: " + options.getOptionsId());
+                }
+
+                Cart cart = Cart.builder()
+                        .user(user)
+                        .options(options)
+                        .quantity(requestedQuantity)
+                        .build();
+                cartRepository.save(cart);
+            }
         }
 
-        if (requestedQuantity > options.getStock()) {
-            throw new IllegalArgumentException("No stock available for the selected option");
-        }
-
-        Cart cart = Cart.builder()
-                .user(user)
-                .options(options)
-                .quantity(cartRequest.getQuantity())
-                .build();
-        cartRepository.save(cart);
-        return new ResponseDto(HttpStatus.OK.value(), "Cart item added successfully");
+        return new ResponseDto(HttpStatus.OK.value(), "Cart items added successfully");
     }
 
     //장바구니 업데이트
@@ -159,16 +161,20 @@ public class CartService {
     }
 
     //장바구니 삭제
-    public ResponseDto removeCartItem(CustomUserDetails customUserDetails, Integer cartId) {
+    public ResponseDto removeCartItem(CustomUserDetails customUserDetails, List<Integer> cartIds) {
         Integer userId = customUserDetails.getUserId();
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        Cart cartToDelete = cartRepository.findByIdAndUserId(cartId, userId)
-                .orElseThrow(() -> new NotFoundException("Product not found in user's cart"));
+        List<Cart> cartsToDelete = cartRepository.findAllCartIdAndUser(cartIds, user);
 
-        cartRepository.delete(cartToDelete);
-        return new ResponseDto(HttpStatus.OK.value(), "Product deleted from cart successfully");
+        if (cartsToDelete.isEmpty()) {
+            throw new NotFoundException("Products not found in user's cart");
+        }
+
+        cartRepository.deleteAll(cartsToDelete);
+
+        return new ResponseDto(HttpStatus.OK.value(), "Products deleted from cart successfully");
     }
 
     //장바구니 비우기
