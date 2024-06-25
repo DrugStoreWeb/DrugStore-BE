@@ -47,7 +47,7 @@ public class CartService {
                     Options options = cart.getOptions();
                     Product product = options.getProduct();
 
-                    String productPhotoUrl = product.getProductPhotoList().stream()
+                    String productImg = product.getProductPhotoList().stream()
                             .filter(ProductPhoto::isPhotoType)
                             .findFirst()
                             .map(ProductPhoto::getPhotoUrl)
@@ -61,14 +61,13 @@ public class CartService {
                             .optionId(options.getOptionsId())
                             .quantity(cart.getQuantity())
                             .price(product.getPrice())
-                            .productPhotoUrl(productPhotoUrl)
+                            .productImg(productImg)
                             .productDiscount(product.getProductDiscount())
                             .finalPrice(product.getFinalPrice())
                             .build();
                 })
                 .collect(Collectors.toList());
     }
-
 
     //장바구니 추가
     public ResponseDto addCartItem(CustomUserDetails customUserDetails, AddCartRequest cartRequest) {
@@ -120,8 +119,6 @@ public class CartService {
         return new ResponseDto(HttpStatus.OK.value(), "Cart item added successfully");
     }
 
-
-
     //장바구니 업데이트
     public ResponseDto updateCartItem(CustomUserDetails customUserDetails, UpdateCartRequest cartRequest) {
         Integer userId = customUserDetails.getUserId();
@@ -161,8 +158,6 @@ public class CartService {
         return new ResponseDto(HttpStatus.OK.value(), "Cart item updated successfully");
     }
 
-
-
     //장바구니 삭제
     public ResponseDto removeCartItem(CustomUserDetails customUserDetails, Integer cartId) {
         Integer userId = customUserDetails.getUserId();
@@ -175,8 +170,6 @@ public class CartService {
         cartRepository.delete(cartToDelete);
         return new ResponseDto(HttpStatus.OK.value(), "Product deleted from cart successfully");
     }
-
-
 
     //장바구니 비우기
     public ResponseDto clearCart(CustomUserDetails customUserDetails) {

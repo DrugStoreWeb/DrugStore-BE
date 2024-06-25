@@ -1,5 +1,7 @@
 package com.github.drug_store_be.web.DTO.Cart;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 
 import java.util.List;
@@ -9,10 +11,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CartResponse {
     private Integer cartId;
     private Integer productId;
-    private String productPhotoUrl;
+    private String productImg;
     private String brand;
     private String productName;
     private Integer optionId;

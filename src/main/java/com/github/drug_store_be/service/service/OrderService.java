@@ -194,14 +194,14 @@ public class OrderService {
 
         List<OrderProductResponseDto> orderProductResponseDtoList = cartList.stream()
                 .map(c -> {
-                    String productPhotoUrl = c.getOptions().getProduct().getProductPhotoList().stream()
+                    String productImg = c.getOptions().getProduct().getProductPhotoList().stream()
                             .filter(ProductPhoto::isPhotoType)
                             .map(ProductPhoto::getPhotoUrl)
                             .findFirst()
                             .orElse(null);
 
                     return new OrderProductResponseDto(
-                            productPhotoUrl,
+                            productImg,
                             c.getOptions().getProduct().getProductName(),
                             c.getOptions().getProduct().getBrand(),
                             c.getOptions().getOptionsName(),

@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class OrderProductResponseDto {
-    private String productPhoto;
+    private String productImg;
     private String productName;
     private String brand;
     private String optionName;
