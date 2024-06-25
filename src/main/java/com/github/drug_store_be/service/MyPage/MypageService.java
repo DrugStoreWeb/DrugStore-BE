@@ -130,6 +130,11 @@ public class MypageService {
                 .orElseThrow(() -> new NotFoundException("주문한 상품을 찾을 수 없습니다."));
         String photoUrl = getTruePhotoUrl(product.getProductPhotoList());
 
+        if (!orders.getUser().getUserId().equals(customUserDetails.getUserId())) {
+            throw new IllegalArgumentException("해당 리뷰를 수정할 권한이 없습니다.");
+        }
+
+
         if (reviewScore < 0 || reviewScore > 5) {
             throw new IllegalArgumentException("평점은 0부터 5까지 가능합니다.");
         }
