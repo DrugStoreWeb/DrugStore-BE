@@ -321,6 +321,7 @@ private boolean hasPermission(int userId, int ordersId) throws ReviewException {
         List<OrderCouponResponseDto> couponResponseList= userCoupons
                 .stream()
                 .map(c-> new OrderCouponResponseDto(
+                        c.getCoupon().getCouponId(),
                         c.getCoupon().getCouponName(),
                         c.getCoupon().getCouponDiscount()))
                 .collect(Collectors.toList());
