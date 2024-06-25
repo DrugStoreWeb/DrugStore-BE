@@ -43,5 +43,6 @@ public interface CartRepository extends JpaRepository<Cart,Integer> {
 
     List<Cart> findAllByUserAndOptions(User user, Options options);
 
+    @Query("SELECT c FROM Cart c WHERE c.user = :user AND c.cartId IN :cartIds")
     List<Cart> findAllCartIdAndUser(List<Integer> cartIds, User user);
 }
