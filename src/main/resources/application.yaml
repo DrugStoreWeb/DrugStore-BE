@@ -1,5 +1,14 @@
 server:
-  port:8080
+  port : 8080
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-type: "PKCS12"
+    key-store-password: ENC(i5PeoNKddffOFHGj/baHbHVAsek6cRQK)
+
+  tomcat:
+    redirect-http-to-https: true
+
+
 
 spring:
   cache:
@@ -84,11 +93,6 @@ jwtpassword:
 pay:
   admin-key: ENC(Ysfi34R/drtyXOwIx3USsi57khyAY7y+lMEsBk9KwtuZjo1PpZ/OirmoLBaUxVVA)
 
-
-ssl:
-  key-store: classpath:keystore.p12
-  key-store-type: "PKCS12"
-  key-store-password: ENC(i5PeoNKddffOFHGj/baHbHVAsek6cRQK)
 
   logging:
     level: debug
