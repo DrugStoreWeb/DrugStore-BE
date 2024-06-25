@@ -76,6 +76,10 @@ public class CartService {
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
         for (AddCartRequest cartRequest : cartRequests) {
+            if (cartRequest.getProductId() == null || cartRequest.getOptionsId() == null) {
+                throw new IllegalArgumentException("Product ID and Options ID must be provided");
+            }
+
             Product product = productRepository.findById(cartRequest.getProductId())
                     .orElseThrow(() -> new NotFoundException("Product not found"));
 
