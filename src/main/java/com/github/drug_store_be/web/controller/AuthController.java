@@ -24,11 +24,11 @@ public class AuthController {
         return authService.signUpResult(signUpRequest,multipartFiles);
     }
 
-    @GetMapping(value = "/nickname")
+    @PostMapping(value = "/nickname")
     public ResponseDto nickNameCheck(@RequestBody NicknameCheck nicknameCheck){
         return authService.nicknameCheckResult(nicknameCheck);
     }
-    @GetMapping(value = "/email")
+    @PostMapping(value = "/email")
     public ResponseDto emailCheck(@RequestBody EmailCheck emailCheck){
         return authService.emailCheckResult(emailCheck);
     }
