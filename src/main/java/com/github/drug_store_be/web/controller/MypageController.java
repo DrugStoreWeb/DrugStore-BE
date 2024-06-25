@@ -28,11 +28,14 @@ public class MypageController {
         }
     }
     @PutMapping("/review/{ordersId}")
-    public ResponseDto UpdateReview(@AuthenticationPrincipal CustomUserDetails customUserDetails, @RequestBody ReviewRequest reviewRequest, @PathVariable("ordersId") Integer ordersId) {
+    public ResponseDto UpdateReview(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                    @RequestBody ReviewRequest reviewRequest,
+                                    @PathVariable("ordersId") Integer ordersId) throws ReviewException {
         return mypageService.updateReview(customUserDetails, reviewRequest, ordersId);
     }
     @DeleteMapping("/review/{ordersId}")
-    public ResponseDto deleteReview(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable("ordersId") Integer ordersId) {
+    public ResponseDto deleteReview(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                    @PathVariable("ordersId") Integer ordersId) {
         try {
             return mypageService.deleteReview(customUserDetails, ordersId);
         } catch (NotFoundException e) {
