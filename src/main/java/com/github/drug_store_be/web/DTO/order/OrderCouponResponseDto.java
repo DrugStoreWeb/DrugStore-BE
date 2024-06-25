@@ -11,6 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class OrderCouponResponseDto {
+    private Integer couponId;
     private String couponName;
     private Integer couponDiscount;
 }

@@ -180,6 +180,7 @@ public class OrderService {
         List<OrderCouponResponseDto> orderCouponResponseDtoList= couponList.stream()
                 .map(
                         (c)-> new OrderCouponResponseDto(
+                                c.getCouponId(),
                                 c.getCouponName(),
                                 c.getCouponDiscount()
                         )
