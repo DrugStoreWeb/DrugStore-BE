@@ -34,9 +34,10 @@ jobs:
 
 
     - name: Build with Gradle
+      run: ./gradlew clean build
       env:
-        JASYPT_SECRET_KEY: ${{ secrets.JASYPT_SECRET_KEY }}
-        run: ./gradlew clean build
+        jasypt.encryptor.password: ${{ secrets.JASYPT_SECRET_KEY }}
+
 
 
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
