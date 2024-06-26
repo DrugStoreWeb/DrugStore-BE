@@ -146,8 +146,8 @@ dependencies {
     //assertions for testJasyptConfig
     implementation 'org.assertj:assertj-core:3.23.1'
     //test for testJasyptConfig
-    implementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+//    implementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 
 
     //java.lang.ClassNotFoundException
