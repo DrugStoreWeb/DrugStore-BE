@@ -39,8 +39,6 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew clean build
-      env:
-        jasypt.encryptor.password: ${{ secrets.JASYPT_SECRET_KEY }}
 
 
 
