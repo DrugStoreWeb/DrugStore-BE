@@ -18,5 +18,6 @@ public interface OptionsRepository extends JpaRepository<Options,Integer> {
     @Query("UPDATE Product p SET p.productSales = (:originalStock - :totalOptionsStock) / :originalStock WHERE p.productId = :productId")
     void updateProductSales(@Param("productId") Long productId, @Param("originalStock") Integer originalStock, @Param("totalOptionsStock") Integer totalOptionsStock);
 
+    List<Options> findAllByProductProductId(Integer productId);
 
 }

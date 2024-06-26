@@ -60,6 +60,7 @@ public class CartService {
                             .brand(product.getBrand())
                             .optionsId(options.getOptionsId())
                             .optionsName(options.getOptionsName())
+                            .optionsPrice(options.getOptionsPrice())
                             .quantity(cart.getQuantity())
                             .price(product.getPrice())
                             .productImg(productImg)
@@ -137,28 +138,23 @@ public class CartService {
                 .orElseThrow(() -> new NotFoundException("Cart item not found"));
 
         Integer optionId = cartRequest.getOptionsId();
+        List<String> allOptionNames = null;
         if (optionId != null) {
             Options options = optionsRepository.findById(optionId)
                     .orElseThrow(() -> new NotFoundException("Options not found"));
 
-            // 옵션 아이디가 변경되었을 때만 옵션명 업데이트
-            if (!options.getOptionsId().equals(cart.getOptions().getOptionsId())) {
-                options = optionsRepository.findById(optionId)
-                        .orElseThrow(() -> new NotFoundException("Options not found"));
+            cart.setOptions(options);
 
-                cart.setOptions(options);
-            }
+            Product product = options.getProduct();
+            allOptionNames = optionsRepository.findAllByProductProductId(product.getProductId())
+                    .stream()
+                    .map(Options::getOptionsName)
+                    .collect(Collectors.toList());
         }
 
         Integer quantity = cartRequest.getQuantity();
         if (quantity <= 0) {
             throw new IllegalArgumentException("Quantity must be positive");
-        }
-
-        Product product = cart.getOptions().getProduct();
-
-        if (!product.isProductStatus()){
-            throw new IllegalArgumentException("Product is not available for sale");
         }
 
         Options currentOptions = cart.getOptions();
@@ -169,7 +165,27 @@ public class CartService {
         cart.setQuantity(quantity);
         cartRepository.save(cart);
 
-        return new ResponseDto(HttpStatus.OK.value(), "Cart item updated successfully");
+        CartResponse cartResponse = CartResponse.builder()
+                .cartId(cart.getCartId())
+                .productId(cart.getOptions().getProduct().getProductId())
+                .productImg(cart.getOptions().getProduct().getProductPhotoList().stream()
+                        .filter(ProductPhoto::isPhotoType)
+                        .findFirst()
+                        .map(ProductPhoto::getPhotoUrl)
+                        .orElse(null))
+                .brand(cart.getOptions().getProduct().getBrand())
+                .productName(cart.getOptions().getProduct().getProductName())
+                .optionsName(cart.getOptions().getOptionsName())
+                .optionsId(cart.getOptions().getOptionsId())
+                .optionsPrice(cart.getOptions().getOptionsPrice())
+                .quantity(cart.getQuantity())
+                .price(cart.getOptions().getProduct().getPrice())
+                .productDiscount(cart.getOptions().getProduct().getProductDiscount())
+                .finalPrice(cart.getOptions().getProduct().getFinalPrice())
+                .allOptionNames(allOptionNames)
+                .build();
+
+        return new ResponseDto(HttpStatus.OK.value(), "Cart item updated successfully", cartResponse);
     }
 
     //장바구니 삭제

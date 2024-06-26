@@ -20,8 +20,10 @@ public class CartResponse {
     private String productName;
     private String optionsName;
     private Integer optionsId;
+    private Integer optionsPrice;
     private Integer quantity;
     private Integer price;
     private Integer productDiscount;
     private Integer finalPrice;
+    private List<String> allOptionNames;
 }
