@@ -170,20 +170,21 @@ public class CartService {
     }
 
     //장바구니 삭제
-    public ResponseDto removeCartItem(CustomUserDetails customUserDetails, List<Integer> cartIds) {
+    public ResponseDto removeCartItem(CustomUserDetails customUserDetails, Integer cartId) {
         Integer userId = customUserDetails.getUserId();
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        List<Cart> cartsToDelete = cartRepository.findAllCartIdAndUser(cartIds, user);
+        Cart cartToDelete = cartRepository.findById(cartId)
+                .orElseThrow(() -> new NotFoundException("Cart item not found"));
 
-        if (cartsToDelete.isEmpty()) {
-            throw new NotFoundException("Products not found in user's cart");
+        if (!cartToDelete.getUser().getUserId().equals(userId)) {
+            throw new IllegalArgumentException("User does not have permission to delete this cart item");
         }
 
-        cartRepository.deleteAll(cartsToDelete);
+        cartRepository.delete(cartToDelete);
 
-        return new ResponseDto(HttpStatus.OK.value(), "Products deleted from cart successfully");
+        return new ResponseDto(HttpStatus.OK.value(), "Product deleted from cart successfully");
     }
 
     //장바구니 비우기

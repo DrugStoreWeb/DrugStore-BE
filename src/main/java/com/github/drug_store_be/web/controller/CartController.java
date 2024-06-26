@@ -43,13 +43,10 @@ public class CartController {
         return new ResponseDto(HttpStatus.OK.value(), "Option names retrieved successfully", optionNames);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{cartId}")
     public ResponseDto removeCartItem(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-                                      @RequestBody List<Integer> cartIds) {
-        if (cartIds.isEmpty()) {
-            throw new IllegalArgumentException("Cart IDs must be provided in the request body");
-        }
-        return cartService.removeCartItem(customUserDetails, cartIds);
+                                      @PathVariable Integer cartId) {
+        return cartService.removeCartItem(customUserDetails, cartId);
     }
 
     @DeleteMapping("/empty")
