@@ -37,6 +37,12 @@ public class CartController {
         return cartService.updateCartItem(customUserDetails, updateCartRequest);
     }
 
+    @GetMapping("/options/{productId}")
+    public ResponseDto getAllOptionNames(@PathVariable Integer productId) {
+        List<String> optionNames = cartService.getAllOptionNamesByProductId(productId);
+        return new ResponseDto(HttpStatus.OK.value(), "Option names retrieved successfully", optionNames);
+    }
+
     @DeleteMapping
     public ResponseDto removeCartItem(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                       @RequestBody List<Integer> cartIds) {

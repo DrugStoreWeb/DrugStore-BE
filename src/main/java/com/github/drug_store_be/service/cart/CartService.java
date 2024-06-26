@@ -127,7 +127,7 @@ public class CartService {
         return new ResponseDto(HttpStatus.OK.value(), "Cart items added successfully");
     }
 
-    //장바구니 업데이트
+    // 장바구니 업데이트
     public ResponseDto updateCartItem(CustomUserDetails customUserDetails, UpdateCartRequest cartRequest) {
         Integer userId = customUserDetails.getUserId();
         User user = userRepository.findById(userId)
@@ -138,18 +138,11 @@ public class CartService {
                 .orElseThrow(() -> new NotFoundException("Cart item not found"));
 
         Integer optionId = cartRequest.getOptionsId();
-        List<String> allOptionNames = null;
         if (optionId != null) {
             Options options = optionsRepository.findById(optionId)
                     .orElseThrow(() -> new NotFoundException("Options not found"));
 
             cart.setOptions(options);
-
-            Product product = options.getProduct();
-            allOptionNames = optionsRepository.findAllByProductProductId(product.getProductId())
-                    .stream()
-                    .map(Options::getOptionsName)
-                    .collect(Collectors.toList());
         }
 
         Integer quantity = cartRequest.getQuantity();
@@ -165,27 +158,15 @@ public class CartService {
         cart.setQuantity(quantity);
         cartRepository.save(cart);
 
-        CartResponse cartResponse = CartResponse.builder()
-                .cartId(cart.getCartId())
-                .productId(cart.getOptions().getProduct().getProductId())
-                .productImg(cart.getOptions().getProduct().getProductPhotoList().stream()
-                        .filter(ProductPhoto::isPhotoType)
-                        .findFirst()
-                        .map(ProductPhoto::getPhotoUrl)
-                        .orElse(null))
-                .brand(cart.getOptions().getProduct().getBrand())
-                .productName(cart.getOptions().getProduct().getProductName())
-                .optionsName(cart.getOptions().getOptionsName())
-                .optionsId(cart.getOptions().getOptionsId())
-                .optionsPrice(cart.getOptions().getOptionsPrice())
-                .quantity(cart.getQuantity())
-                .price(cart.getOptions().getProduct().getPrice())
-                .productDiscount(cart.getOptions().getProduct().getProductDiscount())
-                .finalPrice(cart.getOptions().getProduct().getFinalPrice())
-                .allOptionNames(allOptionNames)
-                .build();
+        return new ResponseDto(HttpStatus.OK.value(), "Cart item updated successfully");
+    }
 
-        return new ResponseDto(HttpStatus.OK.value(), "Cart item updated successfully", cartResponse);
+    // 특정 제품의 모든 옵션명 조회
+    public List<String> getAllOptionNamesByProductId(Integer productId) {
+        return optionsRepository.findAllByProductProductId(productId)
+                .stream()
+                .map(Options::getOptionsName)
+                .collect(Collectors.toList());
     }
 
     //장바구니 삭제
