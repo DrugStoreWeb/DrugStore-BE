@@ -428,6 +428,340 @@ The implementation of JASYPT safely encrypts the variables
 -실패
 ![토큰을 이용해 관리자 계정만 답변(일반 유저는 실패)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/c1266708-0b4e-4ac7-b19c-dfaf82133925)
 
+## main page API
+
+### main page
+
+◼️ sorting keyword
+
+| sortby | description |
+| --- | --- |
+| likes | 좋아요 많은 순 |
+| reviews | 후기 높은 순 |
+| price | 낮은 가격 순 (할인된 가격 기준) |
+| new | 신상품 순 |
+| sales | 판매율 순 |
+
+```
+GET /main
+```
+
+✅ Request
+
+| Name | Type | Requried | description          |
+| --- | --- | --- |----------------------|
+| sortby | String | false | 정렬 기준 (default=sales) |
+| page | Integer | false | 첫 페이지 번호 (default=0) |
+| size | Integer | false | 페이지 당 데이(default=24) |
+| token |  | false | user의 likes가 true로 표시됨 |
+
+✅ Response
+
+| Name | Type | Required | Description |  |
+| --- | --- | --- | --- | --- |
+| product_id | Integer | * |  |  |
+| brand_name | String | * |  |  |
+| product_name | String | * |  |  |
+| price | Integer | * |  |  |
+| final_price | Integer | * |  |  |
+| product_img | String | * |  |  |
+| likes | boolean | * | 현재 로그인한 유저가 좋아요를 눌렀는가 여부 |  |
+| sales | boolean | * | 세일중인가 여부 |  |
+| best | boolean | * | 베스트 상품인가 여부 |  |
+
+요청 예시
+
+```
+https://drugstoreproject.shop/main?sortby=likes&page=0&size=3
+```
+
+응답 예시
+
+```json
+{
+  "code": 200,
+  "message": "메인 페이지 조회에 성공했습니다.",
+  "data": {
+    "total_pages": 47,
+    "total_elements": 139,
+    "current_page": 0,
+    "page_size": 3,
+    "product_list": [
+      {
+        "product_id": 4,
+        "product_name": "에스네이처 아쿠아 스쿠알란 수분크림",
+        "brand_name": "에스네이처",
+        "price": 43000,
+        "final_price": 21500,
+        "product_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/141.png",
+        "likes": false,
+        "best": false,
+        "sales": true
+      },
+      {
+        "product_id": 5,
+        "product_name": "아쿠아 오아시스 수분 젤크림",
+        "brand_name": "에스네이처",
+        "price": 34000,
+        "final_price": 23800,
+        "product_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/151.png",
+        "likes": false,
+        "best": false,
+        "sales": true
+      },
+      {
+        "product_id": 21,
+        "product_name": "메디힐 패드",
+        "brand_name": "메디힐",
+        "price": 39000,
+        "final_price": 33150,
+        "product_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/211.png",
+        "likes": false,
+        "best": true,
+        "sales": true
+      }
+    ],
+    "main_page_ad_img": {
+      "review_top_image_url": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/161.png",
+      "sales_top_image_url": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/211.png",
+      "likes_top_image_url": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/321%E1%84%86%E1%85%A1%E1%84%82%E1%85%A7%E1%84%80%E1%85%A9%E1%86%BC%E1%84%8C%E1%85%A1%E1%86%BC.png"
+    }
+  }
+}
+```
+
+### category page
+
+◼️ category number
+
+```
+GET /main/category/{category_number}
+
+```
+
+| category | Name |
+| --- | --- |
+| 1 | 스킨케어 |
+| 2 | 마스크팩 |
+| 3 | 클렌징 |
+| 4 | 선케어 |
+| 5 | 메이크업 |
+| 6 | 미용소품 |
+| 7 | 더모코스메틱 |
+| 8 | 멘즈케어 |
+| 9 | 헤어케어 |
+| 10 | 바디케어 |
+| 11 | 향수 |
+| 12 | 네일 |
+
+✅ Request
+
+| Name | Type | Requried | description          |
+| --- | --- | --- |----------------------|
+| category | Integer | true | 카테고리 번호              |
+| sortby | String | false | 정렬 기준 (default=sales) |
+| page | Integer | false | 첫 페이지 번호 (default=0) |
+| size | Integer | false | 페이지 당 데이터 개수 (default=24) |
+| token |  | false | user의 likes가 true로 표시됨 |
+
+✅ Response
+
+| Name | Backend Type | Required | Description |
+| --- | --- | --- | --- |
+| product_id | Integer | * |  |
+| brand_name | String | * |  |
+| product_name | String | * |  |
+| price | Integer | * |  |
+| final_price | Integer | * |  |
+| product_img | String | * |  |
+| likes | boolean | * | 현재 로그인한 유저가 좋아요를 눌렀는가 여부 |
+| sales | boolean | * | 세일중인가 여부 |
+| best | boolean | * | 베스트 상품인가 여부 |
+
+요청 예시
+
+```
+https://drugstoreproject.shop/main/category/8?sortby=likes&page=0&size=3
+```
+
+응답 예시
+
+```json
+{
+  "code": 200,
+  "message": "카테고리 페이지 조회에 성공했습니다.",
+  "data": {
+    "content": [
+      {
+        "product_id": 83,
+        "product_name": "아이디얼 포 맨 프레시 올인원 젤 로션 1+1 한정기획",
+        "brand_name": "아이디얼포맨",
+        "price": 28000,
+        "final_price": 21000,
+        "product_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/83-1.jpg",
+        "likes": false,
+        "best": false,
+        "sales": true
+      },
+      {
+        "product_id": 84,
+        "product_name": "[1위향수/한정기획] 포맨트 시그니처 퍼퓸 코튼허그 50ml 한정기획(미니어처 5ml 증정)",
+        "brand_name": "포맨트",
+        "price": 39000,
+        "final_price": 35100,
+        "product_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/84-1.jpg",
+        "likes": false,
+        "best": false,
+        "sales": true
+      },
+      {
+        "product_id": 82,
+        "product_name": "[덱스 PICK] 오브제 내추럴 커버 로션 50g 단품/기획(+미니어처 10ml)",
+        "brand_name": "오브제",
+        "price": 27900,
+        "final_price": 23715,
+        "product_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/82-1.jpg",
+        "likes": false,
+        "best": true,
+        "sales": true
+      }
+    ],
+    "pageable": {
+      "pageNumber": 0,
+      "pageSize": 3,
+      "sort": {
+        "empty": true,
+        "sorted": false,
+        "unsorted": true
+      },
+      "offset": 0,
+      "paged": true,
+      "unpaged": false
+    },
+    "totalPages": 4,
+    "totalElements": 10,
+    "last": false,
+    "size": 3,
+    "number": 0,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "numberOfElements": 3,
+    "first": true,
+    "empty": false
+  }
+}
+```
+
+### find page
+
+```
+GET /main/find/keyword={keyword}
+
+```
+
+✅ Request
+
+| Name | Type | Requried | description          |
+| --- | --- | --- |----------------------|
+| keyword | Integer | true | 검색어 (브랜드명 또는 상품명) 두 글자 일치 검색 |
+| sortby | String | false | 정렬 기준 (default=sales) |
+| page | Integer | false | 첫 페이지 번호 (default=0) |
+| size | Integer | false | 페이지 당 데이터 개수 (default=24) |
+| token |  | false | user의 likes가 true로 표시됨 |
+
+✅ Response
+
+| Name | Backend Type | Required | Description |
+| --- | --- | --- | --- |
+| product_id | Integer | * |  |
+| brand_name | String | * |  |
+| product_name | String | * |  |
+| price | Integer | * |  |
+| final_price | Integer | * |  |
+| product_img | String | * |  |
+| likes | boolean | * | 현재 로그인한 유저가 좋아요를 눌렀는가 여부 |
+| sales | boolean | * | 세일중인가 여부 |
+| best | boolean | * | 베스트 상품인가 여부 |
+
+요청 예시
+
+```
+https://drugstoreproject.shop/main/find?keyword=ml&sortby=sales&page=0&size=3
+```
+
+응답 예시
+
+```json
+{
+  "code": 200,
+  "message": "검색에 성공했습니다.",
+  "data": {
+    "content": [
+      {
+        "product_id": 34,
+        "product_name": "메디필 랩핑 마스크팩 70mL",
+        "brand_name": "메디필",
+        "price": 25000,
+        "final_price": 20000,
+        "product_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/2141.png",
+        "likes": false,
+        "best": false,
+        "sales": true
+      },
+      {
+        "product_id": 41,
+        "product_name": " [덱스 PICK] 오브제 내추럴 커버 로션 50g 단품/기획(+미니어처 10ml)",
+        "brand_name": "오브제",
+        "price": 25400,
+        "final_price": 22860,
+        "product_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/121-true.jpg",
+        "likes": false,
+        "best": true,
+        "sales": true
+      },
+      {
+        "product_id": 63,
+        "product_name": "라로슈포제 시카플라스트 밤B5+ 100ml 기획 (+시카크림 15ml 증정)",
+        "brand_name": "라로슈포제",
+        "price": 39000,
+        "final_price": 27300,
+        "product_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/63-1.jpg",
+        "likes": false,
+        "best": true,
+        "sales": true
+      }
+    ],
+    "pageable": {
+      "pageNumber": 0,
+      "pageSize": 3,
+      "sort": {
+        "empty": true,
+        "sorted": false,
+        "unsorted": true
+      },
+      "offset": 0,
+      "paged": true,
+      "unpaged": false
+    },
+    "totalPages": 9,
+    "totalElements": 27,
+    "last": false,
+    "size": 3,
+    "number": 0,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "numberOfElements": 3,
+    "first": true,
+    "empty": false
+  }
+}
+```
 
 
 
