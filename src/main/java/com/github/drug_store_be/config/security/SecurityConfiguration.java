@@ -23,27 +23,27 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private final JwtTokenProvider jwtTokenProvider;
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-//        http
-//                .headers(h->h.frameOptions(f->f.sameOrigin()))
-//                .csrf(c->c.disable())
-//                .httpBasic(hb-> hb.disable())
-//                .formLogin(fl->fl.disable())
-//                .rememberMe(rm->rm.disable())
-//                .sessionManagement(sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .cors(c-> c.configurationSource(corsConfig()))
-//                .authorizeRequests((requests) -> requests
-//                                .requestMatchers("/resources/static/**","/auth/sign-up",
-//                                        "/auth/login","/auth/email-check","/auth/nickname-check").permitAll()
-////                        .anyRequest().authenticated()
-//                )
-//                .exceptionHandling((exception) -> exception
-//                        .authenticationEntryPoint(new CustomerAuthenticationEntryPoint())
-//                        .accessDeniedHandler(new CustomerAccessDeniedHandler()))
-//                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
-//    return http.build();
-//    }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        http
+                .headers(h->h.frameOptions(f->f.sameOrigin()))
+                .csrf(c->c.disable())
+                .httpBasic(hb-> hb.disable())
+                .formLogin(fl->fl.disable())
+                .rememberMe(rm->rm.disable())
+                .sessionManagement(sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .cors(c-> c.configurationSource(corsConfig()))
+                .authorizeRequests((requests) -> requests
+                                .requestMatchers("/resources/static/**","/auth/sign-up",
+                                        "/auth/login","/auth/email-check","/auth/nickname-check").permitAll()
+//                        .anyRequest().authenticated()
+                )
+                .exceptionHandling((exception) -> exception
+                        .authenticationEntryPoint(new CustomerAuthenticationEntryPoint())
+                        .accessDeniedHandler(new CustomerAccessDeniedHandler()))
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+    return http.build();
+    }
 
     private CorsConfigurationSource corsConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
