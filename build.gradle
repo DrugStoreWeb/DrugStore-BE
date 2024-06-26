@@ -92,66 +92,71 @@ configurations {
 //}
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    //lombok사용
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
+    implementation(
+
+    'org.springframework.boot:spring-boot-starter',
+   'org.springframework.boot:spring-boot-starter-web',
+
     //Mapstruct
-    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    'org.mapstruct:mapstruct:1.5.5.Final',
     //Swagger
-    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
-    implementation 'io.springfox:springfox-swagger2:3.0.0'
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
-    //env-hide
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    'io.springfox:springfox-swagger-ui:3.0.0',
+    'io.springfox:springfox-swagger2:3.0.0',
+    'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2',
     //JPA
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    'org.springframework.boot:spring-boot-starter-data-jpa',
     //jwt
-    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    'io.jsonwebtoken:jjwt:0.9.1',
     //security
-    implementation 'javax.xml.bind:jaxb-api:2.3.1'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+    'javax.xml.bind:jaxb-api:2.3.1',
+    'org.springframework.boot:spring-boot-starter-security',
     //mariaDB
-    implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
-    runtimeOnly 'mysql:mysql-connector-java:8.0.26'
+    'org.mariadb.jdbc:mariadb-java-client:3.1.4',
     //redis
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    'org.springframework.boot:spring-boot-starter-data-redis',
     //mail
-    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    'org.springframework.boot:spring-boot-starter-mail',
+    // Cache
+    'org.springframework.boot:spring-boot-starter-cache',
+    // amazon s3
+    'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE',
+    // redis -> java로 redis control
+    'redis.clients:jedis:5.1.0',
+    //jasypt
+   'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5',
+   'javax.xml.bind:jaxb-api:2.3.1',
+    // validation
+    'org.springframework.boot:spring-boot-starter-validation',
+    //assertions for testJasyptConfig
+    'org.assertj:assertj-core:3.23.1',
+    //java.lang.ClassNotFoundException
+    'org.glassfish.jaxb:jaxb-runtime:2.3.1'
+    )
+
+    runtimeOnly (
+            'org.mariadb.jdbc:mariadb-java-client:3.1.4',
+            'mysql:mysql-connector-java:8.0.28'
+    )
+
+    //lombok사용
+    compileOnly (
+            'org.projectlombok:lombok'
+    )
+
+
+
+    testImplementation(
+            'org.springframework.boot:spring-boot-starter-test'
+    )
 
     // Add the spring-boot-configuration-processor dependency for annotation processing
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor (
+            'org.springframework.boot:spring-boot-configuration-processor',
+            'org.springframework.boot:spring-boot-configuration-processor',
+            'org.mapstruct:mapstruct-processor:1.5.5.Final',
+            'org.projectlombok:lombok'
+    )
 
-    // Cache
-    implementation 'org.springframework.boot:spring-boot-starter-cache'
-
-    // amazon s3
-    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
-
-    // redis -> java로 redis control
-    implementation 'redis.clients:jedis:5.1.0'
-
-    //jasypt
-    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
-    implementation 'javax.xml.bind:jaxb-api:2.3.1'
-
-    // validation
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-
-    //assertions for testJasyptConfig
-    implementation 'org.assertj:assertj-core:3.23.1'
-    //test for testJasyptConfig
-//    implementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
-//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
-
-
-    //java.lang.ClassNotFoundException
-    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
 }
 
 tasks.named('test') {
