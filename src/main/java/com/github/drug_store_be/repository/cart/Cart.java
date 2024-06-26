@@ -33,4 +33,5 @@ public class Cart {
     @Column(name = "quantity", nullable = false)
     @Min(value = 1, message = "Quantity must be positive")
     private Integer quantity;
+
 }

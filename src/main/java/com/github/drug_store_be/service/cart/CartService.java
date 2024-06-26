@@ -58,7 +58,8 @@ public class CartService {
                             .productId(product.getProductId())
                             .productName(product.getProductName())
                             .brand(product.getBrand())
-                            .optionId(options.getOptionsId())
+                            .optionsId(options.getOptionsId())
+                            .optionsName(options.getOptionsName())
                             .quantity(cart.getQuantity())
                             .price(product.getPrice())
                             .productImg(productImg)
@@ -139,12 +140,19 @@ public class CartService {
         if (optionId != null) {
             Options options = optionsRepository.findById(optionId)
                     .orElseThrow(() -> new NotFoundException("Options not found"));
-            cart.setOptions(options);
+
+            // 옵션 아이디가 변경되었을 때만 옵션명 업데이트
+            if (!options.getOptionsId().equals(cart.getOptions().getOptionsId())) {
+                options = optionsRepository.findById(optionId)
+                        .orElseThrow(() -> new NotFoundException("Options not found"));
+
+                cart.setOptions(options);
+            }
         }
 
         Integer quantity = cartRequest.getQuantity();
         if (quantity <= 0) {
-            throw new IllegalArgumentException("Quantity must be positive"); // 예외를 발생시켜 0 이하의 수량이 입력되지 않도록 합니다.
+            throw new IllegalArgumentException("Quantity must be positive");
         }
 
         Product product = cart.getOptions().getProduct();

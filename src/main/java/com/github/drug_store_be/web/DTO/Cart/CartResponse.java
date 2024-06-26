@@ -18,7 +18,8 @@ public class CartResponse {
     private String productImg;
     private String brand;
     private String productName;
-    private Integer optionId;
+    private String optionsName;
+    private Integer optionsId;
     private Integer quantity;
     private Integer price;
     private Integer productDiscount;
