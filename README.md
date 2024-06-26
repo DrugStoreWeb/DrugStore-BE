@@ -116,7 +116,26 @@ The implementation of JASYPT safely encrypts the variables
 | `email` | `String` | **Required**. 인증 번호 인증할 이메일|
 | `auth` | `Integer` | **Required**. 인증 번호|
 
+#### Login
+회원가입한 유저의 mail과 password 정보로 로그인 할 수 있 API입니다.
 
+```http
+  POST / auth / login
+```
+
+✔️ **Request**
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `email` | `String` | **Required**. 이메일 |
+| `password` | `String` | **Required**. 비밀번호 |
+
+```json
+{
+    "email": "lee1234@gmail.com",
+    "password": "1234"
+}
+```
 
 ### Order
 
@@ -354,6 +373,199 @@ The implementation of JASYPT safely encrypts the variables
 | `question-id` | `@RequestParam Integer` | **Required**. 답변을 남길 질문 id |
 | `answer` | `String ` | **Required**. 질문에 대한 답변 |
 | `customUserDetails` | `@AuthenticationPrincipal CustomUserDetails ` | **Required**. 해당 토큰으로 권한이 관리자인지 확인 |
+
+### Likes API
+이 API는 사용자가 로그인 후 상품 목록에서 상품번호로 관심 있는 상품을 좋아요 리스트에 추가 및 삭제할 수 있습니다.
+또한 로그인한 사용자가 추가한 좋아요 리스트를 조회할 수 있습니다.
+
+#### Get My Likes
+
+```http
+  GET / likes
+```
+
+✔️ **Request**
+
+Token in the Header
+
+✔️ **Response**
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `productId` | `Integer` | **Required**. 상품 아이디 |
+| `productName` | `String` | **Required**. 상품 이름 |
+| `product_img` | `String` | **Required**. 상품 이미지 |
+| `price` | `Integer` | **Required**. 가격 |
+| `brandName` | `String` | **Required**. 브랜드 이름 |
+| `likes` | `boolean` | **Required**. 좋아요 여부 |
+| `finalPrice` | `Integer` | **Required**. 최종 가격 |
+
+```json
+[
+	{
+    "product_id": 1,
+    "product_name": "히알루로산 세럼",
+    "final_price": 19000,
+    "likes" : true,
+    "product_img": "이미지",
+    "price": 29000,
+    "brand_name": "라운드어라운드"
+	},
+		{
+    "product_id": 2,
+    "product_name": "수분크림",
+    "final_price": 19000,
+    "likes" : false,
+    "product_image": "이미지",
+    "price": 29000,
+    "brand_name": "피지오"
+	}
+]
+```
+
+#### Post likes
+
+```http
+  POST / likes
+```
+✔️ **Request**
+Token in the Header
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `product_id`| `Integer` | **Required**. 상품 아이디 |
+
+```json
+{
+    "product_id": 1
+}
+```
+
+#### Delete likes
+
+```http
+  DELETE / likes
+```
+✔️ **Request**
+
+Token in the Header
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `product_id`| `Integer` | **Required**. 상품 아이디 |
+
+```json
+{
+    "product_id": 1
+}
+```
+### Q&A API
+이 API는 상품 관련 Q&A 조회, 등록, 수정, 삭제하는 시스템입니다. 
+사용자는 특정 상품의 질문을 조회하고, 새로운 질문을 등록하며, 자신의 질문을 관리할 수 있습니다.
+또한 questionStatus 값을 통해 관리자가 질문에 답변했는지 여부를 확인할 수 있습니다.
+
+#### Get Product Question
+
+```http
+  GET / product / question?product-id=1
+```
+✔️ **Request**
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `product-id`| `@RequestParam Integer` | **Required**. 상품 아이디 |
+
+✔️ **Response**
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `question`| `String` | **Required**. 질문 |
+| `answer`| `String` | **Required**. 답변 |
+| `user_name`| `String` | **Required**. 유저 이름 |
+| `created_at`| `localdate` | **Required**. 질문 생성일자 |
+| `product_name`| `String` | **Required**. 상품 이름 |
+| `brand_name`| `String` | **Required**. 브랜드 네임 |
+| `question_id`| `Integer` | **Required**. 질문 번호 |
+| `question_status`| `String` | **Required**. 답변대기/완료 |
+
+```json
+[
+	{
+		"question" : "언제 입고되나요",
+		"answer" : null,
+		"user_name" : "jieun",
+		"created_at" : "2024-05-27",
+		"product_name" : "어노브 대용량 딥 데미지 트리트먼트",
+		"brand": "어노브",
+		"question_id" : 1,
+		"question_status" : "답변대기"
+	},
+	{
+		"question" : "언제 입고되나요",
+		"answer" : null,
+		"user_name" : "jieun",
+		"created_at" : "2024-05-27",
+		"product_name" : "어노브 대용량 딥 데미지 트리트먼트",
+		"brand": "어노브",
+		"question_id" : 1,
+		"question_status" : "답변대기"
+	}
+]
+```
+
+#### Post Product Question
+
+```http
+  POST / product / question?product-id
+```
+✔️ **Request**
+
+Token in the Header
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `product-id`| `@RequestParam Integer` | **Required**. 상품 아이디 |
+| `question`| `Stringr` | **Required**. 질문 |
+
+```json
+{
+	"question" : "언제 입고되나요?"
+}
+```
+
+#### Put Product Question
+
+```http
+  PUT / product / question?question-id=1
+```
+✔️ **Request**
+
+Token in the Header
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `question-id`| `@RequestParam Integer` | **Required**. 상품 아이디 |
+| `question`| `Stringr` | **Required**. 질문 |
+
+```json
+{
+    "question" : "배송은 언제 되나요?."
+}
+```
+
+#### Delete Product Question
+
+```http
+  DELETE / product / question?question-id=1
+```
+✔️ **Request**
+
+Token in the Header
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `question-id`| `@RequestParam Integer` | **Required**. 질문 아이디 |
+
 
 ## 실행결과 스크린샷
 
