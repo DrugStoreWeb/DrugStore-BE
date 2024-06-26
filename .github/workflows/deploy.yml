@@ -26,7 +26,27 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
 
-    # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
+    - name: Print Java version
+      run: java -version
+
+    - name: Print Gradle version
+      run: ./gradlew --version
+
+    - name: List files
+      run: ls -la
+
+    - name: Display environment variables
+      run: env
+
+    - name: Print Jasypt secret key
+      run: echo ${{ secrets.JASYPT_SECRET_KEY }}
+      env:
+          jasypt.encryptor.password: ${{ secrets.JASYPT_SECRET_KEY }}
+
+
+
+
+        # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
     # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
     
     # - name: Setup Gradle
@@ -34,7 +54,7 @@ jobs:
 
 
     - name: Build with Gradle
-      run: ./gradlew clean build
+      run: ./gradlew clean build --stacktrace
       env:
         jasypt.encryptor.password: ${{ secrets.JASYPT_SECRET_KEY }}
 
