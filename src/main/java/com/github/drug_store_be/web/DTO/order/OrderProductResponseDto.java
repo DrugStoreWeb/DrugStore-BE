@@ -14,6 +14,7 @@ public class OrderProductResponseDto {
     private String productImg;
     private String productName;
     private String brand;
+    private Integer optionId;
     private String optionName;
     private Integer price;
     private Integer finalPrice;

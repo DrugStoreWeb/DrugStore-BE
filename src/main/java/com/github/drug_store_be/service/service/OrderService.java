@@ -205,6 +205,7 @@ public class OrderService {
                             productImg,
                             c.getOptions().getProduct().getProductName(),
                             c.getOptions().getProduct().getBrand(),
+                            c.getOptions().getOptionsId(),
                             c.getOptions().getOptionsName(),
                             c.getOptions().getProduct().getPrice(),
                             c.getOptions().getProduct().getFinalPrice(),
