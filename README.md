@@ -119,7 +119,7 @@ The implementation of JASYPT safely encrypts the variables
 #### Login
 회원가입한 유저의 mail과 password 정보로 로그인 할 수 있 API입니다.
 
-```http
+```
   POST / auth / login
 ```
 
@@ -380,7 +380,7 @@ The implementation of JASYPT safely encrypts the variables
 
 #### Get My Likes
 
-```http
+```
   GET / likes
 ```
 
@@ -425,7 +425,7 @@ Token in the Header
 
 #### Post likes
 
-```http
+```
   POST / likes
 ```
 ✔️ **Request**
@@ -443,7 +443,7 @@ Token in the Header
 
 #### Delete likes
 
-```http
+```
   DELETE / likes
 ```
 ✔️ **Request**
@@ -466,7 +466,7 @@ Token in the Header
 
 #### Get Product Question
 
-```http
+```
   GET / product / question?product-id=1
 ```
 ✔️ **Request**
@@ -514,7 +514,7 @@ Token in the Header
 ```
 #### Post Product Question
 
-```http
+```
   POST / product / question?product-id
 ```
 ✔️ **Request**
@@ -534,7 +534,7 @@ Token in the Header
 
 #### Put Product Question
 
-```http
+```
   PUT / product / question?question-id=1
 ```
 ✔️ **Request**
@@ -554,7 +554,7 @@ Token in the Header
 
 #### Delete Product Question
 
-```http
+```
   DELETE / product / question?question-id=1
 ```
 ✔️ **Request**
