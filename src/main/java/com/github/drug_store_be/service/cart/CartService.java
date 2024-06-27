@@ -53,13 +53,19 @@ public class CartService {
                             .map(ProductPhoto::getPhotoUrl)
                             .orElse(null);
 
+                    List<String> allOptionsNames = optionsRepository.findAllByProductProductId(product.getProductId())
+                            .stream()
+                            .map(Options::getOptionsName)
+                            .collect(Collectors.toList());
+
                     return CartResponse.builder()
                             .cartId(cart.getCartId())
                             .productId(product.getProductId())
                             .productName(product.getProductName())
                             .brand(product.getBrand())
                             .optionsId(options.getOptionsId())
-                            .optionsName(options.getOptionsName())
+                            .optionsName(options.getOptionsName()) // 선택한 옵션명
+                            .allOptionsNames(allOptionsNames) // 모든 옵션명
                             .optionsPrice(options.getOptionsPrice())
                             .quantity(cart.getQuantity())
                             .price(product.getPrice())
@@ -70,6 +76,7 @@ public class CartService {
                 })
                 .collect(Collectors.toList());
     }
+
 
     //장바구니 추가
     public ResponseDto addCartItem(CustomUserDetails customUserDetails, List<AddCartRequest> cartRequests) {

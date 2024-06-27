@@ -15,15 +15,15 @@ import java.util.List;
 public class CartResponse {
     private Integer cartId;
     private Integer productId;
-    private String productImg;
-    private String brand;
     private String productName;
-    private String optionsName;
+    private String brand;
     private Integer optionsId;
+    private String optionsName; // 선택한 옵션명
+    private List<String> allOptionsNames; // 모든 옵션명
     private Integer optionsPrice;
     private Integer quantity;
     private Integer price;
+    private String productImg;
     private Integer productDiscount;
     private Integer finalPrice;
-    private List<String> allOptionNames;
 }
