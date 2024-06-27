@@ -55,10 +55,19 @@ The implementation of JASYPT safely encrypts the variables
 | `address` | `String` | **Required**. 주소 |
 | `profile_pic` | `String` | **Required**. 프로필 사진 |
 
+✔️ **Response**
+
+```json
+{
+    "code": 200,
+    "message": "user heyon님 회원 가입에 성공하셨습니다."
+}
+```
+
 #### Nickname Check
 
 ```
-  GET /auth/nickname
+  POST /auth/nickname
 ```
 ✔️ **Request**
 
@@ -66,16 +75,70 @@ The implementation of JASYPT safely encrypts the variables
 | :-------- | :------- | :------------------------- |
 | `nickname` | `String` | **Required**. 닉네임 중복 확인을 위한 파라미터|
 
+✔️ **Response**
+
+-성공
+
+```json
+{
+    "code": 200,
+    "message": "중복 여부 확인",
+    "data": {
+        "message": "userhyeon(는)은 사용하실 수 있는 닉네임입니다.",
+        "check": false
+    }
+}
+```
+-실패
+
+```json
+{
+    "code": 409,
+    "message": "중복 여부 확인",
+    "data": {
+        "message": "user hyeon(는)은 이미 존재하는 닉네임입니다. 다른 닉네임을 이용해주세요.",
+        "check": true
+    }
+}
+```
+
 #### Email Check
 
 ```
-  GET /auth/email
+  POST /auth/email
 ```
 ✔️ **Request**
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `email` | `String` | **Required**. 이메일 중복 확인을 위한 파라미터|
+
+✔️ **Response**
+
+-성공
+
+```json
+{
+    "code": 200,
+    "message": "중복 여부 확인",
+    "data": {
+        "message": "Lim10@naver.com(는)은 사용하실 수 있는 이메일입니다.",
+        "check": false
+    }
+}
+```
+-실패
+
+```json
+{
+    "code": 409,
+    "message": "중복 여부 확인",
+    "data": {
+        "message": "Lim100@naver.com(는)은 이미 존재하는 이메일입니다. 다른 이메일을 이용헤주세요.",
+        "check": true
+    }
+}
+```
 
 #### Find Email
 
@@ -88,6 +151,15 @@ The implementation of JASYPT safely encrypts the variables
 | :-------- | :------- | :------------------------- |
 | `nickname` | `String` | **Required**. 이메일 찾기에 필요한 정보(닉네임)|
 | `phone_num` | `String` | **Required**. 이메일 찾기 필요한 정보(전화번호)|
+
+✔️ **Response**
+
+```json
+{
+    "code": 200,
+    "message": "email : lim1007@naver.com"
+}
+```
 
 #### Reset Password
 
@@ -102,6 +174,15 @@ The implementation of JASYPT safely encrypts the variables
 | `new_password` | `String` | **Required**. 새로 설정할 비밀번호|
 | `new_password_check` | `String` | **Required**. 새로 설정할 비밀번호 체크|
 
+✔️ **Response**
+
+```json
+{
+    "code": 200,
+    "message": "변경된 비밀번호로 다시 로그인해주세요"
+}
+```
+
 ### Email API
 
 #### Send email verification code
@@ -115,6 +196,15 @@ The implementation of JASYPT safely encrypts the variables
 | :-------- | :------- | :------------------------- |
 | `email` | `String` | **Required**. 인증 번호 받을 이메일|
 
+✔️ **Response**
+
+```json
+{
+    "code": 200,
+    "message": "code : 150374"(이메일에도 따로 전송됨)
+}
+```
+
 #### Check verification code
 
 ```
@@ -126,6 +216,15 @@ The implementation of JASYPT safely encrypts the variables
 | :-------- | :------- | :------------------------- |
 | `email` | `String` | **Required**. 인증 번호 인증할 이메일|
 | `auth` | `Integer` | **Required**. 인증 번호|
+
+✔️ **Response**
+
+```json
+{
+    "code": 200,
+    "message": "인증에 성공하셨습니다."
+}
+```
 
 #### Login
 회원가입한 유저의 mail과 password 정보로 로그인 할 수 있 API입니다.
@@ -359,6 +458,68 @@ The implementation of JASYPT safely encrypts the variables
 | :-------- | :------- | :-------------------------------- |
 | `product-id`      | `@RequestParam Integer` | **Required**. 상품에 대한 id |
 
+✔️ **Response**
+
+```json
+{
+    "code": 200,
+    "message": "조회 성공",
+    "data": {
+        "product_id": 1,
+        "product_name": "레드 블레미쉬 클리어 수딩 크림",
+        "sales": 15,
+        "price": 18000,
+        "final_price": 15300,
+        "product_img": [
+            {
+                "img_id": 1,
+                "img_main": true,
+                "img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/Screenshot+2024-06-16+at+19.52.00.png"
+            },
+            {
+                "img_id": 2,
+                "img_main": false,
+                "img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/Screenshot+2024-06-16+at+19.51.51.png"
+            },
+            {
+                "img_id": 3,
+                "img_main": false,
+                "img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/Screenshot+2024-06-16+at+19.51.41.png"
+            },
+            {
+                "img_id": 4,
+                "img_main": false,
+                "img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/Screenshot+2024-06-16+at+19.51.29.png"
+            },
+            {
+                "img_id": 5,
+                "img_main": false,
+                "img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/Screenshot+2024-06-16+at+19.51.17.png"
+            }
+        ],
+        "review_count": 11,
+        "review_avg": 3.9,
+        "is_like": false,
+        "best": true,
+        "brand_name": "닥터지",
+        "product_options": [
+            {
+                "option_id": 1,
+                "option": "단품 70ml",
+                "option_price": 0,
+                "option_stock": 4
+            },
+            {
+                "option_id": 2,
+                "option": "세트 1+1 기획",
+                "option_price": 10000,
+                "option_stock": 7
+            }
+        ]
+    }
+}
+```
+
 
 #### Get product review
 
@@ -373,6 +534,106 @@ The implementation of JASYPT safely encrypts the variables
 | `productId` | `@PathVariable Integer` | **Required**. 리뷰 가져올 상품 id |
 | `criteria` | `@RequestParam String ` | **Required**. 정렬 조건(sort : 최신순, 평점 높은 순, 평점 낮은 순) |
 | `pageNum` | `@RequestParam Integer ` | **Required**. 페이지(page) |
+
+✔️ **Response**
+
+```json
+{
+    "code": 200,
+    "message": "조회성공",
+    "data": {
+        "content": [
+            {
+                "nickname": "park1234",
+                "profile_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/profile3.png",
+                "review_score": 5,
+                "review_content": "다음에 또 사려고요!!!",
+                "product_name": "레드 블레미쉬 클리어 수딩 크림",
+                "option_name": "단품 70ml",
+                "create_at": "2024-06-27"
+            },
+            {
+                "nickname": "현준",
+                "profile_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/profile4.png",
+                "review_score": 4,
+                "review_content": "좋아요좋아요",
+                "product_name": "레드 블레미쉬 클리어 수딩 크림",
+                "option_name": "세트 1+1 기획",
+                "create_at": "2024-06-25"
+            },
+            {
+                "nickname": "park1234",
+                "profile_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/profile3.png",
+                "review_score": 5,
+                "review_content": "좋아요",
+                "product_name": "레드 블레미쉬 클리어 수딩 크림",
+                "option_name": "단품 70ml",
+                "create_at": "2024-06-23"
+            },
+            {
+                "nickname": "현아2",
+                "profile_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/ff7ecedb-a45e-42d6-a419-791f89ae4029.jpg",
+                "review_score": 5,
+                "review_content": "다음에 또 사려고요",
+                "product_name": "레드 블레미쉬 클리어 수딩 크림",
+                "option_name": "단품 70ml",
+                "create_at": "2024-06-22"
+            },
+            {
+                "nickname": "현아",
+                "profile_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/5f7ca547-e82e-4787-8282-c21d20f83857.jpg",
+                "review_score": 4,
+                "review_content": "너무 잘쓰고 있어서 다음에도 사용할게요",
+                "product_name": "레드 블레미쉬 클리어 수딩 크림",
+                "option_name": "단품 70ml",
+                "create_at": "2024-06-20"
+            },
+            {
+                "nickname": "현아2",
+                "profile_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/ff7ecedb-a45e-42d6-a419-791f89ae4029.jpg",
+                "review_score": 5,
+                "review_content": "다음에 또 사려고요",
+                "product_name": "레드 블레미쉬 클리어 수딩 크림",
+                "option_name": "단품 70ml",
+                "create_at": "2024-06-20"
+            },
+            {
+                "nickname": "현아2",
+                "profile_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/ff7ecedb-a45e-42d6-a419-791f89ae4029.jpg",
+                "review_score": 1,
+                "review_content": "안녕하세요",
+                "product_name": "레드 블레미쉬 클리어 수딩 크림",
+                "option_name": "단품 70ml",
+                "create_at": "2024-06-19"
+            },
+            {
+                "nickname": "현아2",
+                "profile_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/ff7ecedb-a45e-42d6-a419-791f89ae4029.jpg",
+                "review_score": 3,
+                "review_content": "안녕하세요",
+                "product_name": "레드 블레미쉬 클리어 수딩 크림",
+                "option_name": "단품 70ml",
+                "create_at": "2024-06-19"
+            },
+            {
+                "nickname": "현아2",
+                "profile_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/ff7ecedb-a45e-42d6-a419-791f89ae4029.jpg",
+                "review_score": 5,
+                "review_content": "좋은데요",
+                "product_name": "레드 블레미쉬 클리어 수딩 크림",
+                "option_name": "단품 70ml",
+                "create_at": "2024-06-19"
+            },
+            {
+                "nickname": "현아",
+                "profile_img": "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/5f7ca547-e82e-4787-8282-c21d20f83857.jpg",
+                "review_score": 5,
+                "review_content": "캐시 테스트",
+                "product_name": "레드 블레미쉬 클리어 수딩 크림",
+                "option_name": "단품 70ml",
+                "create_at": "2024-06-19"
+            }
+```
 
 #### 문의 글 답변(관리자 전용)
 
@@ -671,8 +932,8 @@ Token in the Header
 
 -성공
 
-<img src="![토큰을 이용해 관리자 계정만 답변(성공)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/9cb921da-2f9e-44fd-a74d-90f66bbd51a6)
-" width="300" height="200" />
+![토큰을 이용해 관리자 계정만 답변(성공)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/9cb921da-2f9e-44fd-a74d-90f66bbd51a6)
+
 
 -실패
 
@@ -1018,6 +1279,76 @@ https://drugstoreproject.shop/main/find?keyword=ml&sortby=sales&page=0&size=3
 ## Authors
 
 - [@honghyeon](https://github.com/limhhyeon)
+
+
+
+## Feedback
+- API restful -> 적용
+- Jpa로 되어 있는 것들 Repository로 수정 -> 적용
+- 한 서비스에 있는 많은 내용들 메소드로 빼서 가독성 높이기 -> 적용
+- 생성자 부분들은 static 메소드 만들어서 가독성 높이기 -> 적용
+
+## Trouble Shooting
+
+### 스프링 캐싱 사용하면 ConnectException: Connection refused: no further information 발생
+
+🔴 Error
+
+캐시를 적용했음에도 연결 불가 에러 발생
+```json
+ java.net.ConnectException: Connection refused: no further information
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672) ~[na:na]
+```
+🔵 What I tried
+`value = "productReview",key = "#productId"`  진행을 하면서 해당 value와 key값이 잠시 오류가 나왔나? 싶어서 value랑 key값 바꿔보기
+
+→ 실패 동일한 오류 발생
+
+build.gradle에 라이브러리 들어가 있나 확인 
+
+→ 들어가 있었음
+`@EnableCaching` 추가했나 확인
+
+→ 추가 되어 있음
+
+🟢 Solution
+
+정답은 yaml파일도 따로 설정해줘야 했다.
+
+yaml 파일에서 캐시 설정을 정의하면 애플리케이션의 다른 설정들과 함께 일관되게 관리할 수 있기 떄문에 적용을 해줘야 했다.
+
+```json
+spring:
+  cache:
+    type: simple
+```
+
+### 서버에서 redis 설치 후 사용 시 레디스 서버와 연결 불가능하다는 에러
+
+🔴 Error
+
+로컬에서 설치 후 사용했을 떄 성공했는데 서버에서 설치하고 나서 에러
+```json
+Unable to connect to Redis
+```
+
+🔵 What I tried
+
+서버 배포 후 redis 설치하는 방법 찾아보기
+
+보안 그룹 인바운드에 redis 포트 번호 추가하기
+
+🟢 Solution
+
+방법은 bind 127.0.0.1::1로 되어 있었는데 해당 주소는 로컬에서만 사용이 가능하다라는 것을 알게되고 bind 0.0.0.0으로 수정하여 외부 ip 허용을 해주고 redis password까지 추가로 설정을 해주었더니 해결이 되었다.
+
+
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/ea7de327-73c6-4db4-9dd2-0eef0d544ccf" width="300" />
+
+
+
+
 
 
 
