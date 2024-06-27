@@ -847,97 +847,100 @@ Token in the Header
 
 #### Signup
 
-![회원가입](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/8ad9d2b1-9d8f-43cf-85f5-b8a32c0ff53a)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/8ad9d2b1-9d8f-43cf-85f5-b8a32c0ff53a" width="300" />
 
 #### Nickname Check
 
 -성공
 
-![닉네임 중복 체크(사용 가능한 닉네임)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/f3e3a273-d933-4f4e-9aa5-80dcfab7b3c1)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/f3e3a273-d933-4f4e-9aa5-80dcfab7b3c1" width="300" />
+
 
 -실패
 
-![닉네임 중복 체크(이미 있는 닉네임)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/75682b83-c784-4336-ae07-2b58bbf7f672)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/75682b83-c784-4336-ae07-2b58bbf7f672" width="300" />
 
 
 #### Email Check
 
 -성공
 
-![이메일 중복 확인(사용 가능한 이메일)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/9b6bffdb-20d2-43c6-92c1-c7072a2ecd66)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/9b6bffdb-20d2-43c6-92c1-c7072a2ecd66" width="300" />
 
 -실패
 
-![이메일 중복 확인(이미 있는 이메일)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/aac0b4e7-8d3f-47d9-8c3e-62396b514ac9)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/aac0b4e7-8d3f-47d9-8c3e-62396b514ac9" width="300" />
 
 #### Find Email
 
 -성공
 
-![이메일 찾기(성공)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/be1a8718-17d8-4bc5-a217-01c4b46b28a5)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/be1a8718-17d8-4bc5-a217-01c4b46b28a5" width="300" />
 
 -실패
 
-![이메일 찾기(실패)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/300a2311-2295-42a7-aa49-c9a21afebcf1)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/300a2311-2295-42a7-aa49-c9a21afebcf1" width="300" />
 
 #### Reset password
 
 -성공
 
-![비밀번호 변경(성공)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/990ee330-4ddd-4fca-9503-b0386bf4c6ce)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/990ee330-4ddd-4fca-9503-b0386bf4c6ce" width="300" />
 
 -실패
 
-![비밀번호 변경(실패)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/3a396581-cf50-40d1-b883-6c5610f68b2b)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/3a396581-cf50-40d1-b883-6c5610f68b2b" width="300" />
 
 ### Email API
 
-#### Send email verification code
+#### 인증 번호 전송
 
-![인증 번호 전송](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/05179984-13a0-46b4-9164-5844ff9a91db)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/05179984-13a0-46b4-9164-5844ff9a91db" width="300" />
 
 
-#### Check verification code
+#### 인증번호 체크
 
 -성공
 
-![인증 번호 확인(성공)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/5065c484-445b-4ada-8d8e-73d4d1ab7439)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/5065c484-445b-4ada-8d8e-73d4d1ab7439" width="300" />
 
 -실패
 
-![인증 번호 확인(실패)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/32d50477-8452-42c9-b522-dcf4d9bf8602)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/32d50477-8452-42c9-b522-dcf4d9bf8602" width="300" />
 
 ### Product detail API
 
 #### Get product detail
 
-![제품 상세 조회(이미지)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/6c2f108c-f73e-45b5-90fb-9cb546428a25)
-![제품 상세 조회(아래 부분)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/43f770cf-2a3a-4648-b33f-7af5e3c42481)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/6c2f108c-f73e-45b5-90fb-9cb546428a25" width="300" />
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/43f770cf-2a3a-4648-b33f-7af5e3c42481" width="300" />
+
 
 
 #### Get product review
 -상품 상세페이지 리뷰 최신순
 
-![상품 리뷰 조회( 최신 리뷰 순)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/3ce30da4-0556-4e74-bdaa-5e5ec49d1b4a)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/3ce30da4-0556-4e74-bdaa-5e5ec49d1b4a" width="300" />
 
 -상품 상세페이지 리뷰 평점 높은 순
 
-![상품 리뷰 조회(리뷰 평점 높은 순)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/d1ca9b6f-3a2d-4b3b-8c54-14673b06c2b3)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/d1ca9b6f-3a2d-4b3b-8c54-14673b06c2b3" width="300" />
 
 -상품 상세페이지 리뷰 평점 낮은 순
 
-![상품 리뷰 조회(리뷰 평점 낮은 순)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/9ed7712b-c286-438a-8fd4-3f2f61542117)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/9ed7712b-c286-438a-8fd4-3f2f61542117" width="300" />
+
 
 #### Response to inquiry
 
 -성공
 
-![토큰을 이용해 관리자 계정만 답변(성공)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/9cb921da-2f9e-44fd-a74d-90f66bbd51a6)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/9cb921da-2f9e-44fd-a74d-90f66bbd51a6" width="300" />
 
 
 -실패
 
-![토큰을 이용해 관리자 계정만 답변(일반 유저는 실패)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/c1266708-0b4e-4ac7-b19c-dfaf82133925)
+<img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/c1266708-0b4e-4ac7-b19c-dfaf82133925" width="300" />
 
 ## main page API
 
