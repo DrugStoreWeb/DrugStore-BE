@@ -145,20 +145,29 @@ public class CartService {
                 .orElseThrow(() -> new NotFoundException("Cart item not found"));
 
         Integer optionId = cartRequest.getOptionsId();
+        Options options = null;
         if (optionId != null) {
-            Options options = optionsRepository.findById(optionId)
+            options = optionsRepository.findById(optionId)
                     .orElseThrow(() -> new NotFoundException("Options not found"));
 
             cart.setOptions(options);
+        } else {
+            options = cart.getOptions();
+        }
+
+        // 옵션명이 요청에 포함되어 있다면 업데이트
+        String optionsName = cartRequest.getOptionsName();
+        if (optionsName != null && !optionsName.isEmpty()) {
+            options.setOptionsName(optionsName);
+            optionsRepository.save(options);
         }
 
         Integer quantity = cartRequest.getQuantity();
-        if (quantity <= 0) {
+        if (quantity != null && quantity <= 0) {
             throw new IllegalArgumentException("Quantity must be positive");
         }
 
-        Options currentOptions = cart.getOptions();
-        if (currentOptions.getStock() < quantity) {
+        if (options.getStock() < quantity) {
             throw new IllegalArgumentException("No stock available for the selected quantity");
         }
 

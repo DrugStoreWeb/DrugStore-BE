@@ -16,4 +16,5 @@ public class UpdateCartRequest {
     private Integer cartId;
     private Integer optionsId;
     private Integer quantity;
+    private String optionsName;
 }
