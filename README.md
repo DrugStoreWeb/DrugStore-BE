@@ -1343,7 +1343,6 @@ Unable to connect to Redis
 
 방법은 bind 127.0.0.1::1로 되어 있었는데 해당 주소는 로컬에서만 사용이 가능하다라는 것을 알게되고 bind 0.0.0.0으로 수정하여 외부 ip 허용을 해주고 redis password까지 추가로 설정을 해주었더니 해결이 되었다.
 
-![Untitled](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/ea7de327-73c6-4db4-9dd2-0eef0d544ccf)
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/ea7de327-73c6-4db4-9dd2-0eef0d544ccf" width="300" />
 
