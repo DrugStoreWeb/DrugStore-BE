@@ -5,6 +5,10 @@ This project clones a drugstore shop webpage using JAVA 17 and springboot. Runs 
 
 The redis server and gmail SMTP is implemented for email verification, and nginx for HTTPS. For security, Jasypt is implemented to encrypt all the environment variables. 
 
+저희 프로젝트는 JAVA 17과 Spring Boot을 사용하여 약국 웹페이지를 만들었습니다. 이 프로젝트는 AWS EC2에서 우분투 운영 체제로 실행되며, RDS에서 MariaDB를 사용합니다. 이미지는 AWS의 S3 서버를 통해서 업로드합니다.
+
+이메일 인증을 위해 Redis 서버와 Gmail SMTP가 구현되어 있으며, HTTPS를 위해 nginx를 사용하였고, 보안을 위해 Jasypt를 사용하여 모든 환경 변수를 암호화하였습니다.
+
 
 ## Environment Variables
 
@@ -37,6 +41,7 @@ The implementation of JASYPT safely encrypts the variables
 ```
   POST /auth/sign-up
 ```
+✔️ **Request**
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -55,6 +60,7 @@ The implementation of JASYPT safely encrypts the variables
 ```
   GET /auth/nickname
 ```
+✔️ **Request**
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -65,6 +71,7 @@ The implementation of JASYPT safely encrypts the variables
 ```
   GET /auth/email
 ```
+✔️ **Request**
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -75,6 +82,7 @@ The implementation of JASYPT safely encrypts the variables
 ```
   POST /auth/find-email
 ```
+✔️ **Request**
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -86,6 +94,7 @@ The implementation of JASYPT safely encrypts the variables
 ```
   PUT /auth/password
 ```
+✔️ **Request**
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -100,6 +109,7 @@ The implementation of JASYPT safely encrypts the variables
 ```
   POST /email/send
 ```
+✔️ **Request**
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -110,6 +120,7 @@ The implementation of JASYPT safely encrypts the variables
 ```
   POST /email/auth-num
 ```
+✔️ **Request**
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -342,6 +353,7 @@ The implementation of JASYPT safely encrypts the variables
 ```
   GET /product?product-id=1
 ```
+✔️ **Request**
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
@@ -354,6 +366,7 @@ The implementation of JASYPT safely encrypts the variables
   GET /product/review/{productId}?sort=reviewScoreAsc&page=0
 
 ```
+✔️ **Request**
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -361,12 +374,13 @@ The implementation of JASYPT safely encrypts the variables
 | `criteria` | `@RequestParam String ` | **Required**. 정렬 조건(sort : 최신순, 평점 높은 순, 평점 낮은 순) |
 | `pageNum` | `@RequestParam Integer ` | **Required**. 페이지(page) |
 
-#### Response to inquiry
+#### 문의 글 답변(관리자 전용)
 
 ```
   POST /product/answer?question-id=3
 
 ```
+✔️ **Request**
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -571,72 +585,97 @@ Token in the Header
 ### Auth API
 
 #### Signup
+
 ![회원가입](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/8ad9d2b1-9d8f-43cf-85f5-b8a32c0ff53a)
 
 #### Nickname Check
+
 -성공
+
 ![닉네임 중복 체크(사용 가능한 닉네임)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/f3e3a273-d933-4f4e-9aa5-80dcfab7b3c1)
 
 -실패
+
 ![닉네임 중복 체크(이미 있는 닉네임)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/75682b83-c784-4336-ae07-2b58bbf7f672)
 
 
 #### Email Check
+
 -성공
+
 ![이메일 중복 확인(사용 가능한 이메일)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/9b6bffdb-20d2-43c6-92c1-c7072a2ecd66)
 
 -실패
+
 ![이메일 중복 확인(이미 있는 이메일)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/aac0b4e7-8d3f-47d9-8c3e-62396b514ac9)
 
 #### Find Email
+
 -성공
+
 ![이메일 찾기(성공)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/be1a8718-17d8-4bc5-a217-01c4b46b28a5)
 
 -실패
+
 ![이메일 찾기(실패)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/300a2311-2295-42a7-aa49-c9a21afebcf1)
 
 #### Reset password
+
 -성공
+
 ![비밀번호 변경(성공)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/990ee330-4ddd-4fca-9503-b0386bf4c6ce)
 
 -실패
+
 ![비밀번호 변경(실패)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/3a396581-cf50-40d1-b883-6c5610f68b2b)
 
 ### Email API
 
 #### Send email verification code
+
 ![인증 번호 전송](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/05179984-13a0-46b4-9164-5844ff9a91db)
 
 
 #### Check verification code
+
 -성공
+
 ![인증 번호 확인(성공)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/5065c484-445b-4ada-8d8e-73d4d1ab7439)
 
 -실패
+
 ![인증 번호 확인(실패)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/32d50477-8452-42c9-b522-dcf4d9bf8602)
 
 ### Product detail API
 
 #### Get product detail
+
 ![제품 상세 조회(이미지)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/6c2f108c-f73e-45b5-90fb-9cb546428a25)
 ![제품 상세 조회(아래 부분)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/43f770cf-2a3a-4648-b33f-7af5e3c42481)
 
 
 #### Get product review
 -상품 상세페이지 리뷰 최신순
+
 ![상품 리뷰 조회( 최신 리뷰 순)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/3ce30da4-0556-4e74-bdaa-5e5ec49d1b4a)
 
 -상품 상세페이지 리뷰 평점 높은 순
+
 ![상품 리뷰 조회(리뷰 평점 높은 순)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/d1ca9b6f-3a2d-4b3b-8c54-14673b06c2b3)
 
 -상품 상세페이지 리뷰 평점 낮은 순
+
 ![상품 리뷰 조회(리뷰 평점 낮은 순)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/9ed7712b-c286-438a-8fd4-3f2f61542117)
 
 #### Response to inquiry
+
 -성공
-![토큰을 이용해 관리자 계정만 답변(성공)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/9cb921da-2f9e-44fd-a74d-90f66bbd51a6)
+
+<img src="![토큰을 이용해 관리자 계정만 답변(성공)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/9cb921da-2f9e-44fd-a74d-90f66bbd51a6)
+" width="300" height="200" />
 
 -실패
+
 ![토큰을 이용해 관리자 계정만 답변(일반 유저는 실패)](https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/c1266708-0b4e-4ac7-b19c-dfaf82133925)
 
 ## main page API
