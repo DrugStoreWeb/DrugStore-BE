@@ -10,8 +10,8 @@ The redis server and gmail SMTP is implemented for email verification, and nginx
 이메일 인증을 위해 Redis 서버와 Gmail SMTP가 구현되어 있으며, HTTPS를 위해 nginx를 사용하였고, 보안을 위해 Jasypt를 사용하여 모든 환경 변수를 암호화하였습니다.
 
 
-
 ## Video
+//추후에 추가할 예정
 
 ## Environment Variables
 
