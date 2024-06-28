@@ -10,6 +10,9 @@ The redis server and gmail SMTP is implemented for email verification, and nginx
 이메일 인증을 위해 Redis 서버와 Gmail SMTP가 구현되어 있으며, HTTPS를 위해 nginx를 사용하였고, 보안을 위해 Jasypt를 사용하여 모든 환경 변수를 암호화하였습니다.
 
 
+
+## Video
+
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .yaml file
@@ -1068,7 +1071,7 @@ GET /main/category/{category_number}
 | 11 | 향수 |
 | 12 | 네일 |
 
-✅ Request
+✔️ Request
 
 | Name | Type | Requried | description          |
 | --- | --- | --- |----------------------|
@@ -1078,7 +1081,7 @@ GET /main/category/{category_number}
 | size | Integer | false | 페이지 당 데이터 개수 (default=24) |
 | token |  | false | user의 likes가 true로 표시됨 |
 
-✅ Response
+✔️ Response
 
 | Name | Backend Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1092,13 +1095,13 @@ GET /main/category/{category_number}
 | sales | boolean | * | 세일중인가 여부 |
 | best | boolean | * | 베스트 상품인가 여부 |
 
-요청 예시
+✔️ 요청 예시
 
 ```
 https://drugstoreproject.shop/main/category/8?sortby=likes&page=0&size=3
 ```
 
-응답 예시
+✔️ 응답 예시
 
 ```json
 {
@@ -1176,7 +1179,7 @@ GET /main/find/keyword={keyword}
 
 ```
 
-✅ Request
+✔️ Request
 
 | Name | Type | Requried | description          |
 | --- | --- | --- |----------------------|
@@ -1186,7 +1189,7 @@ GET /main/find/keyword={keyword}
 | size | Integer | false | 페이지 당 데이터 개수 (default=24) |
 | token |  | false | user의 likes가 true로 표시됨 |
 
-✅ Response
+✔️ Response
 
 | Name | Backend Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1200,13 +1203,13 @@ GET /main/find/keyword={keyword}
 | sales | boolean | * | 세일중인가 여부 |
 | best | boolean | * | 베스트 상품인가 여부 |
 
-요청 예시
+✔️ 요청 예시
 
 ```
 https://drugstoreproject.shop/main/find?keyword=ml&sortby=sales&page=0&size=3
 ```
 
-응답 예시
+✔️ 응답 예시
 
 ```json
 {
@@ -1282,8 +1285,7 @@ https://drugstoreproject.shop/main/find?keyword=ml&sortby=sales&page=0&size=3
 ## Authors
 
 - [@honghyeon](https://github.com/limhhyeon)
-
-
+- [@soheeparklee](https://github.com/soheeparklee)
 
 ## Feedback
 - API restful -> 적용
