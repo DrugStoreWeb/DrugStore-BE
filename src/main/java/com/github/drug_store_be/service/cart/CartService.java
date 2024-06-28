@@ -150,6 +150,12 @@ public class CartService {
             options = optionsRepository.findById(optionId)
                     .orElseThrow(() -> new NotFoundException("Options not found"));
 
+            // 옵션 이름이 요청과 일치하는지 검증
+            String requestedOptionsName = cartRequest.getOptionsName();
+            if (!options.getOptionsName().equals(requestedOptionsName)) {
+                throw new IllegalArgumentException("Options name does not match the given options ID");
+            }
+
             // 동일한 productId와 optionsId를 가진 다른 항목이 있는지 확인
             Optional<Cart> existingCart = cartRepository.findByUserAndOptions(user, options);
             if (existingCart.isPresent() && !existingCart.get().getCartId().equals(cartId)) {
