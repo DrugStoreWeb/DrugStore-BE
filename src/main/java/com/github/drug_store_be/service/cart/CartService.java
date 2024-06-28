@@ -150,17 +150,44 @@ public class CartService {
             options = optionsRepository.findById(optionId)
                     .orElseThrow(() -> new NotFoundException("Options not found"));
 
+            // 동일한 productId와 optionsId를 가진 다른 항목이 있는지 확인
+            Optional<Cart> existingCart = cartRepository.findByUserAndOptions(user, options);
+            if (existingCart.isPresent() && !existingCart.get().getCartId().equals(cartId)) {
+                // 이미 존재하는 항목이 있으면 수량을 업데이트하고 현재 항목을 삭제
+                Cart existingCartItem = existingCart.get();
+                Integer totalQuantity = existingCartItem.getQuantity() + cartRequest.getQuantity();
+                if (totalQuantity > options.getStock()) {
+                    throw new IllegalArgumentException("No stock available for the selected option: " + options.getOptionsId());
+                }
+                existingCartItem.setQuantity(totalQuantity);
+                cartRepository.save(existingCartItem);
+                cartRepository.delete(cart);
+                return new ResponseDto(HttpStatus.OK.value(), "Cart item updated successfully");
+            }
+
             cart.setOptions(options);
         } else {
             options = cart.getOptions();
         }
 
-        // 옵션명이 요청에 포함되어 있다면 업데이트
+        // 옵션명이 요청에 포함되어 있는지 확인 (필수 필드)
         String optionsName = cartRequest.getOptionsName();
-        if (optionsName != null && !optionsName.isEmpty()) {
-            options.setOptionsName(optionsName);
-            optionsRepository.save(options);
+        if (optionsName == null || optionsName.isEmpty()) {
+            throw new IllegalArgumentException("Options name must be provided");
         }
+
+        // 옵션명이 해당 제품의 옵션명 리스트에 포함되어 있는지 확인
+        List<String> validOptionNames = optionsRepository.findAllByProductProductId(options.getProduct().getProductId())
+                .stream()
+                .map(Options::getOptionsName)
+                .collect(Collectors.toList());
+        if (!validOptionNames.contains(optionsName)) {
+            throw new IllegalArgumentException("Invalid options name for the given product");
+        }
+
+        // 옵션명이 요청에 포함되어 있다면 업데이트
+        options.setOptionsName(optionsName);
+        optionsRepository.save(options);
 
         Integer quantity = cartRequest.getQuantity();
         if (quantity != null && quantity <= 0) {
@@ -169,6 +196,11 @@ public class CartService {
 
         if (options.getStock() < quantity) {
             throw new IllegalArgumentException("No stock available for the selected quantity");
+        }
+
+        // 기존 장바구니 항목이 없으면 예외 발생
+        if (options == null) {
+            throw new NotFoundException("No existing cart item found for the given options");
         }
 
         cart.setQuantity(quantity);
