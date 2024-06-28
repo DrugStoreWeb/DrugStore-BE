@@ -185,6 +185,12 @@ public class CartService {
             throw new IllegalArgumentException("Invalid options name for the given product");
         }
 
+        // 기존 allOptionsNames 값을 저장
+        List<String> originalAllOptionsNames = optionsRepository.findAllByProductProductId(options.getProduct().getProductId())
+                .stream()
+                .map(Options::getOptionsName)
+                .collect(Collectors.toList());
+
         // 옵션명이 요청에 포함되어 있다면 업데이트
         options.setOptionsName(optionsName);
         optionsRepository.save(options);
@@ -206,7 +212,8 @@ public class CartService {
         cart.setQuantity(quantity);
         cartRepository.save(cart);
 
-        return new ResponseDto(HttpStatus.OK.value(), "Cart item updated successfully");
+        // allOptionsNames 반환 (수정 전 값을 사용)
+        return new ResponseDto(HttpStatus.OK.value(), "Cart item updated successfully", originalAllOptionsNames);
     }
 
     // 특정 제품의 모든 옵션명 조회
