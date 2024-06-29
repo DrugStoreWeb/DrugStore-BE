@@ -201,7 +201,7 @@ The implementation of JASYPT safely encrypts the variables
 
 ✔️ **Response**
 
-```json
+```
 {
     "code": 200,
     "message": "code : 150374" 이메일에도 따로 전송됨
@@ -1300,7 +1300,7 @@ https://drugstoreproject.shop/main/find?keyword=ml&sortby=sales&page=0&size=3
 🔴 Error
 
 캐시를 적용했음에도 연결 불가 에러 발생
-```json
+```
  java.net.ConnectException: Connection refused: no further information
 	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
 	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672) ~[na:na]
