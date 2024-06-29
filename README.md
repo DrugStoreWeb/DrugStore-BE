@@ -80,7 +80,7 @@ The implementation of JASYPT safely encrypts the variables
 
 ✔️ **Response**
 
--성공
+***성공***
 
 ```json
 {
@@ -92,7 +92,7 @@ The implementation of JASYPT safely encrypts the variables
     }
 }
 ```
--실패
+***실패***
 
 ```json
 {
@@ -118,7 +118,7 @@ The implementation of JASYPT safely encrypts the variables
 
 ✔️ **Response**
 
--성공
+***성공***
 
 ```json
 {
@@ -130,7 +130,7 @@ The implementation of JASYPT safely encrypts the variables
     }
 }
 ```
--실패
+***실패***
 
 ```json
 {
@@ -854,43 +854,43 @@ Token in the Header
 
 #### Nickname Check
 
--성공
+***성공***
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/f3e3a273-d933-4f4e-9aa5-80dcfab7b3c1" width="300" />
 
 
--실패
+***실패***
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/75682b83-c784-4336-ae07-2b58bbf7f672" width="300" />
 
 
 #### Email Check
 
--성공
+***성공***
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/9b6bffdb-20d2-43c6-92c1-c7072a2ecd66" width="300" />
 
--실패
+***실패***
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/aac0b4e7-8d3f-47d9-8c3e-62396b514ac9" width="300" />
 
 #### Find Email
 
--성공
+***성공***
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/be1a8718-17d8-4bc5-a217-01c4b46b28a5" width="300" />
 
--실패
+***실패***
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/300a2311-2295-42a7-aa49-c9a21afebcf1" width="300" />
 
 #### Reset password
 
--성공
+***성공***
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/990ee330-4ddd-4fca-9503-b0386bf4c6ce" width="300" />
 
--실패
+***실패***
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/3a396581-cf50-40d1-b883-6c5610f68b2b" width="300" />
 
@@ -903,11 +903,11 @@ Token in the Header
 
 #### 인증번호 체크
 
--성공
+***성공***
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/5065c484-445b-4ada-8d8e-73d4d1ab7439" width="300" />
 
--실패
+***실패***
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/32d50477-8452-42c9-b522-dcf4d9bf8602" width="300" />
 
@@ -921,27 +921,27 @@ Token in the Header
 
 
 #### Get product review
--상품 상세페이지 리뷰 최신순
+***상품 상세페이지 리뷰 최신순***
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/3ce30da4-0556-4e74-bdaa-5e5ec49d1b4a" width="300" />
 
--상품 상세페이지 리뷰 평점 높은 순
+***상품 상세페이지 리뷰 평점 높은 순***
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/d1ca9b6f-3a2d-4b3b-8c54-14673b06c2b3" width="300" />
 
--상품 상세페이지 리뷰 평점 낮은 순
+***상품 상세페이지 리뷰 평점 낮은 순***
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/9ed7712b-c286-438a-8fd4-3f2f61542117" width="300" />
 
 
 #### Response to inquiry
 
--성공
+***성공***
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/9cb921da-2f9e-44fd-a74d-90f66bbd51a6" width="300" />
 
 
--실패
+***실패***
 
 <img src="https://github.com/DrugStoreWeb/DrugStore-BE/assets/156086602/c1266708-0b4e-4ac7-b19c-dfaf82133925" width="300" />
 
@@ -1288,10 +1288,10 @@ https://drugstoreproject.shop/main/find?keyword=ml&sortby=sales&page=0&size=3
 - [@soheeparklee](https://github.com/soheeparklee)
 
 ## Feedback
-- API restful -> 적용
-- Jpa로 되어 있는 것들 Repository로 수정 -> 적용
-- 한 서비스에 있는 많은 내용들 메소드로 빼서 가독성 높이기 -> 적용
-- 생성자 부분들은 static 메소드 만들어서 가독성 높이기 -> 적용
+✔️ API url restful
+✔️ interface name Jpa -> Repository
+✔️ service 안에 내용들은 다른 개발자도 보기 쉽게 메소드로 따로 빼서 가독성 높이기
+✔️ class에서 생성자 static 메소드 만들어 service 부담 줄이기, 가독성 높이기
 
 ## Trouble Shooting
 
