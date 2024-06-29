@@ -1289,8 +1289,11 @@ https://drugstoreproject.shop/main/find?keyword=ml&sortby=sales&page=0&size=3
 
 ## Feedback
 ✔️ API url restful
+
 ✔️ interface name Jpa -> Repository
+
 ✔️ service 안에 내용들은 다른 개발자도 보기 쉽게 메소드로 따로 빼서 가독성 높이기
+
 ✔️ class에서 생성자 static 메소드 만들어 service 부담 줄이기, 가독성 높이기
 
 ## Trouble Shooting
