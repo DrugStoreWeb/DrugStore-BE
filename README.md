@@ -204,7 +204,7 @@ The implementation of JASYPT safely encrypts the variables
 ```json
 {
     "code": 200,
-    "message": "code : 150374"(이메일에도 따로 전송됨)
+    "message": "code : 150374" (이메일에도 따로 전송됨)
 }
 ```
 
@@ -1324,9 +1324,11 @@ build.gradle에 라이브러리 들어가 있나 확인
 yaml 파일에서 캐시 설정을 정의하면 애플리케이션의 다른 설정들과 함께 일관되게 관리할 수 있기 떄문에 적용을 해줘야 했다.
 
 ```json
+
 spring:
   cache:
     type: simple
+
 ```
 
 ### 서버에서 redis 설치 후 사용 시 레디스 서버와 연결 불가능하다는 에러
@@ -1335,7 +1337,9 @@ spring:
 
 로컬에서 설치 후 사용했을 떄 성공했는데 서버에서 설치하고 나서 에러
 ```json
+
 Unable to connect to Redis
+
 ```
 
 🔵 What I tried
