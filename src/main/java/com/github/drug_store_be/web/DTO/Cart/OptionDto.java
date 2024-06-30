@@ -13,4 +13,5 @@ import lombok.*;
 public class OptionDto {
     private Integer optionsId;
     private String optionsName;
+    private Integer optionsPrice;
 }

@@ -56,7 +56,7 @@ public class CartService {
 
                     List<OptionDto> allOptions = optionsRepository.findAllByProductProductId(product.getProductId())
                             .stream()
-                            .map(opt -> new OptionDto(opt.getOptionsId(), opt.getOptionsName()))
+                            .map(opt -> new OptionDto(opt.getOptionsId(), opt.getOptionsName(), opt.getOptionsPrice()))
                             .collect(Collectors.toList());
 
                     return CartResponse.builder()
@@ -183,13 +183,14 @@ public class CartService {
                 .stream()
                 .map(Options::getOptionsName)
                 .collect(Collectors.toList());
+
         if (!validOptionNames.contains(optionsName)) {
             throw new IllegalArgumentException("Invalid options name for the given product");
         }
 
         List<OptionDto> originalAllOptions = optionsRepository.findAllByProductProductId(options.getProduct().getProductId())
                 .stream()
-                .map(opt -> new OptionDto(opt.getOptionsId(), opt.getOptionsName()))
+                .map(opt -> new OptionDto(opt.getOptionsId(), opt.getOptionsName(), opt.getOptionsPrice()))
                 .collect(Collectors.toList());
 
         options.setOptionsName(optionsName);
