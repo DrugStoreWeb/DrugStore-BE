@@ -222,14 +222,6 @@ public class CartService {
         return new ResponseDto(HttpStatus.OK.value(), "Cart item updated successfully", originalAllOptionsNames);
     }
 
-    // 특정 제품의 모든 옵션명 조회
-    public List<String> getAllOptionNamesByProductId(Integer productId) {
-        return optionsRepository.findAllByProductProductId(productId)
-                .stream()
-                .map(Options::getOptionsName)
-                .collect(Collectors.toList());
-    }
-
     //장바구니 삭제
     public ResponseDto removeCartItem(CustomUserDetails customUserDetails, Integer cartId) {
         Integer userId = customUserDetails.getUserId();
