@@ -11367,3 +11367,428 @@ java.lang.ClassNotFoundException: javax.xml.bind.DatatypeConverter
 2024-06-26 23:20:03.558 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-06-26 23:20:03.559 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - HikariPool-1 - Shutdown initiated...
 2024-06-26 23:20:04.450 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - HikariPool-1 - Shutdown completed.
+2024-06-30 22:27:00.356 [background-preinit] [34mINFO [0;39m [36mo.h.validator.internal.util.Version[0;39m - HV000001: Hibernate Validator 8.0.1.Final
+2024-06-30 22:27:00.381 [main] [34mINFO [0;39m [36mc.g.d.DrugStoreBeApplication[0;39m - Starting DrugStoreBeApplication using Java 17.0.9 with PID 77870 (/Users/sohmac/Desktop/sc_portfolio/sc_java/drug_store_be/build/classes/java/main started by sohmac in /Users/sohmac/Desktop/sc_portfolio/sc_java/drug_store_be)
+2024-06-30 22:27:00.382 [main] [34mINFO [0;39m [36mc.g.d.DrugStoreBeApplication[0;39m - The following 1 profile is active: "prod"
+2024-06-30 22:27:00.827 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-06-30 22:27:00.828 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-06-30 22:27:00.900 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Finished Spring Data repository scanning in 69 ms. Found 14 JPA repository interfaces.
+2024-06-30 22:27:00.907 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-06-30 22:27:00.907 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-06-30 22:27:00.916 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.cart.CartRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:27:00.916 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.category.CategoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:27:00.916 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.coupon.CouponRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:27:00.916 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.like.LikesRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:27:00.916 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.option.OptionsRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:27:00.916 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.order.OrdersRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:27:00.916 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.product.ProductRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:27:00.917 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.productPhoto.ProductPhotoRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:27:00.917 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.questionAnswer.QuestionAnswerRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:27:00.917 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.review.ReviewRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:27:00.917 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.role.RoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:27:00.917 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.user.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:27:00.917 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.userCoupon.UserCouponRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:27:00.917 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.userRole.UserRoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:27:00.917 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2024-06-30 22:27:01.035 [main] [34mINFO [0;39m [36mc.u.j.c.EnableEncryptablePropertiesBeanFactoryPostProcessor[0;39m - Post-processing PropertySource instances
+2024-06-30 22:27:01.036 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2024-06-30 22:27:01.037 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2024-06-30 22:27:01.037 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Skipping PropertySource servletContextInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2024-06-30 22:27:01.037 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2024-06-30 22:27:01.037 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2024-06-30 22:27:01.037 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2024-06-30 22:27:01.037 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource Config resource 'class path resource [application-prod.yaml]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2024-06-30 22:27:01.037 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource Config resource 'class path resource [application.yaml]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2024-06-30 22:27:01.131 [main] [34mINFO [0;39m [36mc.u.j.f.DefaultLazyPropertyFilter[0;39m - Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2024-06-30 22:27:01.135 [main] [34mINFO [0;39m [36mc.u.j.r.DefaultLazyPropertyResolver[0;39m - Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2024-06-30 22:27:01.136 [main] [34mINFO [0;39m [36mc.u.j.d.DefaultLazyPropertyDetector[0;39m - Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+2024-06-30 22:27:01.189 [main] [34mINFO [0;39m [36mo.s.b.w.e.tomcat.TomcatWebServer[0;39m - Tomcat initialized with port 8080 (http)
+2024-06-30 22:27:01.193 [main] [34mINFO [0;39m [36mo.a.coyote.http11.Http11NioProtocol[0;39m - Initializing ProtocolHandler ["http-nio-8080"]
+2024-06-30 22:27:01.193 [main] [34mINFO [0;39m [36mo.a.catalina.core.StandardService[0;39m - Starting service [Tomcat]
+2024-06-30 22:27:01.193 [main] [34mINFO [0;39m [36mo.a.catalina.core.StandardEngine[0;39m - Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-06-30 22:27:01.214 [main] [34mINFO [0;39m [36mo.a.c.c.C.[Tomcat].[localhost].[/][0;39m - Initializing Spring embedded WebApplicationContext
+2024-06-30 22:27:01.214 [main] [34mINFO [0;39m [36mo.s.b.w.s.c.ServletWebServerApplicationContext[0;39m - Root WebApplicationContext: initialization completed in 809 ms
+2024-06-30 22:27:01.245 [main] [34mINFO [0;39m [36mc.u.j.encryptor.DefaultLazyEncryptor[0;39m - Found Custom Encryptor Bean org.jasypt.encryption.pbe.PooledPBEStringEncryptor@1bb96449 with name: jasyptStringEncryptor
+2024-06-30 22:27:01.292 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - HikariPool-1 - Starting...
+2024-06-30 22:27:02.771 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Added connection org.mariadb.jdbc.Connection@2a667f44
+2024-06-30 22:27:02.772 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - HikariPool-1 - Start completed.
+2024-06-30 22:27:02.792 [main] [34mINFO [0;39m [36mo.h.jpa.internal.util.LogHelper[0;39m - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-06-30 22:27:02.836 [main] [34mINFO [0;39m [36morg.hibernate.Version[0;39m - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-06-30 22:27:02.849 [main] [34mINFO [0;39m [36mo.h.c.i.RegionFactoryInitiator[0;39m - HHH000026: Second-level cache disabled
+2024-06-30 22:27:02.928 [main] [34mINFO [0;39m [36mo.s.o.j.p.SpringPersistenceUnitInfo[0;39m - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-06-30 22:27:03.203 [main] [31mWARN [0;39m [36morg.hibernate.orm.deprecation[0;39m - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-06-30 22:27:03.958 [main] [34mINFO [0;39m [36mo.h.e.t.j.p.i.JtaPlatformInitiator[0;39m - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-06-30 22:27:03.960 [main] [34mINFO [0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-06-30 22:27:04.064 [main] [34mINFO [0;39m [36mo.s.d.j.r.query.QueryEnhancerFactory[0;39m - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-06-30 22:27:04.981 [main] [31mWARN [0;39m [36mo.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration[0;39m - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-06-30 22:27:05.104 [main] [34mINFO [0;39m [36mo.s.s.web.DefaultSecurityFilterChain[0;39m - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4d6c0824, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3cc16e8c, org.springframework.security.web.context.SecurityContextHolderFilter@12b0b36, org.springframework.security.web.header.HeaderWriterFilter@54c04642, org.springframework.web.filter.CorsFilter@1aee6152, org.springframework.security.web.authentication.logout.LogoutFilter@3bd35bd0, com.github.drug_store_be.web.filter.JwtAuthenticationFilter@37c09e8a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@712d42ed, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@30f2e0e0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1a408d7e, org.springframework.security.web.session.SessionManagementFilter@492171aa, org.springframework.security.web.access.ExceptionTranslationFilter@2ca50b7a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2fcd3128]
+2024-06-30 22:27:05.287 [main] [34mINFO [0;39m [36mo.a.coyote.http11.Http11NioProtocol[0;39m - Starting ProtocolHandler ["http-nio-8080"]
+2024-06-30 22:27:05.295 [main] [34mINFO [0;39m [36mo.s.b.w.e.tomcat.TomcatWebServer[0;39m - Tomcat started on port 8080 (http) with context path ''
+2024-06-30 22:27:05.296 [main] [34mINFO [0;39m [36mc.u.j.c.RefreshScopeRefreshedEventListener[0;39m - Refreshing cached encryptable property sources on ServletWebServerInitializedEvent
+2024-06-30 22:27:05.296 [main] [34mINFO [0;39m [36mc.u.j.c.CachingDelegateEncryptablePropertySource[0;39m - Property Source systemProperties refreshed
+2024-06-30 22:27:05.296 [main] [34mINFO [0;39m [36mc.u.j.c.CachingDelegateEncryptablePropertySource[0;39m - Property Source systemEnvironment refreshed
+2024-06-30 22:27:05.296 [main] [34mINFO [0;39m [36mc.u.j.c.CachingDelegateEncryptablePropertySource[0;39m - Property Source random refreshed
+2024-06-30 22:27:05.296 [main] [34mINFO [0;39m [36mc.u.j.c.CachingDelegateEncryptablePropertySource[0;39m - Property Source Config resource 'class path resource [application-prod.yaml]' via location 'optional:classpath:/' refreshed
+2024-06-30 22:27:05.296 [main] [34mINFO [0;39m [36mc.u.j.c.CachingDelegateEncryptablePropertySource[0;39m - Property Source Config resource 'class path resource [application.yaml]' via location 'optional:classpath:/' refreshed
+2024-06-30 22:27:05.296 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2024-06-30 22:27:05.296 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2024-06-30 22:27:05.296 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource servletContextInitParams [org.springframework.web.context.support.ServletContextPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2024-06-30 22:27:05.302 [main] [34mINFO [0;39m [36mc.g.d.DrugStoreBeApplication[0;39m - Started DrugStoreBeApplication in 5.22 seconds (process running for 5.51)
+2024-06-30 22:33:23.793 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-06-30 22:33:23.796 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - HikariPool-1 - Shutdown initiated...
+2024-06-30 22:33:23.799 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - HikariPool-1 - Shutdown completed.
+2024-06-30 22:33:26.484 [background-preinit] [34mINFO [0;39m [36mo.h.validator.internal.util.Version[0;39m - HV000001: Hibernate Validator 8.0.1.Final
+2024-06-30 22:33:26.501 [main] [34mINFO [0;39m [36mc.g.d.DrugStoreBeApplication[0;39m - Starting DrugStoreBeApplication using Java 17.0.9 with PID 78051 (/Users/sohmac/Desktop/sc_portfolio/sc_java/drug_store_be/build/classes/java/main started by sohmac in /Users/sohmac/Desktop/sc_portfolio/sc_java/drug_store_be)
+2024-06-30 22:33:26.502 [main] [34mINFO [0;39m [36mc.g.d.DrugStoreBeApplication[0;39m - The following 1 profile is active: "prod"
+2024-06-30 22:33:26.932 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-06-30 22:33:26.933 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-06-30 22:33:27.009 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Finished Spring Data repository scanning in 73 ms. Found 14 JPA repository interfaces.
+2024-06-30 22:33:27.018 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-06-30 22:33:27.019 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-06-30 22:33:27.026 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.cart.CartRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:33:27.026 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.category.CategoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:33:27.027 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.coupon.CouponRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:33:27.027 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.like.LikesRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:33:27.027 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.option.OptionsRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:33:27.027 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.order.OrdersRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:33:27.027 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.product.ProductRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:33:27.027 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.productPhoto.ProductPhotoRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:33:27.027 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.questionAnswer.QuestionAnswerRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:33:27.027 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.review.ReviewRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:33:27.027 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.role.RoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:33:27.027 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.user.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:33:27.027 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.userCoupon.UserCouponRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:33:27.027 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.userRole.UserRoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:33:27.027 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Finished Spring Data repository scanning in 4 ms. Found 0 Redis repository interfaces.
+2024-06-30 22:33:27.140 [main] [34mINFO [0;39m [36mc.u.j.c.EnableEncryptablePropertiesBeanFactoryPostProcessor[0;39m - Post-processing PropertySource instances
+2024-06-30 22:33:27.140 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2024-06-30 22:33:27.140 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2024-06-30 22:33:27.140 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Skipping PropertySource servletContextInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2024-06-30 22:33:27.141 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2024-06-30 22:33:27.141 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2024-06-30 22:33:27.141 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2024-06-30 22:33:27.141 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource Config resource 'class path resource [application-prod.yaml]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2024-06-30 22:33:27.141 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource Config resource 'class path resource [application.yaml]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2024-06-30 22:33:27.267 [main] [34mINFO [0;39m [36mc.u.j.f.DefaultLazyPropertyFilter[0;39m - Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2024-06-30 22:33:27.274 [main] [34mINFO [0;39m [36mc.u.j.r.DefaultLazyPropertyResolver[0;39m - Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2024-06-30 22:33:27.275 [main] [34mINFO [0;39m [36mc.u.j.d.DefaultLazyPropertyDetector[0;39m - Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+2024-06-30 22:33:27.344 [main] [34mINFO [0;39m [36mo.s.b.w.e.tomcat.TomcatWebServer[0;39m - Tomcat initialized with port 8080 (http)
+2024-06-30 22:33:27.350 [main] [34mINFO [0;39m [36mo.a.coyote.http11.Http11NioProtocol[0;39m - Initializing ProtocolHandler ["http-nio-8080"]
+2024-06-30 22:33:27.351 [main] [34mINFO [0;39m [36mo.a.catalina.core.StandardService[0;39m - Starting service [Tomcat]
+2024-06-30 22:33:27.351 [main] [34mINFO [0;39m [36mo.a.catalina.core.StandardEngine[0;39m - Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-06-30 22:33:27.384 [main] [34mINFO [0;39m [36mo.a.c.c.C.[Tomcat].[localhost].[/][0;39m - Initializing Spring embedded WebApplicationContext
+2024-06-30 22:33:27.384 [main] [34mINFO [0;39m [36mo.s.b.w.s.c.ServletWebServerApplicationContext[0;39m - Root WebApplicationContext: initialization completed in 867 ms
+2024-06-30 22:33:27.420 [main] [34mINFO [0;39m [36mc.u.j.encryptor.DefaultLazyEncryptor[0;39m - Found Custom Encryptor Bean org.jasypt.encryption.pbe.PooledPBEStringEncryptor@6133e20b with name: jasyptStringEncryptor
+2024-06-30 22:33:27.470 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - HikariPool-1 - Starting...
+2024-06-30 22:33:29.114 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Added connection org.mariadb.jdbc.Connection@3e2d8623
+2024-06-30 22:33:29.117 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - HikariPool-1 - Start completed.
+2024-06-30 22:33:29.154 [main] [34mINFO [0;39m [36mo.h.jpa.internal.util.LogHelper[0;39m - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-06-30 22:33:29.187 [main] [34mINFO [0;39m [36morg.hibernate.Version[0;39m - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-06-30 22:33:29.200 [main] [34mINFO [0;39m [36mo.h.c.i.RegionFactoryInitiator[0;39m - HHH000026: Second-level cache disabled
+2024-06-30 22:33:29.294 [main] [34mINFO [0;39m [36mo.s.o.j.p.SpringPersistenceUnitInfo[0;39m - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-06-30 22:33:29.574 [main] [31mWARN [0;39m [36morg.hibernate.orm.deprecation[0;39m - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-06-30 22:33:30.289 [main] [34mINFO [0;39m [36mo.h.e.t.j.p.i.JtaPlatformInitiator[0;39m - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-06-30 22:33:30.290 [main] [34mINFO [0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-06-30 22:33:30.393 [main] [34mINFO [0;39m [36mo.s.d.j.r.query.QueryEnhancerFactory[0;39m - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-06-30 22:33:31.257 [main] [31mWARN [0;39m [36mo.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration[0;39m - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-06-30 22:33:31.388 [main] [34mINFO [0;39m [36mo.s.s.web.DefaultSecurityFilterChain[0;39m - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@35989ae2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7e5432ca, org.springframework.security.web.context.SecurityContextHolderFilter@660afeb2, org.springframework.security.web.header.HeaderWriterFilter@5e469999, org.springframework.web.filter.CorsFilter@782bbb5e, org.springframework.security.web.authentication.logout.LogoutFilter@550b68f7, com.github.drug_store_be.web.filter.JwtAuthenticationFilter@4a83d668, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5e977703, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@492a7467, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3bbd0a50, org.springframework.security.web.session.SessionManagementFilter@26dcac0d, org.springframework.security.web.access.ExceptionTranslationFilter@46014193, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@19544c36]
+2024-06-30 22:33:31.555 [main] [34mINFO [0;39m [36mo.a.coyote.http11.Http11NioProtocol[0;39m - Starting ProtocolHandler ["http-nio-8080"]
+2024-06-30 22:33:31.567 [main] [34mINFO [0;39m [36mo.s.b.w.e.tomcat.TomcatWebServer[0;39m - Tomcat started on port 8080 (http) with context path ''
+2024-06-30 22:33:31.568 [main] [34mINFO [0;39m [36mc.u.j.c.RefreshScopeRefreshedEventListener[0;39m - Refreshing cached encryptable property sources on ServletWebServerInitializedEvent
+2024-06-30 22:33:31.568 [main] [34mINFO [0;39m [36mc.u.j.c.CachingDelegateEncryptablePropertySource[0;39m - Property Source systemProperties refreshed
+2024-06-30 22:33:31.568 [main] [34mINFO [0;39m [36mc.u.j.c.CachingDelegateEncryptablePropertySource[0;39m - Property Source systemEnvironment refreshed
+2024-06-30 22:33:31.568 [main] [34mINFO [0;39m [36mc.u.j.c.CachingDelegateEncryptablePropertySource[0;39m - Property Source random refreshed
+2024-06-30 22:33:31.568 [main] [34mINFO [0;39m [36mc.u.j.c.CachingDelegateEncryptablePropertySource[0;39m - Property Source Config resource 'class path resource [application-prod.yaml]' via location 'optional:classpath:/' refreshed
+2024-06-30 22:33:31.568 [main] [34mINFO [0;39m [36mc.u.j.c.CachingDelegateEncryptablePropertySource[0;39m - Property Source Config resource 'class path resource [application.yaml]' via location 'optional:classpath:/' refreshed
+2024-06-30 22:33:31.568 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2024-06-30 22:33:31.568 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2024-06-30 22:33:31.568 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource servletContextInitParams [org.springframework.web.context.support.ServletContextPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2024-06-30 22:33:31.574 [main] [34mINFO [0;39m [36mc.g.d.DrugStoreBeApplication[0;39m - Started DrugStoreBeApplication in 5.279 seconds (process running for 5.575)
+2024-06-30 22:35:13.192 [http-nio-8080-exec-1] [34mINFO [0;39m [36mo.a.c.c.C.[Tomcat].[localhost].[/][0;39m - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-06-30 22:35:13.193 [http-nio-8080-exec-1] [34mINFO [0;39m [36mo.s.web.servlet.DispatcherServlet[0;39m - Initializing Servlet 'dispatcherServlet'
+2024-06-30 22:35:13.196 [http-nio-8080-exec-1] [34mINFO [0;39m [36mo.s.web.servlet.DispatcherServlet[0;39m - Completed initialization in 3 ms
+2024-06-30 22:35:53.486 [http-nio-8080-exec-3] [31mWARN [0;39m [36mo.s.w.s.m.s.DefaultHandlerExceptionResolver[0;39m - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.util.ArrayList<com.github.drug_store_be.web.DTO.Cart.AddCartRequest>` from Object value (token `JsonToken.START_OBJECT`)]
+2024-06-30 22:36:43.604 [http-nio-8080-exec-4] [1;31mERROR[0;39m [36mc.g.d.w.a.ExceptionControllerAdvice[0;39m - Client 요청이후 DB 검색 중 에러로 다음처럼 출력합니다. No cart items found
+2024-06-30 22:37:51.775 [http-nio-8080-exec-8] [1;31mERROR[0;39m [36mo.a.c.c.C.[.[.[.[dispatcherServlet][0;39m - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: Product ID and Options ID must be provided] with root cause
+java.lang.IllegalArgumentException: Product ID and Options ID must be provided
+	at com.github.drug_store_be.service.cart.CartService.addCartItem(CartService.java:90)
+	at com.github.drug_store_be.web.controller.CartController.addCartItem(CartController.java:31)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:261)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:189)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:117)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:83)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.github.drug_store_be.web.filter.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:26)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:225)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+2024-06-30 22:38:17.880 [http-nio-8080-exec-10] [1;31mERROR[0;39m [36mo.a.c.c.C.[.[.[.[dispatcherServlet][0;39m - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: Product ID and Options ID must be provided] with root cause
+java.lang.IllegalArgumentException: Product ID and Options ID must be provided
+	at com.github.drug_store_be.service.cart.CartService.addCartItem(CartService.java:90)
+	at com.github.drug_store_be.web.controller.CartController.addCartItem(CartController.java:31)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:261)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:189)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:117)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:83)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.github.drug_store_be.web.filter.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:26)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:225)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+2024-06-30 22:42:10.314 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-06-30 22:42:10.317 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - HikariPool-1 - Shutdown initiated...
+2024-06-30 22:42:10.323 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - HikariPool-1 - Shutdown completed.
+2024-06-30 22:42:12.771 [background-preinit] [34mINFO [0;39m [36mo.h.validator.internal.util.Version[0;39m - HV000001: Hibernate Validator 8.0.1.Final
+2024-06-30 22:42:12.791 [main] [34mINFO [0;39m [36mc.g.d.DrugStoreBeApplication[0;39m - Starting DrugStoreBeApplication using Java 17.0.9 with PID 78125 (/Users/sohmac/Desktop/sc_portfolio/sc_java/drug_store_be/build/classes/java/main started by sohmac in /Users/sohmac/Desktop/sc_portfolio/sc_java/drug_store_be)
+2024-06-30 22:42:12.791 [main] [34mINFO [0;39m [36mc.g.d.DrugStoreBeApplication[0;39m - The following 1 profile is active: "prod"
+2024-06-30 22:42:13.218 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-06-30 22:42:13.219 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-06-30 22:42:13.300 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Finished Spring Data repository scanning in 77 ms. Found 14 JPA repository interfaces.
+2024-06-30 22:42:13.309 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-06-30 22:42:13.309 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-06-30 22:42:13.317 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.cart.CartRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:42:13.317 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.category.CategoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:42:13.317 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.coupon.CouponRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:42:13.317 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.like.LikesRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:42:13.317 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.option.OptionsRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:42:13.317 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.order.OrdersRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:42:13.317 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.product.ProductRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:42:13.317 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.productPhoto.ProductPhotoRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:42:13.317 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.questionAnswer.QuestionAnswerRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:42:13.317 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.review.ReviewRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:42:13.317 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.role.RoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:42:13.317 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.user.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:42:13.317 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.userCoupon.UserCouponRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:42:13.317 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationExtensionSupport[0;39m - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.github.drug_store_be.repository.userRole.UserRoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-30 22:42:13.317 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Finished Spring Data repository scanning in 4 ms. Found 0 Redis repository interfaces.
+2024-06-30 22:42:13.446 [main] [34mINFO [0;39m [36mc.u.j.c.EnableEncryptablePropertiesBeanFactoryPostProcessor[0;39m - Post-processing PropertySource instances
+2024-06-30 22:42:13.446 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2024-06-30 22:42:13.446 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2024-06-30 22:42:13.446 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Skipping PropertySource servletContextInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2024-06-30 22:42:13.447 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2024-06-30 22:42:13.447 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2024-06-30 22:42:13.447 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2024-06-30 22:42:13.447 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource Config resource 'class path resource [application-prod.yaml]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2024-06-30 22:42:13.447 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource Config resource 'class path resource [application.yaml]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2024-06-30 22:42:13.549 [main] [34mINFO [0;39m [36mc.u.j.f.DefaultLazyPropertyFilter[0;39m - Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2024-06-30 22:42:13.552 [main] [34mINFO [0;39m [36mc.u.j.r.DefaultLazyPropertyResolver[0;39m - Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2024-06-30 22:42:13.553 [main] [34mINFO [0;39m [36mc.u.j.d.DefaultLazyPropertyDetector[0;39m - Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+2024-06-30 22:42:13.608 [main] [34mINFO [0;39m [36mo.s.b.w.e.tomcat.TomcatWebServer[0;39m - Tomcat initialized with port 8080 (http)
+2024-06-30 22:42:13.613 [main] [34mINFO [0;39m [36mo.a.coyote.http11.Http11NioProtocol[0;39m - Initializing ProtocolHandler ["http-nio-8080"]
+2024-06-30 22:42:13.613 [main] [34mINFO [0;39m [36mo.a.catalina.core.StandardService[0;39m - Starting service [Tomcat]
+2024-06-30 22:42:13.613 [main] [34mINFO [0;39m [36mo.a.catalina.core.StandardEngine[0;39m - Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-06-30 22:42:13.636 [main] [34mINFO [0;39m [36mo.a.c.c.C.[Tomcat].[localhost].[/][0;39m - Initializing Spring embedded WebApplicationContext
+2024-06-30 22:42:13.636 [main] [34mINFO [0;39m [36mo.s.b.w.s.c.ServletWebServerApplicationContext[0;39m - Root WebApplicationContext: initialization completed in 830 ms
+2024-06-30 22:42:13.671 [main] [34mINFO [0;39m [36mc.u.j.encryptor.DefaultLazyEncryptor[0;39m - Found Custom Encryptor Bean org.jasypt.encryption.pbe.PooledPBEStringEncryptor@4d290757 with name: jasyptStringEncryptor
+2024-06-30 22:42:13.724 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - HikariPool-1 - Starting...
+2024-06-30 22:42:15.089 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - HikariPool-1 - Added connection org.mariadb.jdbc.Connection@4a4b288a
+2024-06-30 22:42:15.094 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - HikariPool-1 - Start completed.
+2024-06-30 22:42:15.152 [main] [34mINFO [0;39m [36mo.h.jpa.internal.util.LogHelper[0;39m - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-06-30 22:42:15.184 [main] [34mINFO [0;39m [36morg.hibernate.Version[0;39m - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-06-30 22:42:15.197 [main] [34mINFO [0;39m [36mo.h.c.i.RegionFactoryInitiator[0;39m - HHH000026: Second-level cache disabled
+2024-06-30 22:42:15.286 [main] [34mINFO [0;39m [36mo.s.o.j.p.SpringPersistenceUnitInfo[0;39m - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-06-30 22:42:15.572 [main] [31mWARN [0;39m [36morg.hibernate.orm.deprecation[0;39m - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-06-30 22:42:16.294 [main] [34mINFO [0;39m [36mo.h.e.t.j.p.i.JtaPlatformInitiator[0;39m - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-06-30 22:42:16.296 [main] [34mINFO [0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-06-30 22:42:16.401 [main] [34mINFO [0;39m [36mo.s.d.j.r.query.QueryEnhancerFactory[0;39m - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-06-30 22:42:17.261 [main] [31mWARN [0;39m [36mo.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration[0;39m - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-06-30 22:42:17.388 [main] [34mINFO [0;39m [36mo.s.s.web.DefaultSecurityFilterChain[0;39m - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@489541f8, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@280b492a, org.springframework.security.web.context.SecurityContextHolderFilter@2d3c799e, org.springframework.security.web.header.HeaderWriterFilter@75a9e1ad, org.springframework.web.filter.CorsFilter@e31b415, org.springframework.security.web.authentication.logout.LogoutFilter@5e6d8e58, com.github.drug_store_be.web.filter.JwtAuthenticationFilter@413d8c78, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4df30827, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4008caaf, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@23458f26, org.springframework.security.web.session.SessionManagementFilter@703aca0d, org.springframework.security.web.access.ExceptionTranslationFilter@26426de8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3d425217]
+2024-06-30 22:42:17.558 [main] [34mINFO [0;39m [36mo.a.coyote.http11.Http11NioProtocol[0;39m - Starting ProtocolHandler ["http-nio-8080"]
+2024-06-30 22:42:17.571 [main] [34mINFO [0;39m [36mo.s.b.w.e.tomcat.TomcatWebServer[0;39m - Tomcat started on port 8080 (http) with context path ''
+2024-06-30 22:42:17.572 [main] [34mINFO [0;39m [36mc.u.j.c.RefreshScopeRefreshedEventListener[0;39m - Refreshing cached encryptable property sources on ServletWebServerInitializedEvent
+2024-06-30 22:42:17.572 [main] [34mINFO [0;39m [36mc.u.j.c.CachingDelegateEncryptablePropertySource[0;39m - Property Source systemProperties refreshed
+2024-06-30 22:42:17.572 [main] [34mINFO [0;39m [36mc.u.j.c.CachingDelegateEncryptablePropertySource[0;39m - Property Source systemEnvironment refreshed
+2024-06-30 22:42:17.572 [main] [34mINFO [0;39m [36mc.u.j.c.CachingDelegateEncryptablePropertySource[0;39m - Property Source random refreshed
+2024-06-30 22:42:17.572 [main] [34mINFO [0;39m [36mc.u.j.c.CachingDelegateEncryptablePropertySource[0;39m - Property Source Config resource 'class path resource [application-prod.yaml]' via location 'optional:classpath:/' refreshed
+2024-06-30 22:42:17.572 [main] [34mINFO [0;39m [36mc.u.j.c.CachingDelegateEncryptablePropertySource[0;39m - Property Source Config resource 'class path resource [application.yaml]' via location 'optional:classpath:/' refreshed
+2024-06-30 22:42:17.572 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+2024-06-30 22:42:17.572 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Skipping PropertySource servletConfigInitParams [class org.springframework.core.env.PropertySource$StubPropertySource
+2024-06-30 22:42:17.572 [main] [34mINFO [0;39m [36mc.u.j.EncryptablePropertySourceConverter[0;39m - Converting PropertySource servletContextInitParams [org.springframework.web.context.support.ServletContextPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2024-06-30 22:42:17.578 [main] [34mINFO [0;39m [36mc.g.d.DrugStoreBeApplication[0;39m - Started DrugStoreBeApplication in 5.018 seconds (process running for 5.509)
+2024-06-30 22:42:20.631 [http-nio-8080-exec-2] [34mINFO [0;39m [36mo.a.c.c.C.[Tomcat].[localhost].[/][0;39m - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-06-30 22:42:20.632 [http-nio-8080-exec-2] [34mINFO [0;39m [36mo.s.web.servlet.DispatcherServlet[0;39m - Initializing Servlet 'dispatcherServlet'
+2024-06-30 22:42:20.635 [http-nio-8080-exec-2] [34mINFO [0;39m [36mo.s.web.servlet.DispatcherServlet[0;39m - Completed initialization in 3 ms

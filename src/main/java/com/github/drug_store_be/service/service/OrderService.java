@@ -60,9 +60,7 @@ public class OrderService {
             //UUID사용해서 짧고 고유한 주문번호 만들기
             String ordersNumber = UUID.randomUUID().toString().replace("-", "").substring(0, 16);
 
-            for (Cart c : cartList) {
-                saveOrder(user, c.getOptions(), ordersNumber, orderAt);
-            }
+
 
             //order response DTO
             OrderResponseDto orderResponseDto = OrderResponseDto.builder()
@@ -106,6 +104,15 @@ public class OrderService {
 
             //장바구니에서 주문한 상품은 삭제
             deleteFromCart(user, optionQuantityList);
+
+            //주문 만들기
+            //save order JPA
+            LocalDate orderAt = LocalDate.now();
+            //UUID사용해서 짧고 고유한 주문번호 만들기
+            String ordersNumber = UUID.randomUUID().toString().replace("-", "").substring(0, 16);
+            for (OptionQuantityDto o : optionQuantityList) {
+                saveOrder(user, o.getOptionId(), ordersNumber, orderAt);
+            }
 
 
             return new ResponseDto(HttpStatus.OK.value(), "주문 성공");
@@ -163,7 +170,10 @@ public class OrderService {
 
 
 
-    public String saveOrder(User user, Options options, String ordersNumber, LocalDate orderAt){
+    public String saveOrder(User user, Integer optionId, String ordersNumber, LocalDate orderAt){
+
+        Options options= optionsRepository.findById(optionId)
+                .orElseThrow(()-> new NotFoundException("Cannot find option with ID"));
 
         Orders orders= Orders.builder()
                 .user(user)

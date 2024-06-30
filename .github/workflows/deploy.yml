@@ -24,28 +24,62 @@ jobs:
         - name: Build with Gradle
           run: ./gradlew clean build -x test
 
-        - name: Copy JAR to EC2
-          uses: appleboy/scp-action@v0.1.2
+        - name: Upload artifact
+          uses: actions/upload-artifact@v2
           with:
-            host: ${{ secrets.HOST }}
-            username: ${{ secrets.USERNAME }}
-            key: ${{ secrets.PRIVATE_KEY }}
-            port: ${{ secrets.PORT }}
-            source: "build/libs/your-app.jar"
-            target: "/home/ubuntu/your-app.jar"
+            name: drugstore
+            path: build/libs/drug_store_be-0.0.1-SNAPSHOT.jar
 
-        - name: executing remote ssh commands using ssh key
-          uses: appleboy/ssh-action@v0.1.10
-          with:
-              host: ${{ secrets.HOST }}
-              username: ${{ secrets.USERNAME }}
-              key: ${{ secrets.PRIVATE_KEY }}
-              port: ${{ secrets.PORT }}
-              script: |
-                sudo systemctl stop your-app-service
-                sudo cp /home/ubuntu/your-app.jar /path/to/deploy/your-app.jar
-                sudo systemctl start your-app-service
-#                whoami
-#                ls -al
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: drugstore
+          path: build/libs/
+
+      - name: Deploy to EC2
+        run: |
+          echo "${{ secrets.PRIVATE_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+          scp -i private_key.pem -o StrictHostKeyChecking=no build/libs/drug_store_be-0.0.1-SNAPSHOT.jar ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/${{ secrets.USERNAME }}/drug_store_be-0.0.1-SNAPSHOT.jar
+          ssh -i private_key.pem -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} "pgrep java | xargs kill -9; nohup java -jar /home/${{ secrets.USERNAME }}/drug_store_be-0.0.1-SNAPSHOT.jar > app.log 2>&1 &"
+          rm -f private_key.pem
+
+#
+#        - name: Copy JAR to EC2
+#          uses: apple boy/scp-action@v0.1.2
+#          with:
+#            host: ${{ secrets.HOST }}
+#            username: ${{ secrets.USERNAME }}
+#            key: ${{ secrets.PRIVATE_KEY }}
+#            port: ${{ secrets.PORT }}
+#            source: "./build/libs/*.jar"
+#            target: "/home/ubuntu/cicd"
+#
+#        - name: Copy deploy script file to remote
+#          uses: appleboy/scp-action@master
+#          with:
+#            username: ec2-user
+#            host: ${{ secrets.HOST }}
+#            key: ${{ secrets.PRIVATE_KEY }}
+#            source: "deploy.sh"
+#            target: "/home/ubuntu/cicd"
+#
+#        - name: executing remote ssh commands using ssh key
+#          uses: appleboy/ssh-action@v0.1.10
+#          with:
+#              host: ${{ secrets.HOST }}
+#              username: ${{ secrets.USERNAME }}
+#              key: ${{ secrets.PRIVATE_KEY }}
+#              port: ${{ secrets.PORT }}
+#              script: |
+#                sudo systemctl stop your-app-service
+#                sudo cp /home/ubuntu/your-app.jar /path/to/deploy/your-app.jar
+#                sudo systemctl start your-app-service
+
 
 

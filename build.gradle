@@ -122,6 +122,13 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 }
 
+//bootJar {
+//    archiveBaseName.set('drugstore')
+//}
+//jar{
+//    archiveBaseName.set('drugstore')
+//}
+
 jar{
     enabled = false
 }
