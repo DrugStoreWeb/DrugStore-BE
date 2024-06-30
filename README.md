@@ -1279,6 +1279,272 @@ https://drugstoreproject.shop/main/find?keyword=ml&sortby=sales&page=0&size=3
   }
 }
 ```
+### MyPage API
+
+#### 리뷰 작성
+
+```
+  POST /mypage/review/{orders_id}
+```
+**Request**
+
+Token in the Header
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `orders_id` | `@PathVariable Integer` | 주문 id |
+| `review_content` | `String` |  후기 내용 |
+| `review_score`      | `Integer` | 후기 점수(1~5점)
+
+**Response**
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `review_id` | `Integer` | 리뷰 번호 |
+| `content` | `String` | 후기 내용 |
+| `score`      | `Integer` | 후기 점수 |
+| `option_name` | `String` | 옵션 이름 |
+| `create_at` | `LocalDate` | 리뷰 작성일 |
+| `product_name` | `String` |  상품 이름 |
+| `product_img` | `String` |  상품 이미지 |
+
+```json
+{
+   "review_id" : "1",
+   "content" : "좋아요",
+   "score" : "3",
+   "option_name" : "단품 70mL",
+   "create_at" : "2024-06-28",
+   "product_name" : "레드 블레미쉬 클리어 수딩 크림",
+   "product_img" : "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/Screenshot+2024-06-16+at+19.52.00.png"
+}
+```
+
+#### 리뷰 수정
+
+```
+  PUT /mypage/review/{orders_id}
+```
+**Request**
+
+Token in the Header
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `orders_id` | `@PathVariable Integer` | 주문 id |
+| `review_content` | `String` | 후기 내용 |
+| `review_score`      | `Integer` | 후기 점수(1~5점)
+
+**Response**
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `review_id` | `Integer` |  리뷰 번호 |
+| `content` | `String` |  후기 내용 |
+| `score`      | `Integer` | 후기 점수 |
+| `option_name` | `String` |  옵션 이름 |
+| `create_at` | `LocalDate` |  리뷰 작성일 |
+| `product_name` | `String` |  상품 이름 |
+| `product_img` | `String` |  상품 이미지 |
+
+```json
+{
+   "review_id" : "1",
+   "content" : "엄청 좋아요",
+   "score" : "5",
+   "option_name" : "단품 70mL",
+   "create_at" : "2024-06-28",
+   "product_name" : "레드 블레미쉬 클리어 수딩 크림",
+   "product_img" : "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/Screenshot+2024-06-16+at+19.52.00.png"
+}
+```
+
+#### 리뷰 삭제
+
+```
+  DELETE /mypage/review/{orders_id}
+```
+**Request**
+
+Token in the Header
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `orders_id` | `@PathVariable Integer` | 주문 id |
+
+```json
+{
+   "message" : "리뷰가 삭제되었습니다."
+}
+
+```
+
+#### 구매한 상품 목록 조회
+
+```
+  GET /mypage/order
+```
+**Request**
+
+Token in the Header
+
+**Response**
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `orders_id` | `Integer` | Required. 주문 id |
+| `product_img` | `String` | Required. 상품 이미지 |
+| `price`      | `Integer` | Required. 가격 |
+| `product_name` | `String` | Required. 상품 이름 |
+| `option_name` | `String` | Required. 옵션 이름 |
+| `brand` | `String` | Required. 상품 브랜드 |
+| `review_status` | `Boolean` | Required. 리뷰 작성 여부 |
+| `review_deadline` | `LocalDate` | Required. 리뷰 작성 기간 |
+
+```json
+{
+   "orders_id":"3",
+   "product_img":"https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/Screenshot+2024-06-16+at+19.52.00.png"
+   "price":"15000",
+   "product_name":"레드 블레미쉬 클리어 수딩 크림",
+   "option_name":"단품 70mL",
+   "brand":"닥터지",
+   "review_status":"Y",
+   "review_deadline":"2024-07-27(1달)"
+}
+```
+
+#### 회원 정보 조회
+
+```
+  GET /mypage/userInfo
+```
+**Request**
+
+Token in the Header
+
+**Response**
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `name` | `Integer` | Required. 이름 |
+| `nickname` | `String` | Required. 별명 |
+| `phone_number` | `String` | Required. 전화번호 |
+| `profile_pic` | `String` | Required. 사진 |
+| `birthday` | `String` | Required. 생년월일 |
+| `address` | `Boolean` | Required. 주소 |
+| `email` | `LocalDate` | Required. 이메일 |
+
+```json
+{
+   "name": "현준",
+   "nickname": "leelee",
+   "birthday": "2000-01-01",
+   "phone_number": "01012345678",
+   "address" : "seoul",
+   "profile_pic" : "사진 URL",
+   "email" : "super@gmail.com"
+}
+```
+
+#### 작성한 QnA 조회
+
+```
+  GET /mypage/question
+```
+**Request**
+
+Token in the Header
+
+**Response**
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `question` | `String` | Required. 질문 내용 |
+| `answer` | `String` | Required. 답변 내용 |
+| `user_name` | `String` | Required. 회원명 |
+| `create_at` | `LocalDate` | Required. 작성일 |
+| `product_name` | `String` | Required. 상품 이름 |
+| `brand` | `String` | Required. 상품 브랜드 |
+| `question_answer_id` | `Integer` | Required. QnA id |
+| `question_status` | `Boolean` | Required. 답변 여부  |
+
+```json
+{
+	 "Question":"효과 있나요?",
+	 "Answer":"답변",
+	 "user_name":"현준",
+	 "created_at":"2024-05-01",
+	 "product_name":"어성초 77 수딩 토너",
+	 "brand" : "아누아",
+	 "question_status" : "F",
+	 "question_answer_id": "1"
+}
+```
+#### 작성한 리뷰 조회
+
+```
+  GET /mypage/reviews
+```
+**Request**
+
+Token in the Header
+
+**Response**
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `review_id` | `Integer` | Required. 리뷰 id |
+| `orders_id` | `Integer` | Required. 주문 id |
+| `product_image` | `String` | Required. 상품 이미지 URL |
+| `product_name` | `String` | Required. 상품 이름 |
+| `price` | `Integer` | Required. 가격 |
+| `brand` | `String` | Required. 상품 브랜드 |
+| `review_score` | `Integer` | Required. 후기 점수 |
+| `review_content` | `String` | Required. 후기 내용  |
+| `option_name` | `String` | Required. 옵션 이름 |
+| `create_at` | `LocalDate` | Required. 작성일 |
+
+```json
+{
+   "review_id" : 1,
+   "orders_id" : 1,
+   "product_image" : "https://drugstorebucket.s3.ap-northeast-2.amazonaws.com/Screenshot+2024-06-16+at+19.52.00.png",
+   "product_name" : "레드 블레미쉬 클리어 수딩 크림",
+   "price" : 10000,
+   "brand" : "닥터지",
+   "review_score" : 5,
+   "review_content" : "엄청 좋아요",
+   "option_name" : "단품 70mL",
+   "create_at" : 2020-05-04
+}
+```
+
+#### 보유한 쿠폰 조회
+
+```
+  GET /mypage/coupon
+```
+**Request**
+
+Token in the Header
+
+**Response**
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `money` | `String` | Required. 포인트 |
+| `coupon_name` | `String` | Required. 쿠폰 이름 |
+| `coupon_percent` | `Integer` | Required. 쿠폰 할인율 |
+
+```json
+{
+   "money" : "100000",
+   "coupon_name" : "행복한 쿠폰",
+   "coupon_percent" : 10
+}
+```
+
 
 
 
@@ -1286,6 +1552,7 @@ https://drugstoreproject.shop/main/find?keyword=ml&sortby=sales&page=0&size=3
 
 - [@honghyeon](https://github.com/limhhyeon)
 - [@soheeparklee](https://github.com/soheeparklee)
+- [@Hyunjun](https://www.github.com/awear321)
 
 ## Feedback
 ✔️ API url restful
