@@ -19,7 +19,7 @@ public class CartResponse {
     private String brand;
     private Integer optionsId;
     private String optionsName; // 선택한 옵션명
-    private List<String> allOptionsNames; // 모든 옵션명
+    private List<OptionDto> allOptions; // 모든 옵션 ID와 이름 리스트
     private Integer optionsPrice;
     private Integer quantity;
     private Integer price;

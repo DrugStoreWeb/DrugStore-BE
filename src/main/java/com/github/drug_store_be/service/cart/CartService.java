@@ -13,6 +13,7 @@ import com.github.drug_store_be.repository.userDetails.CustomUserDetails;
 import com.github.drug_store_be.service.exceptions.NotFoundException;
 import com.github.drug_store_be.web.DTO.Cart.AddCartRequest;
 import com.github.drug_store_be.web.DTO.Cart.CartResponse;
+import com.github.drug_store_be.web.DTO.Cart.OptionDto;
 import com.github.drug_store_be.web.DTO.Cart.UpdateCartRequest;
 import com.github.drug_store_be.web.DTO.ResponseDto;
 import org.springframework.http.HttpStatus;
@@ -53,9 +54,9 @@ public class CartService {
                             .map(ProductPhoto::getPhotoUrl)
                             .orElse(null);
 
-                    List<String> allOptionsNames = optionsRepository.findAllByProductProductId(product.getProductId())
+                    List<OptionDto> allOptions = optionsRepository.findAllByProductProductId(product.getProductId())
                             .stream()
-                            .map(Options::getOptionsName)
+                            .map(opt -> new OptionDto(opt.getOptionsId(), opt.getOptionsName()))
                             .collect(Collectors.toList());
 
                     return CartResponse.builder()
@@ -65,7 +66,7 @@ public class CartService {
                             .brand(product.getBrand())
                             .optionsId(options.getOptionsId())
                             .optionsName(options.getOptionsName()) // 선택한 옵션명
-                            .allOptionsNames(allOptionsNames) // 모든 옵션명
+                            .allOptions(allOptions) // 모든 옵션 ID와 이름
                             .optionsPrice(options.getOptionsPrice())
                             .quantity(cart.getQuantity())
                             .price(product.getPrice())
@@ -186,9 +187,9 @@ public class CartService {
             throw new IllegalArgumentException("Invalid options name for the given product");
         }
 
-        List<String> originalAllOptionsNames = optionsRepository.findAllByProductProductId(options.getProduct().getProductId())
+        List<OptionDto> originalAllOptions = optionsRepository.findAllByProductProductId(options.getProduct().getProductId())
                 .stream()
-                .map(Options::getOptionsName)
+                .map(opt -> new OptionDto(opt.getOptionsId(), opt.getOptionsName()))
                 .collect(Collectors.toList());
 
         options.setOptionsName(optionsName);
@@ -210,7 +211,7 @@ public class CartService {
         cart.setQuantity(quantity);
         cartRepository.save(cart);
 
-        return new ResponseDto(HttpStatus.OK.value(), "Cart item updated successfully", originalAllOptionsNames);
+        return new ResponseDto(HttpStatus.OK.value(), "Cart item updated successfully", originalAllOptions);
     }
 
     //장바구니 삭제
