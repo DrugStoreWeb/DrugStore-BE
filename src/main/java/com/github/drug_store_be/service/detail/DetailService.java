@@ -140,6 +140,7 @@ public class DetailService {
                     ProductQAndAResponse questions = new ProductQAndAResponse();
                     questions.setQuestion(question.getQuestion());
                     questions.setAnswer(question.getAnswer());
+                    questions.setEmail(question.getUser().getEmail());
                     questions.setUserName(question.getUser().getName());
                     questions.setCreatedAt(question.getCreateAt());
                     questions.setProductName(question.getProduct().getProductName());

@@ -230,7 +230,7 @@ The implementation of JASYPT safely encrypts the variables
 ```
 
 #### Login
-회원가입한 유저의 mail과 password 정보로 로그인 할 수 있 API입니다.
+회원가입한 유저의 mail과 password 정보로 로그인 할 수 있는 API입니다.
 
 ```
   POST / auth / login

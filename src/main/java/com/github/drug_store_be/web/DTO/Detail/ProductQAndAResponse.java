@@ -18,6 +18,7 @@ public class ProductQAndAResponse {
     private String question;
     private String answer;
     private String userName;
+    private String email;
     private LocalDate createdAt;
     private String productName;
     private String brand;
