@@ -21,6 +21,7 @@ import com.github.drug_store_be.web.DTO.order.OrderResponseDto;
 import com.github.drug_store_be.web.DTO.pay.PayRequestDto;
 import com.github.drug_store_be.web.DTO.pay.OptionQuantityDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -138,11 +139,15 @@ public class OrderService {
         }
     }
 
-    private void optionStockChange(List<OptionQuantityDto> optionQuantityDtoList) {
+    //pessimistic database locking
+    @Transactional
+    public void optionStockChange(List<OptionQuantityDto> optionQuantityDtoList) {
         for(OptionQuantityDto o: optionQuantityDtoList){
             int optionId = o.getOptionId();
-            Options options= optionsRepository.findById(optionId)
+            Options options= optionsRepository.findByIdWithLock(optionId)
                     .orElseThrow(()-> new NotFoundException("Cannot find option with ID"));
+//            Options options= optionsRepository.findById(optionId)
+//                    .orElseThrow(()-> new NotFoundException("Cannot find option with ID"));
             int orignialOptionStock= options.getStock();
             int orderedStock= o.getQuantity();
             options.setStock(orignialOptionStock - orderedStock);
