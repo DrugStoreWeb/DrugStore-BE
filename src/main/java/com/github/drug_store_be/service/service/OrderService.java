@@ -146,8 +146,6 @@ public class OrderService {
             int optionId = o.getOptionId();
             Options options= optionsRepository.findByIdWithLock(optionId)
                     .orElseThrow(()-> new NotFoundException("Cannot find option with ID"));
-//            Options options= optionsRepository.findById(optionId)
-//                    .orElseThrow(()-> new NotFoundException("Cannot find option with ID"));
             int orignialOptionStock= options.getStock();
             int orderedStock= o.getQuantity();
             options.setStock(orignialOptionStock - orderedStock);
@@ -155,9 +153,11 @@ public class OrderService {
         }
     }
 
-    private void deleteFromCart(User user, List<OptionQuantityDto> optionQuantityDtoList) {
+
+    @Transactional
+    public void deleteFromCart(User user, List<OptionQuantityDto> optionQuantityDtoList) {
         for(OptionQuantityDto o: optionQuantityDtoList){
-            Options options= optionsRepository.findById(o.getOptionId())
+            Options options= optionsRepository.findByIdWithLock(o.getOptionId())
                     .orElseThrow(()-> new NotFoundException("Cannot find option with ID"));
 
 
@@ -175,9 +175,10 @@ public class OrderService {
 
 
 
+    @Transactional
     public String saveOrder(User user, Integer optionId, String ordersNumber, LocalDate orderAt){
 
-        Options options= optionsRepository.findById(optionId)
+        Options options= optionsRepository.findByIdWithLock(optionId)
                 .orElseThrow(()-> new NotFoundException("Cannot find option with ID"));
 
         Orders orders= Orders.builder()
