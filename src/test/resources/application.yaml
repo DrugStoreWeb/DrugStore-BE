@@ -1,0 +1,94 @@
+server:
+  port : 8080
+
+
+spring:
+  cache:
+    type: simple
+  data:
+    redis:
+      host: ENC(qp5pjAGkUB5jNtNP6kfGWPQOnp3W8BNM)
+      port: 6379
+      password: ENC(HMxBVpIvWWJRvXy5WQGBOA/wLBGZ6cAy)
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+
+
+  #  autoconfigure:
+  #    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  mail:
+    # Google smtp server 사용
+    host: smtp.gmail.com
+    port: 587
+    username: ENC(pFQU1mumd6kWbx3E5HCxpq+2QZzxNQALpDZN5S0KhMM=)
+    password: ENC(N7pFf2aEmgVLUfYjgD4vW7alZcOjQOvFV2hNqy8gq2c=)
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
+
+  datasource:
+    hikari:
+      maximum-lifetime: 1800000
+    username: ENC(TGTXnlkPQu5tZnI2EUSF1A==)
+    password: ENC(ssiwx5mdhQVVOa0qAmQxgk6Zy9Wff9/E)
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://drugstoredb.cn000owqib3s.ap-northeast-2.rds.amazonaws.com:3306/drug_store_db?useUnicode=true&characterEncoding=UTF-8
+
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+springdoc:
+  swagger-ui:
+    enabled: true  # Enable Swagger UI
+  security:
+    schemes:
+      - name: Token
+        type: http
+        scheme: bearer
+        bearerFormat: JWT
+
+
+cloud:
+  aws:
+    s3:
+      credentials:
+        access-key: ENC(5o+mxDnFD3CBZRrn53l4t9TG1QxsPmmo0XnfILZhekw=)
+        secret-key: ENC(al11oKsyM3Of7h8eecqrKo/XQD10l2cUZi7cJyGZLwLSfFTsmXjRo4s2kQ2RH/rX7HMg6F6ZOp4=)
+      bucket-name: ENC(lZ4y3sJbKw6sa1JAnhLHXj2sPoUtYQQr)
+      region.static: ENC(RhlVJ6kX8/WBkrD2WSS5TEV2/JWvj0ct)
+      stack.auto: false
+
+
+jasypt:
+  encryptor:
+    password: ${JASYPT_SECRET_KEY}
+    bean: jasyptStringEncryptor
+
+jwtpassword:
+  source: ENC(w2RTaxjoAr3LtJK5AtxFGIGrsu6QwayI)
+
+pay:
+  admin-key: ENC(Ysfi34R/drtyXOwIx3USsi57khyAY7y+lMEsBk9KwtuZjo1PpZ/OirmoLBaUxVVA)
+
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-type: "PKCS12"
+    key-store-password: ENC(i5PeoNKddffOFHGj/baHbHVAsek6cRQK)
+
+  tomcat:
+    redirect-http-to-https: true
+
+
+#
+#  logging:
+#    level:
+#      io.netty.resolver.dns: DEBUG
+
+  logging:
+    config: classpath:logback-spring-local.xml
