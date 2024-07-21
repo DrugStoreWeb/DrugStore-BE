@@ -21,6 +21,7 @@ import com.github.drug_store_be.web.DTO.order.OrderResponseDto;
 import com.github.drug_store_be.web.DTO.pay.PayRequestDto;
 import com.github.drug_store_be.web.DTO.pay.OptionQuantityDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -138,10 +139,12 @@ public class OrderService {
         }
     }
 
-    private void optionStockChange(List<OptionQuantityDto> optionQuantityDtoList) {
+    //pessimistic database locking
+    @Transactional
+    public void optionStockChange(List<OptionQuantityDto> optionQuantityDtoList) {
         for(OptionQuantityDto o: optionQuantityDtoList){
             int optionId = o.getOptionId();
-            Options options= optionsRepository.findById(optionId)
+            Options options= optionsRepository.findByIdWithLock(optionId)
                     .orElseThrow(()-> new NotFoundException("Cannot find option with ID"));
             int orignialOptionStock= options.getStock();
             int orderedStock= o.getQuantity();
@@ -150,18 +153,17 @@ public class OrderService {
         }
     }
 
-    private void deleteFromCart(User user, List<OptionQuantityDto> optionQuantityDtoList) {
+
+    @Transactional
+    public void deleteFromCart(User user, List<OptionQuantityDto> optionQuantityDtoList) {
         for(OptionQuantityDto o: optionQuantityDtoList){
-            Options options= optionsRepository.findById(o.getOptionId())
+            Options options= optionsRepository.findByIdWithLock(o.getOptionId())
                     .orElseThrow(()-> new NotFoundException("Cannot find option with ID"));
 
 
             Cart cart= cartRepository.findByUserIdAndOptionId(user.getUserId(), options.getOptionsId())
                     .orElseThrow(() -> new NotFoundException("There is no product in cart with matching user and option."));
 
-//            //장바구니 삭제를 위해서 먼저 order부터 삭제
-//            Orders order= ordersRepository.findByCart(cart);
-//            ordersRepository.delete(order);
             //finally delete cart
             cartRepository.delete(cart);
         }
@@ -170,9 +172,10 @@ public class OrderService {
 
 
 
+    @Transactional
     public String saveOrder(User user, Integer optionId, String ordersNumber, LocalDate orderAt){
 
-        Options options= optionsRepository.findById(optionId)
+        Options options= optionsRepository.findByIdWithLock(optionId)
                 .orElseThrow(()-> new NotFoundException("Cannot find option with ID"));
 
         Orders orders= Orders.builder()
