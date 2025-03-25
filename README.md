@@ -1,5 +1,5 @@
 
-# DrugStore Project
+# 💊 DrugStore Project
 
 This project clones a drugstore shop webpage using JAVA 17 and springboot. Runs with ubuntu on AWS EC2 and uses mariaDB on RDS. Uploads images on S3 server in AWS. 
 
@@ -10,10 +10,25 @@ The redis server and gmail SMTP is implemented for email verification, and nginx
 이메일 인증을 위해 Redis 서버와 Gmail SMTP가 구현되어 있으며, HTTPS를 위해 nginx를 사용하였고, 보안을 위해 Jasypt를 사용하여 모든 환경 변수를 암호화하였습니다.
 
 
-## Video
-//추후에 추가할 예정
+## 🛠️ Skillset
 
-## Environment Variables
+
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=java,spring,aws,gradle,mysql,nginx,redis,postman,github,discord,notion&theme=light" />
+  </a>
+</p>
+
+## 🧑🏻‍💻 Authors
+
+- [@soheeparklee](https://github.com/soheeparklee)
+- [@honghyeon](https://github.com/limhhyeon)
+- [@Hyunjun](https://www.github.com/awear321)
+
+## 📹 Video
+You can view a demonstation video of this application [here](https://youtu.be/reaXKuAoctQ)
+
+## 🔷 Environment Variables
 
 To run this project, you will need to add the following environment variables to your .yaml file
 The implementation of JASYPT safely encrypts the variables
@@ -34,7 +49,7 @@ The implementation of JASYPT safely encrypts the variables
 
 `pay`: Kakao pay
 
-## API Reference
+## 💡 API Reference
 
 ### Auth API
 
@@ -258,7 +273,7 @@ The implementation of JASYPT safely encrypts the variables
   POST /order/cart-to-order
 ```
 
- ✔️ **Request**
+✔️Request**
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -863,7 +878,7 @@ Token in the Header
 GET /main
 ```
 
-✅ Request
+✔️ **Request**
 
 | Name | Type | Requried | description          |
 | --- | --- | --- |----------------------|
@@ -872,7 +887,7 @@ GET /main
 | size | Integer | false | 페이지 당 데이(default=24) |
 | token |  | false | user의 likes가 true로 표시됨 |
 
-✅ Response
+✔️ **Response**
 
 | Name | Type | Required | Description |  |
 | --- | --- | --- | --- | --- |
@@ -971,7 +986,7 @@ GET /main/category/{category_number}
 | 11 | 향수 |
 | 12 | 네일 |
 
-✔️ Request
+✔️ **Request**
 
 | Name | Type | Requried | description          |
 | --- | --- | --- |----------------------|
@@ -981,7 +996,7 @@ GET /main/category/{category_number}
 | size | Integer | false | 페이지 당 데이터 개수 (default=24) |
 | token |  | false | user의 likes가 true로 표시됨 |
 
-✔️ Response
+✔️ **Response**
 
 | Name | Backend Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1079,7 +1094,7 @@ GET /main/find/keyword={keyword}
 
 ```
 
-✔️ Request
+✔️ **Request**
 
 | Name | Type | Requried | description          |
 | --- | --- | --- |----------------------|
@@ -1089,7 +1104,7 @@ GET /main/find/keyword={keyword}
 | size | Integer | false | 페이지 당 데이터 개수 (default=24) |
 | token |  | false | user의 likes가 true로 표시됨 |
 
-✔️ Response
+✔️ **Response**
 
 | Name | Backend Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1186,7 +1201,7 @@ https://drugstoreproject.shop/main/find?keyword=ml&sortby=sales&page=0&size=3
 ```
   POST /mypage/review/{orders_id}
 ```
-**Request**
+✔️ **Request**
 
 Token in the Header
 
@@ -1196,7 +1211,7 @@ Token in the Header
 | `review_content` | `String` |  후기 내용 |
 | `review_score`      | `Integer` | 후기 점수(1~5점)
 
-**Response**
+✔️ **Response**
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
@@ -1225,7 +1240,7 @@ Token in the Header
 ```
   PUT /mypage/review/{orders_id}
 ```
-**Request**
+✔️ **Request**
 
 Token in the Header
 
@@ -1235,7 +1250,7 @@ Token in the Header
 | `review_content` | `String` | 후기 내용 |
 | `review_score`      | `Integer` | 후기 점수(1~5점)
 
-**Response**
+✔️ **Response**
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
@@ -1264,13 +1279,15 @@ Token in the Header
 ```
   DELETE /mypage/review/{orders_id}
 ```
-**Request**
+✔️ **Request**
 
 Token in the Header
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `orders_id` | `@PathVariable Integer` | 주문 id |
+
+✔️ **Response**
 
 ```json
 {
@@ -1284,11 +1301,11 @@ Token in the Header
 ```
   GET /mypage/order
 ```
-**Request**
+✔️ **Request**
 
 Token in the Header
 
-**Response**
+✔️ **Response**
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
@@ -1319,11 +1336,11 @@ Token in the Header
 ```
   GET /mypage/userInfo
 ```
-**Request**
+✔️ **Request**
 
 Token in the Header
 
-**Response**
+✔️ **Response**
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
@@ -1352,11 +1369,11 @@ Token in the Header
 ```
   GET /mypage/question
 ```
-**Request**
+✔️ **Request**
 
 Token in the Header
 
-**Response**
+✔️ **Response**
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
@@ -1386,11 +1403,11 @@ Token in the Header
 ```
   GET /mypage/reviews
 ```
-**Request**
+✔️ **Request**
 
 Token in the Header
 
-**Response**
+✔️ **Response**
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
@@ -1425,11 +1442,11 @@ Token in the Header
 ```
   GET /mypage/coupon
 ```
-**Request**
+✔️ **Request**
 
 Token in the Header
 
-**Response**
+✔️ **Response**
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
@@ -1444,16 +1461,7 @@ Token in the Header
    "coupon_percent" : 10
 }
 ```
-
-
-
-## Authors
-
-- [@honghyeon](https://github.com/limhhyeon)
-- [@soheeparklee](https://github.com/soheeparklee)
-- [@Hyunjun](https://www.github.com/awear321)
-
-## Lessons Learned
+## 📌 Lessons Learned
 
 ### Lessons
 
@@ -1514,7 +1522,7 @@ Token in the Header
 팀원은 S3 서버를 구축하여 이미지를 저장하고, 저장된 이미지를 URL로 받아 데이터베이스에 저장하는 방식을 사용했습니다. 이 접근 방식이 매우 효율적임을 깨달았고, 다음 프로젝트에서는 제가 직접 S3를 적용해 볼 계획입니다.
 
 
-## Feedback
+## 👍🏻 Feedback
 
 ✔️ API url restful
 
@@ -1525,14 +1533,5 @@ Token in the Header
 ✔️ class에서 생성자 static 메소드 만들어 service 부담 줄이기, 가독성 높이기
 
 
-
-## Skillset
-
-
-<p align="center">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=java,spring,aws,gradle,mysql,nginx,redis,postman,github,discord,notion&theme=light" />
-  </a>
-</p>
 
 
